@@ -16,7 +16,10 @@
   },
   "homepage": "https://github.com/siyche/Team-Hamburger#readme",
   "description": "",
-    "workspaces": [
-        "packages/*"
-    ]
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
