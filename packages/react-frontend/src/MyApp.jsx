@@ -10,7 +10,8 @@ function MyApp() {
         postUser(person)  // sends POST request to add person to backend 
         .then((response) => { 
             if (response.status === 201) { 
-                response.json().then((newPerson) => {  // gets the updated person (with id) 
+                response.json()
+                .then((newPerson) => {  // gets the updated person (with _id) 
                     setCharacters([...characters, newPerson]);  // adds updated person to frontend display, updating state 
                 }); 
             } 
@@ -25,33 +26,38 @@ function MyApp() {
 
     function removeOneCharacter(index) {
         const personToRemove = characters[index]; 
-        const id = personToRemove.id; 
-        const promise = fetch(`Http://localhost:8000/users/${id}`, { 
+        const _id = personToRemove._id; 
+
+        const promise = fetch(`http://localhost:8000/users/${_id}`, { 
             method: "DELETE", 
             headers: { 
                 "Content-Type": "application/json", 
             }
         }); 
+        
         promise.then((response) => { 
             if (response.status === 204) { 
                 const updated = characters.filter((character, i) => {  // makes new list, removing the target user 
                     return i !== index;
                 }); 
-                setCharacters(updated);  // updates old list with the new one 
+                setCharacters(updated);  // updates state 
             }
             else {  // if the user couldn't be deleted 
                 console.log("Failed to delete"); 
             }
-        }); 
+        }) 
+        .catch(error => {
+            console.log("Error deleting character: " + error)
+        });
     }
 
-    function fetchUsers() { 
+    function fetchUsers() {  // sends a GET operation to the specified URL (should return list of all users)
         const promise = fetch("http://localhost:8000/users"); 
         return promise; 
     }
 
-    function postUser(person) { 
-        const promise = fetch("Http://localhost:8000/users", { 
+    function postUser(person) {  // sends a POST operation to the specified URL (should add person to the list)
+        const promise = fetch("http://localhost:8000/users", { 
             method: "POST", 
             headers: { 
                 "Content-Type": "application/json", 
@@ -65,7 +71,7 @@ function MyApp() {
     useEffect(() => { 
         fetchUsers() 
         .then((res) => res.json())
-        .then((json) => setCharacters(json["users_list"]))
+        .then((json) => setCharacters(json))  // updates state 
         .catch((error) => { console.log(error); })
     }, [] ); 
 
