@@ -1,25 +1,25 @@
 {
-  "name": "the-hamburgers-calendar",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/siyche/Team-Hamburger.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/siyche/Team-Hamburger/issues"
-  },
-  "homepage": "https://github.com/siyche/Team-Hamburger#readme",
-  "description": "",
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "express": "^4.21.2"
-  }
+    "name": "the-hamburgers-calendar",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/siyche/Team-Hamburger.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/siyche/Team-Hamburger/issues"
+    },
+    "homepage": "https://github.com/siyche/Team-Hamburger#readme",
+    "description": "",
+    "workspaces": [
+        "packages/*"
+    ],
+    "dependencies": {
+        "mongoose": "^8.9.5"
+    }
 }
