@@ -13,6 +13,7 @@ const MonthCalendarView = () => {
   const handlePrevMonth = () => {
     setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
   };
+
   const handleNextMonth = () => {
     setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
   };
@@ -36,13 +37,16 @@ const MonthCalendarView = () => {
 
   return (
     <div className="main-content">
-      <div className="month-year-header">
-        <button onClick={handlePrevMonth} className="nav-btn">&lt;</button>
-        <span>
+      <div className="header-container">
+        <div className="month-year-text">
           {currentDate.toLocaleString('default', { month: 'long' })} {currentYear}
-        </span>
-        <button onClick={handleNextMonth} className="nav-btn">&gt;</button>
+        </div>
+        <div className="nav-buttons">
+          <button onClick={handlePrevMonth} className="nav-btn">&lt;</button>
+          <button onClick={handleNextMonth} className="nav-btn">&gt;</button>
+        </div>
       </div>
+
       <div className="day-headers">
         <div>Sun</div>
         <div>Mon</div>

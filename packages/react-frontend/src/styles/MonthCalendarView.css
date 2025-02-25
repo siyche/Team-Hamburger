@@ -1,93 +1,85 @@
 /* Main Content */
-
 .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-
-/* Month & Year Header */
-
-.month-year-header {
-    font-size: 24px;
-    margin-bottom: 10px;
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* Header Container with Month/Year and Navigation Buttons */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
+.month-year-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
 
-/* Navigation Buttons */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
 
 .nav-btn {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 .nav-btn:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
-
 /* Day Headers (Sun - Sat) */
-
 .day-headers {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1px;
 }
 
 .day-headers div {
-    padding: 4px 0;
+  padding: 4px 0;
 }
-
 
 /* Calendar Grid */
-
 .calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border: 1px solid #ccc;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border: 1px solid #ccc;
 }
-
 
 /* Each Calendar Cell */
-
 .calendar div {
-    position: relative;
-    aspect-ratio: 1;
-    /* Ensures square cells */
-    background-color: #e0e0e0;
-    border: 1px solid #fff;
+  position: relative;
+  aspect-ratio: 1; /* Ensures square cells */
+  background-color: #e0e0e0;
+  border: 1px solid #fff;
 }
-
 
 /* For days not in the current month */
-
 .grayed-out {
-    background-color: #cccccc;
+  background-color: #cccccc;
 }
 
-
 /* Position day numbers in each cell */
-
 .calendar div span {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 12px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 12px;
 }
