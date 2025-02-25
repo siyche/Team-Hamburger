@@ -1,7 +1,7 @@
 import React from "react";
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 
-<link src="/Sidebar.css" rel="stylesheet" />;
+<link src="../styles/Sidebar.css" rel="stylesheet" />;
 
 // NOTE: all elements, even simple ones, include props as their color/theme can be changed
 
