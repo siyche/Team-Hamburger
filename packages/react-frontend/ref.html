@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sidebar {
+            width: 200px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-right: 1px solid #ccc;
+        }
+        /*.sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }*/
+        
+        .filter-by-type {
+            margin-top: 20px;
+        }
+        
+        .filter-by-type div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .filter-by-type .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid #000;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .month-year-header {
+            font-size: 24px;
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+        
+        .day-headers {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            border: 1px solid #ccc;
+        }
+        
+        .calendar div {
+            position: relative;
+            aspect-ratio: 1;
+            background-color: #e0e0e0;
+            border: 1px solid #fff;
+        }
+        
+        .calendar .selected {
+            background-color: #ffcccc;
+        }
+        
+        .calendar .grayed-out {
+            background-color: #cccccc;
+        }
+        
+        .calendar div span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+        }
+        
+        .details {
+            width: 200px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-left: 1px solid #ccc;
+        }
+        
+        .details div {
+            background-color: #ffcccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .createTask {
+            background-color: grey;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.5s;
+            transition-delay: .05s;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: 2px solid black;
+            border-radius: 40px;
+            /* 40 = 32x2 (padding) + 16 (font size) */
+        }
+        
+        .createTask:hover {
+            background-color: lightgrey;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: underline;
+            display: inline-block;
+            font-size: 18px;
+            transition-duration: 0.5s;
+            transition-delay: .05s;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: 2px solid black;
+            border-radius: 42px;
+            /* 42 = 32x2 (padding) + 18 (font size) */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <button>Monthly View</button>
+        <button class="createTask">Create Task</button>
+        <div class="filter-by-type">
+            <h4>Filter By Type</h4>
+            <div><span class="color-box" style="background-color: #ffcccc;"></span> Assignment</div>
+            <div><span class="color-box" style="background-color: #ff9999;"></span> Study</div>
+            <div><span class="color-box" style="background-color: #ff6666;"></span> Midterm</div>
+            <div><span class="color-box" style="background-color: #ff3333;"></span> Final</div>
+            <div><span class="color-box" style="background-color: #ccffcc;"></span> Quiz</div>
+            <div><span class="color-box" style="background-color: #99ccff;"></span> Lecture</div>
+            <div><span class="color-box" style="background-color: #669966;"></span> Lab</div>
+            <div><span class="color-box" style="background-color: #ffff99;"></span> Homework</div>
+            <div><span class="color-box" style="background-color: #cc99ff;"></span> Presentation</div>
+            <div><span class="color-box" style="background-color: #ffccff;"></span> Exam</div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="month-year-header">Jan 25</div>
+        <div class="day-headers">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar">
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div><span>01</span></div>
+            <div><span>02</span></div>
+            <div><span>03</span></div>
+            <div><span>04</span></div>
+            <div><span>05</span></div>
+            <div><span>06</span></div>
+            <div><span>07</span></div>
+            <div><span>08</span></div>
+            <div><span>09</span></div>
+            <div><span>10</span></div>
+            <div><span>11</span></div>
+            <div><span>12</span></div>
+            <div><span>13</span></div>
+            <div class="selected"><span>14</span></div>
+            <div><span>15</span></div>
+            <div><span>16</span></div>
+            <div><span>17</span></div>
+            <div><span>18</span></div>
+            <div><span>19</span></div>
+            <div><span>20</span></div>
+            <div><span>21</span></div>
+            <div><span>22</span></div>
+            <div><span>23</span></div>
+            <div><span>24</span></div>
+            <div><span>25</span></div>
+            <div><span>26</span></div>
+            <div><span>27</span></div>
+            <div><span>28</span></div>
+            <div><span>29</span></div>
+            <div><span>30</span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+            <div class="grayed-out"><span></span></div>
+        </div>
+    </div>
+    <div class="details">
+        <div>8:00am - ....</div>
+        <div>9:27am - ....</div>
+    </div>
+</body>
+
+</html>
