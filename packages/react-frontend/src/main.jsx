@@ -1,14 +1,12 @@
-// src/main.jsx
-import React from "react";
-import ReactDOMClient from "react-dom/client";
-import MyApp from "./MyApp";
-import "./main.css";
+// src/main.jsx 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './pages/MonthCalendar';
+import './main.css'; // Make sure Tailwind and your styles are imported
 
-// Create the container
-const container = document.getElementById("root");
-
-// Create a root
-const root = ReactDOMClient.createRoot(container);
-
-// Initial render: Render an element to the Root
-root.render(<MyApp />);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
