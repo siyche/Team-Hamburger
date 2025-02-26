@@ -1,12 +1,12 @@
-// src/main.jsx 
+// src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './pages/MonthCalendar';
-import './main.css'; // Make sure Tailwind and your styles are imported
+import CalendarLayoutMonth from './pages/CalendarLayoutMonth';
+import './main.css'; // global styles if needed
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <CalendarLayoutMonth />
   </React.StrictMode>
 );

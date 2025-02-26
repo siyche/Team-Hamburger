@@ -1,23 +1,20 @@
-/* Main Content */
-.main-content {
+/* src/styles/MonthCalendarView.css */
+
+/* Container for the calendar view */
+.month-calendar-view {
   flex-grow: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
-/* Header Container with Month/Year and Navigation Buttons */
-.header-container {
+/* Header displaying current month and year with navigation buttons */
+.month-year-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-}
-
-.month-year-text {
   font-size: 24px;
-  font-weight: bold;
-  color: #333;
+  margin-bottom: 10px;
 }
 
 .nav-buttons {
@@ -25,7 +22,7 @@
   gap: 10px;
 }
 
-.nav-btn {
+.nav-buttons button {
   background-color: transparent;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -35,11 +32,11 @@
   transition: background-color 0.2s;
 }
 
-.nav-btn:hover {
+.nav-buttons button:hover {
   background-color: #f0f0f0;
 }
 
-/* Day Headers (Sun - Sat) */
+/* Day-of-week headers */
 .day-headers {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -55,29 +52,35 @@
   padding: 4px 0;
 }
 
-/* Calendar Grid */
-.calendar {
+/* Calendar grid styling */
+.calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
   border: 1px solid #ccc;
 }
 
-/* Each Calendar Cell */
-.calendar div {
+/* Each cell in the grid */
+.calendar-cell {
   position: relative;
-  aspect-ratio: 1; /* Ensures square cells */
+  aspect-ratio: 1;
   background-color: #e0e0e0;
   border: 1px solid #fff;
+  cursor: pointer;
 }
 
-/* For days not in the current month */
-.grayed-out {
+/* Grayed-out cells for days not in the current month */
+.calendar-cell.grayed-out {
   background-color: #cccccc;
 }
 
-/* Position day numbers in each cell */
-.calendar div span {
+/* Highlight the selected day */
+.calendar-cell.selected {
+  background-color: #ffcccc;
+}
+
+/* Position the date number within the cell */
+.calendar-cell span {
   position: absolute;
   top: 5px;
   right: 5px;

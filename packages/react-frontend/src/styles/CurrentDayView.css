@@ -1,0 +1,18 @@
+/* src/styles/CurrentDayView.css */
+.current-day-view {
+    width: 200px; /* Adjust as needed */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-left: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .current-day-view h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .event-time {
+    font-weight: bold;
+  }
