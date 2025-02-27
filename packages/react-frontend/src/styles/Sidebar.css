@@ -113,16 +113,16 @@
   }
   
   /* Colors for filter items (match the mockup) */
-  .assignment { background-color: #ff0000; color: white; } /* Red */
-  .study { background-color: #ff8000; color: white; } /* Orange */
-  .midterm { background-color: #ff00ff; color: white; } /* Magenta */
-  .final { background-color: #ff00ff; color: white; } /* Pink (same as Midterm in mockup) */
-  .quiz { background-color: #00ff00; color: black; } /* Green */
-  .lecture { background-color: #0000ff; color: white; } /* Blue */
-  .lab { background-color: #008000; color: white; } /* Dark Green */
-  .homework { background-color: #ffff00; color: black; } /* Yellow */
-  .presentation { background-color: #800080; color: white; } /* Purple */
-  .exam { background-color: #ffcccc; color: black; } /* Light Pink */
+  .assignment { background-color: #de1f1f; color: rgb(0, 0, 0); } /* Red */
+  .study { background-color: #cc6600; color: rgb(0, 0, 0); } /* Orange */
+  .midterm { background-color: #c800c8; color: rgb(0, 0, 0); } /* Magenta */
+  .final { background-color: #e500e5; color: rgb(0, 0, 0); } /* Pink (same as Midterm in mockup) */
+  .quiz { background-color: #00c600; color: rgb(0, 0, 0); } /* Green */
+  .lecture { background-color: #3d3de4; color: rgb(0, 0, 0); } /* Blue */
+  .lab { background-color: #1b9e1b; color: rgb(0, 0, 0); } /* Dark Green */
+  .homework { background-color: #c3c310; color: rgb(0, 0, 0); } /* Yellow */
+  .presentation { background-color: #bc08bc; color: rgb(0, 0, 0); } /* Purple */
+  .exam { background-color: #fc6d6d; color: rgb(0, 0, 0); } /* Light Pink */
 
   .nav-section {
     display: flex;
