@@ -7,7 +7,7 @@ const SideBar = () => {
     <div className="sidebar">
       <div className="nav-section">
         <button className="nav-button">
-          <img src="../../public/hamburger.png" alt="Menu" width="40" />
+          <img src="../../public/hamburger.png" alt="Menu" width="30" />
         </button>
         <button className="button1">Monthly View</button>
       </div>
