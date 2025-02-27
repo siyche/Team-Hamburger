@@ -5,11 +5,13 @@ const SideBar = () => {
   return (
     <div className="sidebar">
       <div className="nav-section">
-        <img
-          src="../../public/hamburger.png"
-          alt="Menu"
-          width="35"
-        />
+        <button className="nav-button menu-button">
+          <img
+            src="../../public/hamburger.png"
+            alt="Menu"
+            width="40" /* Increased width to make the icon bigger */
+          />
+        </button>
         <button className="nav-button">Monthly View</button>
         <button className="nav-button">Create Task</button>
       </div>
