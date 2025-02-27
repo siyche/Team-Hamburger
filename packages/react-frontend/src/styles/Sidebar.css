@@ -66,12 +66,10 @@
   background-color: #717171;
 }
 
-/* Rest of your existing styles remain unchanged */
 .nav-button:hover {
   background-color: #c0c0c0;
 }
 
-/* ... rest of your existing CSS ... */
   
   .filter-section {
     border: 1px solid #ccc;
@@ -97,7 +95,7 @@
     font-size: 14px;
   }
   
-  /* Colors for filter items (match the mockup) */
+
   .assignment { background-color: #de1f1f; color: rgb(0, 0, 0); } /* Red */
   .study { background-color: #cc6600; color: rgb(0, 0, 0); } /* Orange */
   .midterm { background-color: #c800c8; color: rgb(0, 0, 0); } /* Magenta */
@@ -113,6 +111,6 @@
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-bottom: 1px; /* Adds spacing before button2 */
+    margin-bottom: 1px; 
   }
   
