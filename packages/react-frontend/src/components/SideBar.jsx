@@ -1,5 +1,6 @@
-import React from 'react';
-import '../styles/Sidebar.css';
+import React from "react";
+import "../styles/Sidebar.css";
+import CreateTaskButton from "./CreateTaskButton.jsx";
 
 const SideBar = () => {
   return (
@@ -10,8 +11,7 @@ const SideBar = () => {
         </button>
         <button className="button1">Monthly View</button>
       </div>
-
-      <button className="button2">Create Task</button>
+      <CreateTaskButton />
 
       <div className="filter-section">
         <h3>Filter By Type</h3>
