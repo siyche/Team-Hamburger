@@ -5,24 +5,14 @@ const SideBar = () => {
   return (
     <div className="sidebar">
       <div className="nav-section">
-        <button className="nav-button menu-button">
-          <img
-            src="../../public/hamburger.png"
-            alt="Menu"
-            width="40" 
-          />
+        <button className="nav-button">
+          <img src="../../public/hamburger.png" alt="Menu" width="40" />
         </button>
+        <button className="button1">Monthly View</button>
       </div>
 
-      <div className="nav-section">
-        <button className="button1">
-            <button className="button1">Monthly View</button>
-        </button>
-        <button className="button2">
-            <button className="button2">Create Task</button>
-        </button>
-      </div>
-      
+      <button className="button2">Create Task</button>
+
       <div className="filter-section">
         <h3>Filter By Type</h3>
         <ul className="filter-list">
