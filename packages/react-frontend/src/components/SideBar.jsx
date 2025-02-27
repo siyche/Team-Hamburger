@@ -9,12 +9,11 @@ const SideBar = () => {
           <img
             src="../../public/hamburger.png"
             alt="Menu"
-            width="40" /* Increased width to make the icon bigger */
+            width="40" 
           />
         </button>
-        <button className="nav-button">Monthly View</button>
-        <button className="nav-button">Create Task</button>
       </div>
+
       
       <div className="filter-section">
         <h3>Filter By Type</h3>
