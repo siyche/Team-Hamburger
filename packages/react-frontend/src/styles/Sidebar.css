@@ -44,3 +44,62 @@
     border-radius: 42px;
     /* 42 = 32x2 (padding) + 18 (font size) */
 }
+
+/* Sidebar.css */
+.sidebar {
+    width: 250px; /* Adjust based on your design */
+    background-color: #f0f0f0; /* Light gray background as shown in the mockup */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .nav-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d0d0d0; /* Gray buttons as in the mockup */
+    cursor: pointer;
+  }
+  
+  .nav-button:hover {
+    background-color: #c0c0c0;
+  }
+  
+  .filter-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .filter-section h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+  
+  .filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .filter-item {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  
+  /* Colors for filter items (match the mockup) */
+  .assignment { background-color: #ff0000; color: white; } /* Red */
+  .study { background-color: #ff8000; color: white; } /* Orange */
+  .midterm { background-color: #ff00ff; color: white; } /* Magenta */
+  .final { background-color: #ff00ff; color: white; } /* Pink (same as Midterm in mockup) */
+  .quiz { background-color: #00ff00; color: black; } /* Green */
+  .lecture { background-color: #0000ff; color: white; } /* Blue */
+  .lab { background-color: #008000; color: white; } /* Dark Green */
+  .homework { background-color: #ffff00; color: black; } /* Yellow */
+  .presentation { background-color: #800080; color: white; } /* Purple */
+  .exam { background-color: #ffcccc; color: black; } /* Light Pink */
