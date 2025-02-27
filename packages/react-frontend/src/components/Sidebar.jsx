@@ -10,16 +10,16 @@ const SideBar = () => {
       <div className="filter-section">
         <h3>Filter By Type</h3>
         <ul className="filter-list">
-          <li className="filter-item assignment">Assignment</li>
-          <li className="filter-item study">Study</li>
-          <li className="filter-item midterm">Midterm</li>
-          <li className="filter-item final">Final</li>
-          <li className="filter-item quiz">Quiz</li>
-          <li className="filter-item lecture">Lecture</li>
-          <li className="filter-item lab">Lab</li>
-          <li className="filter-item homework">Homework</li>
-          <li className="filter-item presentation">Presentation</li>
-          <li className="filter-item exam">Exam</li>
+          <button className="filter-item assignment">Assignment</button>
+          <button className="filter-item study">Study</button>
+          <button className="filter-item midterm">Midterm</button>
+          <button className="filter-item final">Final</button>
+          <button className="filter-item quiz">Quiz</button>
+          <button className="filter-item lecture">Lecture</button>
+          <button className="filter-item lab">Lab</button>
+          <button className="filter-item homework">Homework</button>
+          <button className="filter-item presentation">Presentation</button>
+          <button className="filter-item exam">Exam</button>
         </ul>
       </div>
     </div>
