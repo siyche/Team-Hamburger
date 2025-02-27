@@ -4,8 +4,15 @@ import '../styles/Sidebar.css';
 const SideBar = () => {
   return (
     <div className="sidebar">
-      <button className="nav-button">Monthly View</button>
-      <button className="nav-button">Create Task</button>
+      <div className="nav-section">
+        <img
+          src="../../public/hamburger.png"
+          alt="Menu"
+          width="35"
+        />
+        <button className="nav-button">Monthly View</button>
+        <button className="nav-button">Create Task</button>
+      </div>
       
       <div className="filter-section">
         <h3>Filter By Type</h3>
