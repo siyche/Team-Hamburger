@@ -1,15 +1,30 @@
-import React from "react";
+// SideBar.jsx
+import React, { useState } from "react";
 import "../styles/Sidebar.css";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 
 const SideBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="sidebar">
       <div className="nav-section">
-        <button className="nav-button">
+        <button className="nav-button" onClick={toggleMenu}>
           <img src="../../public/hamburger.png" alt="Menu" width="30" />
         </button>
         <button className="button1">Monthly View</button>
+        
+        {isMenuOpen && (
+          <div className="dropdown-menu">
+            <button className="dropdown-item">Option 1</button>
+            <button className="dropdown-item">Option 2</button>
+            <button className="dropdown-item">Option 3</button>
+          </div>
+        )}
       </div>
       <CreateTaskButton />
 

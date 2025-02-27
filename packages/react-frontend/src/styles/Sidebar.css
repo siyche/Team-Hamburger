@@ -1,92 +1,77 @@
-/* src/styles/Sidebar.css */
-
-.sidebar {
-    width: 200px;
-    /* Fixed width for the sidebar */
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-right: 1px solid #ccc;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.MenuButton {
-    background-color: gray;
-    border: none;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 0.5s;
-    transition-delay: .05s;
-    font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border: 2px solid black;
-    border-radius: 40px;
-    /* 40 = 32x2 (padding) + 16 (font size) */
-}
-
-.MenuButton:hover {
-    background-color: lightgrey;
-    border: none;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: underline;
-    display: inline-block;
-    font-size: 18px;
-    transition-duration: 0.5s;
-    transition-delay: .05s;
-    font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border: 2px solid black;
-    border-radius: 42px;
-    /* 42 = 32x2 (padding) + 18 (font size) */
-}
-
 /* Sidebar.css */
+
+/* Existing styles remain the same until .nav-section */
 .sidebar {
-    width: 250px; /* Adjust based on your design */
-    background-color: #f0f0f0; /* Light gray background as shown in the mockup */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .nav-button {
-    padding: 13px 16px;
-    font-size: 20px;
-    border: none;
-    border-radius: 40px;
-    background-color: #d0d0d0; /* Gray buttons as in the mockup */
-    cursor: pointer;
-  }
-  
-  .button1 {
-    padding: 15px 21px;
-    font-size: 15px;
-    border: none;
-    border-radius: 25px;
-    background-color: #d0d0d0; /* Gray buttons as in the mockup */
-    cursor: pointer;
-    font-family: "Arial";
-  }
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative; /* Added for dropdown positioning */
+}
 
-  .button2 {
-    padding: 10px 11px;
-    font-size: 18px;
-    border: none;
-    border-radius: 19px;
-    background-color: #d0d0d0; /* Gray buttons as in the mockup */
-    cursor: pointer;
-    font-family: "Arial";
-  }
+.nav-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 1px;
+  position: relative; /* Added for dropdown positioning */
+}
 
-  .nav-button:hover {
-    background-color: #c0c0c0;
-  }
+.nav-button {
+  padding: 13px 16px;
+  font-size: 20px;
+  border: none;
+  border-radius: 40px;
+  background-color: #d0d0d0;
+  cursor: pointer;
+}
+
+.button1 {
+  padding: 15px 21px;
+  font-size: 15px;
+  border: none;
+  border-radius: 25px;
+  background-color: #d0d0d0;
+  cursor: pointer;
+  font-family: "Arial";
+}
+
+/* New dropdown styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Positions it below the hamburger button */
+  left: 0;
+  background-color: #9a9a9a;
+  border: 1px solid #acacac;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  z-index: 1000; /* Ensures it appears above other content */
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 10px 10px;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.dropdown-item:hover {
+  background-color: #717171;
+}
+
+/* Rest of your existing styles remain unchanged */
+.nav-button:hover {
+  background-color: #c0c0c0;
+}
+
+/* ... rest of your existing CSS ... */
   
   .filter-section {
     border: 1px solid #ccc;
