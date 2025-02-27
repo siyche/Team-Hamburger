@@ -14,6 +14,14 @@ const SideBar = () => {
         </button>
       </div>
 
+      <div className="nav-section">
+        <button className="button1">
+            <button className="button1">Monthly View</button>
+        </button>
+        <button className="button2">
+            <button className="button2">Create Task</button>
+        </button>
+      </div>
       
       <div className="filter-section">
         <h3>Filter By Type</h3>

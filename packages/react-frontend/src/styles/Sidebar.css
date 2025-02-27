@@ -56,7 +56,7 @@
   }
   
   .nav-button {
-    padding: 10px 16px;
+    padding: 11px 16px;
     font-size: 20px;
     border: none;
     border-radius: 40px;
@@ -64,6 +64,24 @@
     cursor: pointer;
   }
   
+  .button1 {
+    padding: 5px 11px;
+    font-size: 16px;
+    border: none;
+    border-radius: 22px;
+    background-color: #d0d0d0; /* Gray buttons as in the mockup */
+    cursor: pointer;
+  }
+
+  .button2 {
+    padding: 5px 11px;
+    font-size: 16px;
+    border: none;
+    border-radius: 22px;
+    background-color: #d0d0d0; /* Gray buttons as in the mockup */
+    cursor: pointer;
+  }
+
   .nav-button:hover {
     background-color: #c0c0c0;
   }
