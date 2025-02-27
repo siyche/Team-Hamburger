@@ -1,7 +1,7 @@
 // src/components/MonthCalendarView.jsx
 // this is the view for the month calendar
-import React, { useState, useEffect } from 'react';
-import '../styles/MonthCalendarView.css';
+import React, { useState, useEffect } from "react";
+import "../styles/MonthCalendarView.css";
 
 const MonthCalendarView = ({ onDaySelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date()); // currentDate is used to determine which month/year to display.
@@ -15,9 +15,9 @@ const MonthCalendarView = ({ onDaySelect }) => {
   }, [selectedDay, onDaySelect]);
 
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();  // 0-indexed
+  const currentMonth = currentDate.getMonth(); // 0-indexed
 
-  // Handlers to navigate months  
+  // Handlers to navigate months
   const handlePrevMonth = () => {
     const prev = new Date(currentYear, currentMonth - 1, 1);
     setCurrentDate(prev);
@@ -49,12 +49,20 @@ const MonthCalendarView = ({ onDaySelect }) => {
     setSelectedDay(day);
   };
 
+  // What is displayed on the page:
   return (
     <div className="month-calendar-view">
       {/* Header with month/year and navigation */}
       <div className="month-year-header">
         <span>
-          {currentDate.toLocaleString('default', { month: 'long' })} {currentYear}
+          <img
+            src="../../public/hamburger.png"
+            alt="Example Image"
+            width="35"
+          />
+          &nbsp; {/* extra space */}
+          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentYear}
         </span>
         <div className="nav-buttons">
           <button onClick={handlePrevMonth}>&lt;</button>
@@ -78,16 +86,18 @@ const MonthCalendarView = ({ onDaySelect }) => {
         {daysArray.map((day, index) => {
           // Only highlight the days that belong to the current month
           const isCurrentMonth = day.getMonth() === currentMonth;
-          const cellClass = isCurrentMonth ? 'calendar-cell' : 'calendar-cell grayed-out';
+          const cellClass = isCurrentMonth
+            ? "calendar-cell"
+            : "calendar-cell grayed-out";
           // Mark as selected if it matches selectedDay.
           const isSelected = day.toDateString() === selectedDay.toDateString();
           return (
             <div
               key={index}
-              className={`${cellClass} ${isSelected ? 'selected' : ''}`}
+              className={`${cellClass} ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
             >
-              <span>{day.getDate().toString().padStart(2, '0')}</span>
+              <span>{day.getDate().toString().padStart(2, "0")}</span>
             </div>
           );
         })}

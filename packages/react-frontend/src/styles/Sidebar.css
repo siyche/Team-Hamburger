@@ -1,11 +1,14 @@
 /* src/styles/Sidebar.css */
+
 .sidebar {
-    width: 200px; /* Fixed width for the sidebar */
+    width: 200px;
+    /* Fixed width for the sidebar */
     padding: 20px;
     background-color: #f0f0f0;
     border-right: 1px solid #ccc;
-  }
-  
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .MenuButton {
     background-color: gray;
     border: none;
