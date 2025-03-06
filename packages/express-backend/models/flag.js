@@ -1,15 +1,21 @@
-import mongoose from 'mongoose';
+// Flag.js
+import mongoose from "mongoose";
 
 const flagSchema = new mongoose.Schema(
   {
-    flagname: { 
-        type: String, 
-        required: true 
-    },
+    flagname: { type: String, required: true },
   },
   { versionKey: false }
 );
 
-const Flag = mongoose.model('Flag', flagSchema);
+flagSchema.statics.addFlag = function (flagname) {
+  return this.create({ flagname });
+};
 
-export default Flag; 
+flagSchema.statics.removeFlag = function (flagname) {
+  return this.deleteOne({ flagname });
+};
+
+const Flag = mongoose.model("Flag", flagSchema);
+
+export default Flag;
