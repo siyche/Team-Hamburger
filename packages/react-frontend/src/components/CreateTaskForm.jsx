@@ -3,20 +3,21 @@ import React, { useState } from "react";
 import "../styles/CreateTaskForm.css";
 
 const CreateTaskForm = ({ onSubmit, onCancel }) => {
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
-    const [priority, setPriority] = useState("LOW");
-    const [isTask, setIsTask] = useState(false);
-    const [details, setDetails] = useState("");
+  // State variables for form inputs
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [priority, setPriority] = useState("LOW");
+  const [isTask, setIsTask] = useState(false);
+  const [details, setDetails] = useState("");
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     // Combine date and time into a full Date object
     const dateTimeString = `${date}T${time}`;
     const eventDate = new Date(dateTimeString);
 
-    // Create the event object 
+    // Create the event object matching your backend schema
     const newEvent = {
       date: eventDate,        // Date field
       flags: [],              // Empty flags array
