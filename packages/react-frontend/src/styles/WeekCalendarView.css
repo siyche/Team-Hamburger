@@ -1,9 +1,9 @@
-/* src/styles/MonthCalendarView.css */
+/* src/styles/WeekCalendarView.css */
 
 
 /* Container for the calendar view */
 
-.month-calendar-view {
+.week-calendar-view {
     flex-grow: 1;
     padding: 20px;
     display: flex;
@@ -84,7 +84,7 @@
 
 .calendar-cell {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 1/4;
     background-color: #e0e0e0;
     border: 1px solid #fff;
     cursor: pointer;
@@ -98,19 +98,12 @@
 
 .calendar-cell:hover {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 1/4;
     background-color: #cccccc;
     border: 1px solid #fff;
     cursor: pointer;
     transition-duration: 0.75s;
     transition-delay: .0s;
-}
-
-
-/* Grayed-out cells for days not in the current month */
-
-.calendar-cell.grayed-out {
-    background-color: #979797;
 }
 
 

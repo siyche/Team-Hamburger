@@ -1,11 +1,11 @@
 // src/components/CalendarLayoutMonth.jsx
-// this is thge parent component for the month calendar view -> holds sidebar, month calendar, and current day view
+// this is the parent component for the month calendar view -> holds sidebar, month calendar, and current day view
 
-import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar';
-import MonthCalendarView from '../components/MonthCalendar'; // our dynamic calendar view component
-import CurrentDayView from '../components/CurrentDayView';
-import '../styles/CalendarLayoutMonth.css'; // this file handles the overall three-panel flex layout
+import React, { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import MonthCalendarView from "../components/MonthCalendar"; // our dynamic calendar view component
+import CurrentDayView from "../components/CurrentDayView";
+import "../styles/CalendarLayout.css"; // this file handles the overall three-panel flex layout
 
 const CalendarLayoutMonth = () => {
   // Maintain the currently selected day. Default to today.
