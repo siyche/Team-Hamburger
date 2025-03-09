@@ -1,9 +1,9 @@
-/* src/styles/MonthCalendarView.css */
+/* src/styles/DayCalendarView.css */
 
 
 /* Container for the calendar view */
 
-.month-calendar-view {
+.week-calendar-view {
     flex-grow: 1;
     padding: 20px;
     display: flex;
@@ -55,7 +55,8 @@
 
 .day-headers {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     gap: 1px;
     border: 1px solid #ccc;
     background-color: #f0f0f0;
@@ -74,7 +75,10 @@
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    width: 85vw;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: 12;
     gap: 1px;
     border: 1px solid #ccc;
 }
@@ -84,13 +88,18 @@
 
 .calendar-cell {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 24;
     background-color: #e0e0e0;
     border: 1px solid #fff;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition-duration: 0.75s;
     transition-delay: .0s;
+    font-size: larger;
 }
 
 
@@ -98,26 +107,16 @@
 
 .calendar-cell:hover {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 24;
     background-color: #cccccc;
     border: 1px solid #fff;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
     transition-duration: 0.75s;
     transition-delay: .0s;
-}
-
-
-/* Grayed-out cells for days not in the current month */
-
-.calendar-cell.grayed-out {
-    background-color: #979797;
-}
-
-
-/* Highlight the selected day */
-
-.calendar-cell.selected {
-    background-color: #ffcccc;
 }
 
 
