@@ -1,59 +1,99 @@
 // src/components/CreateTaskForm.jsx
 import React, { useState } from "react";
+import "../styles/CreateTaskForm.css";
 
 const CreateTaskForm = ({ onSubmit, onCancel }) => {
-  const [title, setTitle] = useState("");
-  const [time, setTime] = useState("");
-  const [details, setDetails] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [priority, setPriority] = useState("LOW");
+    const [isTask, setIsTask] = useState(false);
+    const [details, setDetails] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // build new task/event object
-    const newTask = {
-      title,
-      time,
-      details
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+    // Combine date and time into a full Date object
+    const dateTimeString = `${date}T${time}`;
+    const eventDate = new Date(dateTimeString);
+
+    // Create the event object 
+    const newEvent = {
+      date: eventDate,        // Date field
+      flags: [],              // Empty flags array
+      visible: true,          // Default visibility
+      priority: {
+        amount: 0,            // Default amount
+        label: priority,      // Priority label ("LOW", "MEDIUM", "HIGH")
+      },
+      details,                // Additional event details
+      isTask,                 // Boolean: true if Task, false for Regular event
     };
-    // pass the new task to the parent handler (e.g., to update state or send to backend)
+
     if (onSubmit) {
-      onSubmit(newTask);
+      onSubmit(newEvent);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="taskTitle">Title:</label>
+    <form className="create-task-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="eventDate">Date:</label>
         <input
-          type="text"
-          id="taskTitle"
-          name="taskTitle"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          type="date"
+          id="eventDate"
+          name="eventDate"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
         />
       </div>
-      <div>
-        <label htmlFor="taskTime">Time:</label>
+      <div className="form-group">
+        <label htmlFor="eventTime">Time:</label>
         <input
           type="time"
-          id="taskTime"
-          name="taskTime"
+          id="eventTime"
+          name="eventTime"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          required
         />
       </div>
-      <div>
-        <label htmlFor="taskDetails">Details:</label>
+      <div className="form-group">
+        <label htmlFor="priority">Priority:</label>
+        <select
+          id="priority"
+          name="priority"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+        >
+          <option value="LOW">Low</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="HIGH">High</option>
+        </select>
+      </div>
+      <div className="form-group checkbox-group">
+        <label htmlFor="isTask">Is Task:</label>
+        <input
+          type="checkbox"
+          id="isTask"
+          name="isTask"
+          checked={isTask}
+          onChange={(e) => setIsTask(e.target.checked)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="details">Details:</label>
         <textarea
-          id="taskDetails"
-          name="taskDetails"
+          id="details"
+          name="details"
           value={details}
           onChange={(e) => setDetails(e.target.value)}
+          rows="4"
         />
       </div>
-      <div style={{ marginTop: "10px" }}>
-        <button type="submit">Create Task</button>
-        <button type="button" onClick={onCancel} style={{ marginLeft: "10px" }}>
+      <div className="form-actions">
+        <button type="submit" className="submit-btn">Create Event</button>
+        <button type="button" onClick={onCancel} className="cancel-btn">
           Cancel
         </button>
       </div>

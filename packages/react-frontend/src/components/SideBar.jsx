@@ -31,8 +31,11 @@ const SideBar = () => {
         <button className="nav-button" onClick={toggleMenu}>
           <img src="../../public/hamburger.png" alt="Menu" width="30" />
         </button>
+
+        {/*Needs to be dynamic to get the current view selected */}
         <button className="button1">Monthly View</button>
         
+        {/*Routing will go here to move to Weekly, Daily, and Montly View*/}
         {isMenuOpen && (
           <div className="dropdown-menu">
             <button className="dropdown-item">Option 1</button>
