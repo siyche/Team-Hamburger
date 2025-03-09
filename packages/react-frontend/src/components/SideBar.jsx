@@ -1,13 +1,28 @@
 // SideBar.jsx
 import React, { useState } from "react";
 import "../styles/Sidebar.css";
+import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
+import CreateTaskForm from "./CreateTaskForm.jsx";
 
 const SideBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Track whether the modal is open
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  // This function receives the new task created in the form
+  const handleTaskSubmit = (newTask) => {
+    // log task submission for now
+    console.log("New task submitted:", newTask);
+    // Close the modal after submission.
+    closeModal();
   };
 
   return (
@@ -16,8 +31,11 @@ const SideBar = () => {
         <button className="nav-button" onClick={toggleMenu}>
           <img src="../../public/hamburger.png" alt="Menu" width="30" />
         </button>
+
+        {/*Needs to be dynamic to get the current view selected */}
         <button className="button1">Monthly View</button>
         
+        {/*Routing will go here to move to Weekly, Daily, and Montly View*/}
         {isMenuOpen && (
           <div className="dropdown-menu">
             <button className="dropdown-item">Option 1</button>
@@ -26,7 +44,18 @@ const SideBar = () => {
           </div>
         )}
       </div>
-      <CreateTaskButton />
+
+      {/* "Create Task" button triggers openModal */}
+      <CreateTaskButton onClick={openModal} />
+
+      {/* Modal with CreateTaskForm inside */}
+      <Modal
+        isOpen={isModalOpen}
+        onCloseRequested={closeModal}
+        headerLabel="Create Event / Task"
+      >
+        <CreateTaskForm onSubmit={handleTaskSubmit} onCancel={closeModal} />
+      </Modal>
 
       <div className="filter-section">
         <h3>Filter By Type</h3>

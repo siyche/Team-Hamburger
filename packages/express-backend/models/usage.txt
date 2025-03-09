@@ -1,0 +1,43 @@
+import Date from './Date.js';
+import Event, { Regular, Task, Academic } from './Event.js';
+import Flag from './Flag.js';
+import Priority from './Priority.js';
+import CourseNo from './CourseNo.js';
+
+// Create a date
+const date = Date.addDate(2023, 10, 15);
+date.specify(14, 30, 0);
+
+// Create a flag
+const flag = await Flag.addFlag('Important');
+
+// Create a priority
+const priority = new Priority(1.0, 'HIGH');
+
+// Create a regular event
+const regular = await Regular.create({
+  date: date.toJSDate(),
+  flags: [flag._id],
+  priority: priority.toSchema(),
+  all_day: true,
+  start_date: date.toJSDate(),
+  end_date: date.toJSDate(),
+  length: 60
+});
+
+// Create a task
+const taskDate = Date.addDate(2023, 10, 16);
+const task = await Task.addTask(
+  new Event(new mongoose.Types.ObjectId(), date, 'Task', [flag], true, priority),
+  date,
+  taskDate
+);
+
+// Create an academic event
+const course = new CourseNo('CSC', 101);
+const academic = await Academic.create({
+  date: date.toJSDate(),
+  date_created: date.toJSDate(),
+  deadline: taskDate.toJSDate(),
+  course_no: course.toSchema()
+});
