@@ -3,7 +3,7 @@
 
 /* Container for the calendar view */
 
-.week-calendar-view {
+.day-calendar-view {
     flex-grow: 1;
     padding: 20px;
     display: flex;
@@ -55,6 +55,7 @@
 
 .day-headers {
     display: grid;
+    border-radius: 10px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
     gap: 1px;
@@ -80,7 +81,7 @@
     grid-template-rows: repeat(12, 1fr);
     grid-template-rows: 12;
     gap: 1px;
-    border: 1px solid #ccc;
+    border: 1px transparent #ccc;
 }
 
 
@@ -89,6 +90,7 @@
 .calendar-cell {
     position: relative;
     aspect-ratio: 24;
+    border-radius: 10px;
     background-color: #e0e0e0;
     border: 1px solid #fff;
     cursor: pointer;
@@ -100,6 +102,7 @@
     transition-duration: 0.75s;
     transition-delay: .0s;
     font-size: larger;
+    padding-bottom: 3px;
 }
 
 
@@ -108,6 +111,7 @@
 .calendar-cell:hover {
     position: relative;
     aspect-ratio: 24;
+    border-radius: 10px;
     background-color: #cccccc;
     border: 1px solid #fff;
     cursor: pointer;
@@ -117,6 +121,8 @@
     text-align: center;
     transition-duration: 0.75s;
     transition-delay: .0s;
+    font-size: larger;
+    padding-bottom: 3px;
 }
 
 

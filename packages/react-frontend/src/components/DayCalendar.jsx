@@ -48,7 +48,6 @@ const DayCalendarView = ({ onDaySelect }) => {
       {/* Header with month/year and navigation */}
       <div className="month-year-header">
         <span>
-          &nbsp;&nbsp; {/* extra space */}
           <img src="../hamburger.png" alt="Example Image" width="35" />
           &nbsp; {/* extra space */}
           {currentDate.toLocaleString("default", { weekday: "long" })}

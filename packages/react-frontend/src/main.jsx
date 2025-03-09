@@ -1,8 +1,6 @@
 // src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import CalendarLayoutMonth from "./pages/CalendarLayoutMonth";
-import CalendarLayoutWeek from "./pages/CalendarLayoutWeek";
 import CalendarLayoutDay from "./pages/CalendarLayoutDay";
 import "./main.css"; // global styles if needed
 
