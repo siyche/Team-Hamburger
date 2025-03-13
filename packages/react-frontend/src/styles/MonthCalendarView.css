@@ -12,6 +12,7 @@
   
   /* Header displaying current month and year with navigation buttons */
   .month-year-header {
+    width: auto !important; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -109,6 +110,3 @@
     color: #333;
     transition: color 0.3s;
   }
-  
-  /* (Optional) Add a current-day style if desired in month view */
-  /* .month-calendar-cell.current-day { ... } */
