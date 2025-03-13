@@ -13,7 +13,7 @@
 
 /* Header displaying current month and year with navigation buttons */
 
-.month-year-header {
+.month-time-header {
     display: flex;
     width: 80vw;
     justify-content: space-between;
@@ -23,7 +23,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.month-year-header span {
+.month-time-header span {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;

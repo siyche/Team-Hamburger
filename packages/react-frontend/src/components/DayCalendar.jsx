@@ -46,7 +46,7 @@ const DayCalendarView = ({ onDaySelect }) => {
   return (
     <div className="day-calendar-view">
       {/* Header with month/year and navigation */}
-      <div className="month-year-header">
+      <div className="month-time-header">
         <span>
           <img src="../hamburger.png" alt="Example Image" width="35" />
           &nbsp; {/* extra space */}
