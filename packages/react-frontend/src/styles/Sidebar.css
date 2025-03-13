@@ -1,6 +1,8 @@
 /* Sidebar.css */
 
+
 /* Sidebar container */
+
 .sidebar {
     width: 250px;
     background-color: #f0f0f0;
@@ -9,35 +11,42 @@
     flex-direction: column;
     gap: 15px;
     position: relative;
-  }
-  
-  /* Nav section container */
-  .nav-section {
+}
+
+
+/* Nav section container */
+
+.nav-section {
     display: flex;
     gap: 10px;
     align-items: center;
     margin-bottom: 1px;
     position: relative;
-  }
-  
-  /* Hamburger nav button */
-  .nav-button {
+}
+
+
+/* Hamburger nav button */
+
+.nav-button {
     padding: 13px 16px;
     font-size: 20px;
     border: none;
     border-radius: 40px;
     background-color: #d0d0d0;
     cursor: pointer;
-  }
-  
-  .nav-button:hover {
+}
+
+.nav-button:hover {
     background-color: #c0c0c0;
-  }
-  
-  /* Dropdown for hamburger nav (Settings/Logout) */
-  .nav-dropdown {
+}
+
+
+/* Dropdown for hamburger nav (Settings/Logout) */
+
+.nav-dropdown {
     position: absolute;
-    top: 100%; /* positions dropdown below the nav section */
+    top: 100%;
+    /* positions dropdown below the nav section */
     left: 0;
     width: 100%;
     background-color: #9a9a9a;
@@ -46,9 +55,9 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     min-width: 150px;
     z-index: 1000;
-  }
-  
-  .nav-dropdown-item {
+}
+
+.nav-dropdown-item {
     width: 100%;
     padding: 10px;
     border: none;
@@ -57,14 +66,17 @@
     font-size: 14px;
     cursor: pointer;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-  
-  .nav-dropdown-item:hover {
+}
+
+.nav-dropdown-item:hover {
     background-color: #717171;
-  }
-  
-  /* View switcher button (button1) */
-  .button1 {
+    border-radius: 10px;
+}
+
+
+/* View switcher button (button1) */
+
+.button1 {
     width: 100%;
     padding: 15px 21px;
     font-size: 15px;
@@ -73,14 +85,16 @@
     background-color: #d0d0d0;
     cursor: pointer;
     font-family: "Arial";
-  }
-  
-  .button1:hover {
+}
+
+.button1:hover {
     background-color: #c0c0c0;
-  }
-  
-  /* Dropdown for view switching */
-  .view-dropdown {
+}
+
+
+/* Dropdown for view switching */
+
+.view-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -91,108 +105,139 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     margin-top: 5px;
-  }
-  
-  .view-dropdown-item {
+}
+
+.view-dropdown-item {
     width: 100%;
     padding: 10px;
     background-color: transparent;
     border: none;
     text-align: left;
+    border-radius: 10px;
     font-size: 14px;
     cursor: pointer;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-  
-  .view-dropdown-item:hover {
+}
+
+.view-dropdown-item:hover {
     background-color: #717171;
-  }
-  
-  /* Filter section container */
-  .filter-section {
+}
+
+
+/* Filter section container */
+
+.filter-section {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-  }
-  
-  /* Filter section header */
-  .filter-section h3 {
+}
+
+
+/* Filter section header */
+
+.filter-section h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
-  }
-  
-  /* Filter list */
-  .filter-list {
+}
+
+
+/* Filter list */
+
+.filter-list {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  /* Individual filter items */
-  .filter-item {
+}
+
+
+/* Individual filter items */
+
+.filter-item {
     padding: 5px;
     margin: 5px 0;
     border-radius: 3px;
     font-size: 14px;
-  }
-  
-  /* Specific filter item color settings */
-  /* Assignment */
-  .assignment {
+}
+
+
+/* Specific filter item color settings */
+
+
+/* Assignment */
+
+.assignment {
     background-color: #de1f1f;
     color: #000;
-  }
-  
-  /* Study */
-  .study {
+}
+
+
+/* Study */
+
+.study {
     background-color: #cc6600;
     color: #000;
-  }
-  
-  /* Midterm */
-  .midterm {
+}
+
+
+/* Midterm */
+
+.midterm {
     background-color: #c800c8;
     color: #000;
-  }
-  
-  /* Final */
-  .final {
+}
+
+
+/* Final */
+
+.final {
     background-color: #e500e5;
     color: #000;
-  }
-  
-  /* Quiz */
-  .quiz {
+}
+
+
+/* Quiz */
+
+.quiz {
     background-color: #00c600;
     color: #000;
-  }
-  
-  /* Lecture */
-  .lecture {
+}
+
+
+/* Lecture */
+
+.lecture {
     background-color: #3d3de4;
     color: #000;
-  }
-  
-  /* Lab */
-  .lab {
+}
+
+
+/* Lab */
+
+.lab {
     background-color: #1b9e1b;
     color: #000;
-  }
-  
-  /* Homework */
-  .homework {
+}
+
+
+/* Homework */
+
+.homework {
     background-color: #c3c310;
     color: #000;
-  }
-  
-  /* Presentation */
-  .presentation {
+}
+
+
+/* Presentation */
+
+.presentation {
     background-color: #bc08bc;
     color: #000;
-  }
-  
-  /* Exam */
-  .exam {
+}
+
+
+/* Exam */
+
+.exam {
     background-color: #fc6d6d;
     color: #000;
-  }
+}
