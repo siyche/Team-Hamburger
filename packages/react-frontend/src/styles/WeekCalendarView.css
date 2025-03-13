@@ -97,7 +97,9 @@
   background-color: #979797;
 }
 
+/* Highlight the selected day with a black border */
 .week-calendar-cell.selected {
+  border: 2px solid black;
   background-color: #ffcccc;
 }
 
