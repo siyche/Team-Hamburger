@@ -1,21 +1,45 @@
 /* src/styles/CurrentDayView.css */
 
+/* Container for the Current Day View */
 .current-day-view {
-    width: 200px;
-    /* Adjust as needed */
+    width: 250px; /* fixed width */
     padding: 20px;
     background-color: #f0f0f0;
     border-left: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.current-day-view h3 {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Header for current day */
+  .current-day-view h3 {
     font-size: 20px;
     margin-bottom: 10px;
-}
-
-.event-time {
+  }
+  
+  /* EVENT/TASK STYLING FOR EXAMPLE EVENTS IN CURERNT DAY VIEW */
+  /* Container for events */
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Individual event item styling */
+  .event-item {
+    background-color: #ffcccc;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    gap: 5px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .event-time {
     font-weight: bold;
-}
+  }
+  
+  .event-title {
+    margin-left: 5px;
+  }

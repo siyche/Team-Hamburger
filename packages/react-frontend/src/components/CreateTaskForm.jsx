@@ -73,7 +73,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
         </select>
       </div>
       <div className="form-group checkbox-group">
-        <label htmlFor="isTask">Is Task:</label>
+        <label htmlFor="isTask">Task?</label>
         <input
           type="checkbox"
           id="isTask"

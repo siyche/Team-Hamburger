@@ -6,7 +6,7 @@ import "../styles/CreateTaskButton.css";
 function CreateTaskButton({onClick}) {
   return (
     <button id="CreateTask" onClick={onClick}> 
-     Create Task 
+     Create Event/Task 
     </button>
   )
 }

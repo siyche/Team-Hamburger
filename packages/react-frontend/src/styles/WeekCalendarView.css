@@ -1,21 +1,23 @@
 /* src/styles/WeekCalendarView.css */
 
-/* Base container for Week Calendar View */
+/* Container for the Week Calendar View */
 .week-calendar-view {
   flex-grow: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Header with week information and navigation */
+/* Header with week information and navigation buttons */
 .week-year-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 24px;
   margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .week-year-header span {
@@ -25,7 +27,7 @@
   margin-bottom: 10px;
 }
 
-/* Navigation buttons */
+/* Navigation buttons container for Week view */
 .week-nav-buttons {
   display: flex;
   gap: 10px;
@@ -45,7 +47,7 @@
   background-color: #cccccc;
 }
 
-/* Day-of-week headers for week view */
+/* Day-of-week headers for Week view */
 .week-day-headers {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -63,16 +65,17 @@
   padding: 4px 0;
 }
 
-/* Calendar grid for week view */
+/* Calendar grid for Week view */
 .week-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
-  border: 1px solid transparent;
   width: 100%;
+  border: 1px solid transparent;
+  box-sizing: border-box;
 }
 
-/* Each calendar cell in week view */
+/* Each calendar cell in Week view */
 .week-calendar-cell {
   box-sizing: border-box;
   position: relative;

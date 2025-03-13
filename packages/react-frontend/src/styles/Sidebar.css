@@ -1,243 +1,184 @@
-/* Sidebar.css */
-
+/* src/styles/Sidebar.css */
 
 /* Sidebar container */
-
 .sidebar {
-    width: 250px;
-    background-color: #f0f0f0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    position: relative;
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  font-family: 'Inter', sans-serif;
 }
-
 
 /* Nav section container */
-
 .nav-section {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 1px;
-    position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 1px;
+  position: relative;
 }
 
-
 /* Hamburger nav button */
-
 .nav-button {
-    padding: 13px 16px;
-    font-size: 20px;
-    border: none;
-    border-radius: 40px;
-    background-color: #d0d0d0;
-    cursor: pointer;
+  padding: 13px 16px;
+  font-size: 20px;
+  border: none;
+  border-radius: 40px;
+  background-color: #d0d0d0;
+  cursor: pointer;
 }
 
 .nav-button:hover {
-    background-color: #c0c0c0;
+  background-color: #c0c0c0;
 }
 
-
 /* Dropdown for hamburger nav (Settings/Logout) */
-
 .nav-dropdown {
-    position: absolute;
-    top: 100%;
-    /* positions dropdown below the nav section */
-    left: 0;
-    width: 100%;
-    background-color: #9a9a9a;
-    border: 1px solid #acacac;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width: 150px;
-    z-index: 1000;
+  position: absolute;
+  top: 40px; /* Adjust as needed */
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  z-index: 1000;
 }
 
 .nav-dropdown-item {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: transparent;
-    text-align: left;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .nav-dropdown-item:hover {
-    background-color: #717171;
-    border-radius: 10px;
+  background-color: #e0e0e0;
 }
 
-
 /* View switcher button (button1) */
-
 .button1 {
-    width: 100%;
-    padding: 15px 21px;
-    font-size: 15px;
-    border: none;
-    border-radius: 25px;
-    background-color: #d0d0d0;
-    cursor: pointer;
-    font-family: "Arial";
+  width: 100%;
+  padding: 15px 21px;
+  font-size: 15px;
+  border: none;
+  border-radius: 25px;
+  background-color: #d0d0d0;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
 
 .button1:hover {
-    background-color: #c0c0c0;
+  background-color: #c0c0c0;
 }
 
-
 /* Dropdown for view switching */
-
 .view-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #9a9a9a;
-    border: 1px solid #acacac;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    margin-top: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #9a9a9a;
+  border: 1px solid #acacac;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 5px;
 }
 
 .view-dropdown-item {
-    width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    border-radius: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
 
 .view-dropdown-item:hover {
-    background-color: #717171;
+  background-color: #717171;
 }
 
-
-/* Filter section container */
-
+/* Filter section styling */
 .filter-section {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif;
 }
-
-
-/* Filter section header */
 
 .filter-section h3 {
-    margin: 0 0 10px 0;
-    font-size: 18px;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
-
-
-/* Filter list */
 
 .filter-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-
-/* Individual filter items */
 
 .filter-item {
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 3px;
-    font-size: 14px;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
-
-/* Specific filter item color settings */
-
-
-/* Assignment */
-
+/* Specific filter colors */
 .assignment {
-    background-color: #de1f1f;
-    color: #000;
+  background-color: #de1f1f;
+  color: #000;
 }
-
-
-/* Study */
 
 .study {
-    background-color: #cc6600;
-    color: #000;
+  background-color: #cc6600;
+  color: #000;
 }
-
-
-/* Midterm */
 
 .midterm {
-    background-color: #c800c8;
-    color: #000;
+  background-color: #c800c8;
+  color: #000;
 }
-
-
-/* Final */
 
 .final {
-    background-color: #e500e5;
-    color: #000;
+  background-color: #e500e5;
+  color: #000;
 }
-
-
-/* Quiz */
 
 .quiz {
-    background-color: #00c600;
-    color: #000;
+  background-color: #00c600;
+  color: #000;
 }
-
-
-/* Lecture */
 
 .lecture {
-    background-color: #3d3de4;
-    color: #000;
+  background-color: #3d3de4;
+  color: #000;
 }
-
-
-/* Lab */
 
 .lab {
-    background-color: #1b9e1b;
-    color: #000;
+  background-color: #1b9e1b;
+  color: #000;
 }
-
-
-/* Homework */
 
 .homework {
-    background-color: #c3c310;
-    color: #000;
+  background-color: #c3c310;
+  color: #000;
 }
-
-
-/* Presentation */
 
 .presentation {
-    background-color: #bc08bc;
-    color: #000;
+  background-color: #bc08bc;
+  color: #000;
 }
 
-
-/* Exam */
-
 .exam {
-    background-color: #fc6d6d;
-    color: #000;
+  background-color: #fc6d6d;
+  color: #000;
 }

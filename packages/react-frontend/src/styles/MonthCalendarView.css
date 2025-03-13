@@ -1,16 +1,16 @@
 /* src/styles/MonthCalendarView.css */
 
-/* Base container for Month Calendar View */
+/* Container for the Month Calendar View */
 .month-calendar-view {
   flex-grow: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Header with month/year and nav buttons */
+/* Header with month/year and navigation buttons */
 .month-year-header {
   display: flex;
   justify-content: space-between;
@@ -65,7 +65,7 @@
   padding: 4px 0;
 }
 
-/* Calendar grid: 7 columns and 6 rows */
+/* Calendar grid for Month view: 7 columns and 6 rows */
 .month-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -76,7 +76,7 @@
   box-sizing: border-box;
 }
 
-/* Each calendar cell (day) */
+/* Each calendar cell (day) in Month view */
 .month-calendar-cell {
   box-sizing: border-box;
   position: relative;
@@ -111,7 +111,7 @@
   transition: color 0.3s;
 }
 
-/* Current day highlight */
+/* Animation for current day highlight fade */
 @keyframes highlightFade {
   0% { background-color: #ffebcc; }
   100% { background-color: #fff; }
