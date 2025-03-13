@@ -1,46 +1,82 @@
 // SideBar.jsx
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
 import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
 
 const SideBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // State for dropdown menu for view switching
+  const [isViewMenuOpen, setIsViewMenuOpen] = useState(false);
+  const toggleViewMenu = () => setIsViewMenuOpen(!isViewMenuOpen);
+  
+
 
   // Track whether the modal is open
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  
+  const toggleMenu = () => {setIsMenuOpen(!isMenuOpen);};
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   // This function receives the new task created in the form
   const handleTaskSubmit = (newTask) => {
-    // log task submission for now
-    console.log("New task submitted:", newTask);
-    // Close the modal after submission.
-    closeModal();
+    console.log("New task submitted:", newTask);      // log task submission for now
+    closeModal();                                    // close the modal
+  };
+
+  // Determine the current view from the URL pathname.
+  // (If no view is found, default to "Monthly View")
+  const currentPath = location.pathname.toLowerCase();
+  let currentView = "Monthly View";
+  if (currentPath.includes("week")) {
+    currentView = "Weekly View";
+  } else if (currentPath.includes("day")) {
+    currentView = "Daily View";
+  }
+
+  // Function to change view by navigating to a new route
+  const handleViewChange = (view) => {
+    navigate(`/${view}`);
+    setIsViewMenuOpen(false);
   };
 
   return (
     <div className="sidebar">
       <div className="nav-section">
-        <button className="nav-button" onClick={toggleMenu}>
+        <button className="nav-button">
           <img src="../../public/hamburger.png" alt="Menu" width="30" />
         </button>
-
-        {/*Needs to be dynamic to get the current view selected */}
-        <button className="button1">Monthly View</button>
-        
-        {/*Routing will go here to move to Weekly, Daily, and Montly View*/}
-        {isMenuOpen && (
-          <div className="dropdown-menu">
-            <button className="dropdown-item">Option 1</button>
-            <button className="dropdown-item">Option 2</button>
-            <button className="dropdown-item">Option 3</button>
+        {/* This button now shows the current view dynamically */}
+        <button className="button1" onClick={toggleViewMenu}>
+          {currentView}
+        </button>
+        {isViewMenuOpen && (
+          <div className="view-dropdown">
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("month")}
+            >
+              Monthly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("week")}
+            >
+              Weekly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("day")}
+            >
+              Daily View
+            </button>
           </div>
         )}
       </div>
@@ -75,5 +111,7 @@ const SideBar = () => {
     </div>
   );
 };
+
+
 
 export default SideBar;
