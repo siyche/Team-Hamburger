@@ -1,46 +1,114 @@
-// SideBar.jsx
-import React, { useState } from "react";
+// src/components/SideBar.jsx
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
+
 import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
 
 const SideBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // Track whether the modal is open
+  // State for nav dropdown (hamburger) for settings/logout
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navDropdownRef = useRef(null);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // State for view dropdown for switching calendar views
+  const [isViewMenuOpen, setIsViewMenuOpen] = useState(false);
+  const viewDropdownRef = useRef(null);
+  const toggleViewMenu = () => setIsViewMenuOpen(!isViewMenuOpen);
+
+  // State for Create Task Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  // Handle task submission from the form
+  const handleTaskSubmit = (newTask) => {
+    console.log("New task submitted:", newTask); // log task submission for now
+    closeModal(); // close the modal
   };
 
-  // This function receives the new task created in the form
-  const handleTaskSubmit = (newTask) => {
-    // log task submission for now
-    console.log("New task submitted:", newTask);
-    // Close the modal after submission.
-    closeModal();
+  // Determine the current view from the URL pathname.
+  // (If no view is found, default to "Monthly View")
+  const currentPath = location.pathname.toLowerCase();
+  let currentView = "Monthly View";
+  if (currentPath.includes("week")) {
+    currentView = "Weekly View";
+  } else if (currentPath.includes("day")) {
+    currentView = "Daily View";
+  }
+
+  // Function to change view by navigating to a new route
+  const handleViewChange = (view) => {
+    navigate(`/${view}`);
+    setIsViewMenuOpen(false);
   };
+
+  // Add document click listener to close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMenuOpen &&
+        navDropdownRef.current &&
+        !navDropdownRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+      if (
+        isViewMenuOpen &&
+        viewDropdownRef.current &&
+        !viewDropdownRef.current.contains(event.target)
+      ) {
+        setIsViewMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen, isViewMenuOpen]);
 
   return (
     <div className="sidebar">
       <div className="nav-section">
+        {/* Hamburger button that toggles the nav dropdown */}
         <button className="nav-button" onClick={toggleMenu}>
-          <img src="../../public/hamburger.png" alt="Menu" width="30" />
+          <img src="/hamburger.png" alt="Menu" width="30" />
         </button>
-
-        {/*Needs to be dynamic to get the current view selected */}
-        <button className="button1">Monthly View</button>
-        
-        {/*Routing will go here to move to Weekly, Daily, and Montly View*/}
+        {/* Render nav dropdown for Settings and Logout */}
         {isMenuOpen && (
-          <div className="dropdown-menu">
-            <button className="dropdown-item">Option 1</button>
-            <button className="dropdown-item">Option 2</button>
-            <button className="dropdown-item">Option 3</button>
+          <div className="nav-dropdown" ref={navDropdownRef}>
+            <button className="nav-dropdown-item">Settings</button>
+            <button className="nav-dropdown-item">Logout</button>
+          </div>
+        )}
+        {/* View switcher button */}
+        <button className="button1" onClick={toggleViewMenu}>
+          {currentView}
+        </button>
+        {isViewMenuOpen && (
+          <div className="view-dropdown" ref={viewDropdownRef}>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("month")}
+            >
+              Monthly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("week")}
+            >
+              Weekly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("day")}
+            >
+              Daily View
+            </button>
           </div>
         )}
       </div>
