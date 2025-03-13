@@ -1,24 +1,21 @@
-// src/components/DayCalendarView.jsx
-// this is the view for the day calendar
+// src/components/DayCalendar.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/DayCalendarView.css";
 
 const DayCalendarView = ({ onDaySelect }) => {
-  // State hooks: currentDate is the state variable, setCurrentDate is the function, and new Date() initializes currentDate
-  const [currentDate, setCurrentDate] = useState(new Date()); // currentDate is used to determine which month/year to display.
-  const [selectedDay, setSelectedDay] = useState(new Date()); // selectedDay is maintained locally here so you can highlight the clicked day.
+  // currentDate holds the day being viewed
+  const [currentDate, setCurrentDate] = useState(new Date());
+  // selectedDay is maintained locally so we can highlight the clicked cell
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
-  // Update the parent (if provided) when the selected day changes
+  // Notify parent when selectedDay changes
   useEffect(() => {
-    if (onDaySelect) {
-      onDaySelect(selectedDay);
-    }
+    if (onDaySelect) onDaySelect(selectedDay);
   }, [selectedDay, onDaySelect]);
 
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth(); // 0-indexed
 
-  // Handlers to navigate weeks
+  // Handlers to navigate days
   const handlePrevDay = () => {
     const prev = new Date(currentDate);
     prev.setDate(prev.getDate() - 1);
@@ -31,32 +28,27 @@ const DayCalendarView = ({ onDaySelect }) => {
     setCurrentDate(next);
   };
 
-  // Build an array for a 24-hour day, split into A.M. & P.M. columns
+  // Build an array for 12 hour blocks (1–12)
   const timeArray = [];
   for (let i = 0; i < 12; i++) {
     timeArray.push(i + 1);
   }
 
-  // When a day is clicked, update selectedDay
-  const handleDayClick = (day) => {
-    setSelectedDay(day);
+  // In day view, clicking a cell simply selects the current day
+  const handleCellClick = () => {
+    setSelectedDay(currentDate);
   };
 
-  // What is displayed on the page:
   return (
     <div className="day-calendar-view">
-      {/* Header with month/year and navigation */}
-      <div className="month-time-header">
+      {/* Header with day information and navigation */}
+      <div className="day-time-header">
         <span>
-          <img src="../hamburger.png" alt="Example Image" width="35" />
-          &nbsp; {/* extra space */}
-          {currentDate.toLocaleString("default", { weekday: "long" })}
-          {/* Day of the week */}
-          {", "}
+          <img src="/hamburger.png" alt="Menu" width="35" />
+          &nbsp;
+          {currentDate.toLocaleString("default", { weekday: "long" })},{" "}
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentDate.getDate()}
-          {", "}
-          {currentYear}
+          {currentDate.getDate()}, {currentYear}
         </span>
         <div className="nav-buttons">
           <button onClick={handlePrevDay}>&lt;</button>
@@ -64,26 +56,20 @@ const DayCalendarView = ({ onDaySelect }) => {
         </div>
       </div>
 
-      {/* Day-of-week headers */}
+      {/* AM/PM headers */}
       <div className="day-headers">
         <div>A.M.</div>
-        <div>{/* Blank spot */}</div>
+        <div></div>
         <div>P.M.</div>
       </div>
 
-      {/* Calendar grid */}
+      {/* Calendar grid for day view (each cell represents an hour block) */}
       <div className="calendar-grid">
-        {timeArray.map((time, index) => {
-          const cellClass = "calendar-cell";
-          // Mark as selected if it matches selectedDay
-          return (
-            <div key={index} className={`${cellClass}`}>
-              <div>{/* Blank spot */}</div>
-              <div>{time}:00</div>
-              <div>{/* Blank spot */}</div>
-            </div>
-          );
-        })}
+        {timeArray.map((time, index) => (
+          <div key={index} className="calendar-cell" onClick={handleCellClick}>
+            <div>{time}:00</div>
+          </div>
+        ))}
       </div>
     </div>
   );

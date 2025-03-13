@@ -1,134 +1,128 @@
 /* src/styles/MonthCalendarView.css */
 
-
-/* Container for the month calendar view */
-
+/* Base container for Month Calendar View */
 .month-calendar-view {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
 }
 
-
-/* Header displaying current month and year with navigation buttons */
-
+/* Header with month/year and nav buttons */
 .month-year-header {
-    width: auto !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .month-year-header span {
-    display: inline-flex;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
+/* Navigation buttons container */
 .month-nav-buttons {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .month-nav-buttons button {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 .month-nav-buttons button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
-
-/* Day-of-week headers for month view */
-
+/* Day-of-week headers */
 .month-day-headers {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1px;
-    padding: 5px 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1px;
+  padding: 5px 0;
 }
 
 .month-day-headers div {
-    padding: 4px 0;
+  padding: 4px 0;
 }
 
-
-/* Calendar grid for month view */
-
+/* Calendar grid: 7 columns and 6 rows */
 .month-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 150px);
-    /* 6 rows for 6 weeks */
-    gap: 1px;
-    width: 100%;
-    border: 1px solid transparent;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 150px);
+  gap: 1px;
+  width: 100%;
+  border: 1px solid transparent;
+  box-sizing: border-box;
 }
 
-
-/* Each calendar cell (day) in month view */
-
+/* Each calendar cell (day) */
 .month-calendar-cell {
-    box-sizing: border-box;
-    position: relative;
-    background-color: #e0e0e0;
-    border: 1px solid #fff;
-    cursor: pointer;
-    transition: 0.75s;
-    overflow: hidden;
-    padding: 5px;
-    border-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #e0e0e0;
+  border: 1px solid #fff;
+  cursor: pointer;
+  transition: background-color 0.75s;
+  overflow: hidden;
+  padding: 5px;
+  border-radius: 10px;
 }
-
-
-/* Hover state for month view cells */
 
 .month-calendar-cell:hover {
-    background-color: #cccccc;
+  background-color: #cccccc;
 }
-
-
-/* For days not in the current month */
 
 .month-calendar-cell.grayed-out {
-    background-color: #979797;
-    transition: 0.75s;
+  background-color: #979797;
 }
-
-
-/* Highlight the selected day */
 
 .month-calendar-cell.selected {
-    background-color: #ffcccc;
-    border-color: black;
-    transition: 0.75s;
+  background-color: #ffcccc;
 }
 
-
-/* Day number styling for month view */
-
+/* Day number styling */
 .month-calendar-cell span {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 20px;
-    color: #333;
-    transition: color 0.3s;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  color: #333;
+  transition: color 0.3s;
+}
+
+/* Current day highlight */
+@keyframes highlightFade {
+  0% { background-color: #ffebcc; }
+  100% { background-color: #fff; }
+}
+
+.month-calendar-cell.current-day {
+  animation: highlightFade 2s ease-out forwards;
+  border: 2px solid red;
+}
+
+.month-calendar-cell.current-day span {
+  color: #ff0000;
+  font-weight: 300;
 }

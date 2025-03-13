@@ -1,4 +1,4 @@
-// src/components/WeekCalendarView.jsx
+// src/components/WeekCalendar.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/WeekCalendarView.css";
 
@@ -6,16 +6,14 @@ const WeekCalendarView = ({ onDaySelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
 
-  // Update parent when selected day changes
+  // Notify parent when selectedDay changes
   useEffect(() => {
-    if (onDaySelect) {
-      onDaySelect(selectedDay);
-    }
+    if (onDaySelect) onDaySelect(selectedDay);
   }, [selectedDay, onDaySelect]);
 
   const currentYear = currentDate.getFullYear();
 
-  // For week view, adjust currentDate so that we start at Sunday of the current week.
+  // Adjust currentDate so that the week starts on Sunday
   const firstDayOfWeek = new Date(currentDate);
   while (firstDayOfWeek.getDay() !== 0) {
     firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 1);
@@ -34,7 +32,7 @@ const WeekCalendarView = ({ onDaySelect }) => {
     setCurrentDate(next);
   };
 
-  // Build an array for a 7-cell grid (1 week)
+  // Build an array for a 7-day week
   const daysArray = [];
   for (let i = 0; i < 7; i++) {
     const day = new Date(firstDayOfWeek);
@@ -42,7 +40,7 @@ const WeekCalendarView = ({ onDaySelect }) => {
     daysArray.push(day);
   }
 
-  const handleDayClick = (day) => {
+  const handleCellClick = (day) => {
     setSelectedDay(day);
   };
 
@@ -51,7 +49,7 @@ const WeekCalendarView = ({ onDaySelect }) => {
       {/* Header with week info and navigation */}
       <div className="week-year-header">
         <span>
-          <img src="../hamburger.png" alt="Example Image" width="35" />
+          <img src="/hamburger.png" alt="Menu" width="35" />
           &nbsp;
           {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
         </span>
@@ -74,20 +72,11 @@ const WeekCalendarView = ({ onDaySelect }) => {
 
       {/* Calendar grid for week view */}
       <div className="week-calendar-grid">
-        {daysArray.map((day, index) => {
-          const cellClass = "week-calendar-cell";
-          const isSelected = day.toDateString() === selectedDay.toDateString();
-          return (
-            <div
-              key={index}
-              className={`${cellClass} ${isSelected ? "selected" : ""}`}
-              onClick={() => handleDayClick(day)}
-            >
-              <span>{day.getDate().toString().padStart(2, "0")}</span>
-              {/* Future: Render event info if needed */}
-            </div>
-          );
-        })}
+        {daysArray.map((day, index) => (
+          <div key={index} className="week-calendar-cell" onClick={() => handleCellClick(day)}>
+            <span>{day.getDate().toString().padStart(2, "0")}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
