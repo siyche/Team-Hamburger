@@ -117,7 +117,7 @@
 /* Highlight the selected day */
 
 .week-calendar-cell.selected {
-    background-color: #ffcccc;
+    background-color: #c1e0fb;
     border-color: black;
     transition: 0.75s;
 }
