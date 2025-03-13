@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
+    height: 100vh; /* Fill full viewport height */
   }
   
   /* Header with day info and navigation */
@@ -67,10 +68,11 @@
   
   /* Calendar grid for day view */
   .calendar-grid {
+    flex: 1;                /* Allow grid to take up remaining space */
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);  /* 12 equal hour blocks */
     gap: 1px;
     border: 1px solid transparent;
     box-sizing: border-box;
@@ -85,7 +87,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition-duration: 0.75s;
+    transition: background-color 0.75s;
     font-size: larger;
     padding-bottom: 3px;
     box-sizing: border-box;
@@ -96,7 +98,7 @@
     background-color: #cccccc;
   }
   
-  /* Optional: time label styling inside a cell */
+  /* Time label inside a cell */
   .calendar-cell span {
     position: absolute;
     top: 5px;
