@@ -1,11 +1,33 @@
-/* src/styles/CalendarLayout.css */
+/* CalendarLayout.css */
 
-
-/* This file defines the overall three-panel layout */
-
+/* Overall container uses flex layout */
 .calendar-layout {
     display: flex;
-    height: 100vh;
-    /* Full viewport height */
+    height: 100vh; /* Full viewport height */
     font-family: Arial, sans-serif;
-}
+  }
+  
+  /* Sidebar gets a fixed width */
+  .sidebar {
+    flex: 0 0 250px; /* fixed 250px width */
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Current day view gets a fixed width (if it exists) */
+  .current-day-view {
+    flex: 0 0 250px; /* fixed 250px width */
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-left: 1px solid #ccc;
+  }
+  
+  /* Calendar view (the main calendar component) takes the remaining space */
+  .calendar-view,
+  .month-calendar-view,
+  .week-calendar-view,
+  .day-calendar-view {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
