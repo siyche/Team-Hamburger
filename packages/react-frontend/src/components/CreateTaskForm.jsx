@@ -1,4 +1,3 @@
-// src/components/CreateTaskForm.jsx
 import React, { useState } from "react";
 import "../styles/CreateTaskForm.css";
 
@@ -9,6 +8,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
   const [priority, setPriority] = useState("LOW");
   const [isTask, setIsTask] = useState(false);
   const [details, setDetails] = useState("");
+  const [type, setType] = useState("MEETING");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +28,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
       },
       details,                // Additional event details
       isTask,                 // Boolean: true if Task, false for Regular event
+      type,                   // Type of event
     };
 
     if (onSubmit) {
@@ -82,6 +83,26 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
           onChange={(e) => setIsTask(e.target.checked)}
         />
       </div>
+      {isTask && (
+        <div className="form-group">
+          <label htmlFor="type">Type:</label>
+          <select
+            id="type"
+            name="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="Assignment">Assignment</option>
+            <option value="Study">Study</option>
+            <option value="Final">Final</option>
+            <option value="Quiz">Quiz</option>
+            <option value="Lecture">Lecture</option>
+            <option value="Lab">Lab</option>
+            <option value="Homework">Homework</option>
+            <option value="Presentation">Presentation</option>
+          </select>
+        </div>
+      )}
       <div className="form-group">
         <label htmlFor="details">Details:</label>
         <textarea

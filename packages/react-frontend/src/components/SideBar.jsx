@@ -137,7 +137,6 @@ const SideBar = () => {
           <li className="filter-item lab">Lab</li>
           <li className="filter-item homework">Homework</li>
           <li className="filter-item presentation">Presentation</li>
-          <li className="filter-item exam">Exam</li>
         </ul>
       </div>
     </div>
