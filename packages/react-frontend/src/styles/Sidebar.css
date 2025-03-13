@@ -120,14 +120,14 @@
 }
 
 .view-dropdown-item:hover {
-    background-color: #717171;
+    background-color: #d53e4f;
 }
 
 
 /* Filter section container */
 
 .filter-section {
-    border: 1px solid #ccc;
+    border: 1px solid #bdbdbd;
     padding: 10px;
     border-radius: 5px;
 }
@@ -166,7 +166,7 @@
 /* Assignment */
 
 .assignment {
-    background-color: #de1f1f;
+    background-color: #d53e4f;
     color: #000;
 }
 
@@ -174,7 +174,7 @@
 /* Study */
 
 .study {
-    background-color: #cc6600;
+    background-color: #f46d43;
     color: #000;
 }
 
@@ -182,7 +182,7 @@
 /* Midterm */
 
 .midterm {
-    background-color: #c800c8;
+    background-color: #fdae61;
     color: #000;
 }
 
@@ -190,7 +190,7 @@
 /* Final */
 
 .final {
-    background-color: #e500e5;
+    background-color: #fee08b;
     color: #000;
 }
 
@@ -198,7 +198,7 @@
 /* Quiz */
 
 .quiz {
-    background-color: #00c600;
+    background-color: #f2f251;
     color: #000;
 }
 
@@ -206,7 +206,7 @@
 /* Lecture */
 
 .lecture {
-    background-color: #3d3de4;
+    background-color: #d9ef6a;
     color: #000;
 }
 
@@ -214,7 +214,7 @@
 /* Lab */
 
 .lab {
-    background-color: #1b9e1b;
+    background-color: #abdda4;
     color: #000;
 }
 
@@ -222,7 +222,7 @@
 /* Homework */
 
 .homework {
-    background-color: #c3c310;
+    background-color: #66c2a5;
     color: #000;
 }
 
@@ -230,14 +230,8 @@
 /* Presentation */
 
 .presentation {
-    background-color: #bc08bc;
+    background-color: #3288bd;
     color: #000;
 }
 
 
-/* Exam */
-
-.exam {
-    background-color: #fc6d6d;
-    color: #000;
-}
