@@ -1,7 +1,8 @@
-// SideBar.jsx
-import React, { useState } from "react";
+// src/components/SideBar.jsx
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
+
 import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
@@ -10,25 +11,25 @@ const SideBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // State for dropdown menu for view switching
+  // State for nav dropdown (hamburger) for settings/logout
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navDropdownRef = useRef(null);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // State for view dropdown for switching calendar views
   const [isViewMenuOpen, setIsViewMenuOpen] = useState(false);
+  const viewDropdownRef = useRef(null);
   const toggleViewMenu = () => setIsViewMenuOpen(!isViewMenuOpen);
-  
 
-
-  // Track whether the modal is open
+  // State for Create Task Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  
-  const toggleMenu = () => {setIsMenuOpen(!isMenuOpen);};
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-
-  // This function receives the new task created in the form
+  // Handle task submission from the form
   const handleTaskSubmit = (newTask) => {
-    console.log("New task submitted:", newTask);      // log task submission for now
-    closeModal();                                    // close the modal
+    console.log("New task submitted:", newTask); // log task submission for now
+    closeModal(); // close the modal
   };
 
   // Determine the current view from the URL pathname.
@@ -47,18 +48,49 @@ const SideBar = () => {
     setIsViewMenuOpen(false);
   };
 
+  // Add document click listener to close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMenuOpen &&
+        navDropdownRef.current &&
+        !navDropdownRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+      if (
+        isViewMenuOpen &&
+        viewDropdownRef.current &&
+        !viewDropdownRef.current.contains(event.target)
+      ) {
+        setIsViewMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen, isViewMenuOpen]);
+
   return (
     <div className="sidebar">
       <div className="nav-section">
-        <button className="nav-button">
-          <img src="../../public/hamburger.png" alt="Menu" width="30" />
+        {/* Hamburger button that toggles the nav dropdown */}
+        <button className="nav-button" onClick={toggleMenu}>
+          <img src="/hamburger.png" alt="Menu" width="30" />
         </button>
-        {/* This button now shows the current view dynamically */}
+        {/* Render nav dropdown for Settings and Logout */}
+        {isMenuOpen && (
+          <div className="nav-dropdown" ref={navDropdownRef}>
+            <button className="nav-dropdown-item">Settings</button>
+            <button className="nav-dropdown-item">Logout</button>
+          </div>
+        )}
+        {/* View switcher button */}
         <button className="button1" onClick={toggleViewMenu}>
           {currentView}
         </button>
         {isViewMenuOpen && (
-          <div className="view-dropdown">
+          <div className="view-dropdown" ref={viewDropdownRef}>
             <button
               className="view-dropdown-item"
               onClick={() => handleViewChange("month")}
@@ -111,7 +143,5 @@ const SideBar = () => {
     </div>
   );
 };
-
-
 
 export default SideBar;

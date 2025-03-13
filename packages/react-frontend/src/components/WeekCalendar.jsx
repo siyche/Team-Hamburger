@@ -1,14 +1,12 @@
 // src/components/WeekCalendarView.jsx
-// this is the view for the week calendar
 import React, { useState, useEffect } from "react";
 import "../styles/WeekCalendarView.css";
 
 const WeekCalendarView = ({ onDaySelect }) => {
-  // State hooks: currentDate is the state variable, setCurrentDate is the function, and new Date() initializes currentDate
-  const [currentDate, setCurrentDate] = useState(new Date()); // currentDate is used to determine which month/year to display.
-  const [selectedDay, setSelectedDay] = useState(new Date()); // selectedDay is maintained locally here so you can highlight the clicked day.
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
-  // Update the parent (if provided) when the selected day changes
+  // Update parent when selected day changes
   useEffect(() => {
     if (onDaySelect) {
       onDaySelect(selectedDay);
@@ -16,13 +14,11 @@ const WeekCalendarView = ({ onDaySelect }) => {
   }, [selectedDay, onDaySelect]);
 
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth(); // 0-indexed
 
-  // Calculate the starting day for the grid
-  const firstDayOfWeek = currentDate;
-  while (firstDayOfWeek.getDay() != 0) {
-    // If current day isn't first day of the week, counts backwards until found
-    firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 1); // 0 = Sunday, 1 = Monday, etc.
+  // For week view, adjust currentDate so that we start at Sunday of the current week.
+  const firstDayOfWeek = new Date(currentDate);
+  while (firstDayOfWeek.getDay() !== 0) {
+    firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 1);
   }
 
   // Handlers to navigate weeks
@@ -38,41 +34,35 @@ const WeekCalendarView = ({ onDaySelect }) => {
     setCurrentDate(next);
   };
 
-  // Grid should start on a Sunday—even if that means showing days from the previous month
-  const gridStartDate = new Date(firstDayOfWeek);
-
   // Build an array for a 7-cell grid (1 week)
   const daysArray = [];
   for (let i = 0; i < 7; i++) {
-    const day = new Date(gridStartDate);
-    day.setDate(gridStartDate.getDate() + i);
+    const day = new Date(firstDayOfWeek);
+    day.setDate(firstDayOfWeek.getDate() + i);
     daysArray.push(day);
   }
 
-  // When a day is clicked, update selectedDay
   const handleDayClick = (day) => {
     setSelectedDay(day);
   };
 
-  // What is displayed on the page:
   return (
     <div className="week-calendar-view">
-      {/* Header with month/year and navigation */}
-      <div className="month-year-header">
+      {/* Header with week info and navigation */}
+      <div className="week-year-header">
         <span>
           <img src="../hamburger.png" alt="Example Image" width="35" />
-          &nbsp; {/* extra space */}
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentYear}
+          &nbsp;
+          {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
         </span>
-        <div className="nav-buttons">
+        <div className="week-nav-buttons">
           <button onClick={handlePrevWeek}>&lt;</button>
           <button onClick={handleNextWeek}>&gt;</button>
         </div>
       </div>
 
       {/* Day-of-week headers */}
-      <div className="day-headers">
+      <div className="week-day-headers">
         <div>Sunday</div>
         <div>Monday</div>
         <div>Tuesday</div>
@@ -82,11 +72,10 @@ const WeekCalendarView = ({ onDaySelect }) => {
         <div>Saturday</div>
       </div>
 
-      {/* Calendar grid */}
-      <div className="calendar-grid">
+      {/* Calendar grid for week view */}
+      <div className="week-calendar-grid">
         {daysArray.map((day, index) => {
-          const cellClass = "calendar-cell";
-          // Mark as selected if it matches selectedDay
+          const cellClass = "week-calendar-cell";
           const isSelected = day.toDateString() === selectedDay.toDateString();
           return (
             <div
@@ -95,6 +84,7 @@ const WeekCalendarView = ({ onDaySelect }) => {
               onClick={() => handleDayClick(day)}
             >
               <span>{day.getDate().toString().padStart(2, "0")}</span>
+              {/* Future: Render event info if needed */}
             </div>
           );
         })}
