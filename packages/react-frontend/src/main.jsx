@@ -5,6 +5,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CalendarLayoutMonth from './pages/CalendarLayoutMonth';
 import CalendarLayoutWeek from './pages/CalendarLayoutWeek';
 import CalendarLayoutDay from './pages/CalendarLayoutDay';
+import "./main.css"; // global styles if needed
+
+//TODO: WILL NEED TO BE REWORKED ONCE WE IMPLEMENT AUTHENTICATION TO INCLUDE PROTECTED ROUTING/LOGIN TOKEN
+// APP ROUTING BEGINS HERE TO ALL THE PAGES
 import Settings from './components/Settings'; // ADD THIS IMPORT
 import "./main.css";
 

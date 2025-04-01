@@ -1,0 +1,1 @@
+the routes directory will include all of our api calls. they will typically be GET,POSTS,PATCH,DELETE operations for each components
