@@ -7,7 +7,8 @@ import CalendarLayoutWeek from './pages/CalendarLayoutWeek';
 import CalendarLayoutDay from './pages/CalendarLayoutDay';
 import "./main.css"; // global styles if needed
 
-
+//TODO: WILL NEED TO BE REWORKED ONCE WE IMPLEMENT AUTHENTICATION TO INCLUDE PROTECTED ROUTING/LOGIN TOKEN
+// APP ROUTING BEGINS HERE TO ALL THE PAGES
 const App = () => (
   <Routes>
     <Route path="/month" element={<CalendarLayoutMonth />} />
