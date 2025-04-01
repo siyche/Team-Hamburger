@@ -17,7 +17,7 @@ const App = () => (
     <Route path="/month" element={<CalendarLayoutMonth />} />
     <Route path="/week" element={<CalendarLayoutWeek />} />
     <Route path="/day" element={<CalendarLayoutDay />} />
-    <Route path="/settings" element={<Settings />} /> {/* ADD THIS ROUTE */}
+    <Route path="/settings" element={<Settings />} /> 
     <Route path="*" element={<CalendarLayoutMonth />} />
   </Routes>
 );
