@@ -5,18 +5,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CalendarLayoutMonth from './pages/CalendarLayoutMonth';
 import CalendarLayoutWeek from './pages/CalendarLayoutWeek';
 import CalendarLayoutDay from './pages/CalendarLayoutDay';
-import "./main.css"; // global styles if needed
-
+import Settings from './components/Settings'; // ADD THIS IMPORT
+import "./main.css";
 
 const App = () => (
   <Routes>
     <Route path="/month" element={<CalendarLayoutMonth />} />
     <Route path="/week" element={<CalendarLayoutWeek />} />
     <Route path="/day" element={<CalendarLayoutDay />} />
+    <Route path="/settings" element={<Settings />} /> {/* ADD THIS ROUTE */}
     <Route path="*" element={<CalendarLayoutMonth />} />
   </Routes>
 );
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

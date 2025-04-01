@@ -28,12 +28,31 @@ const SideBar = () => {
 
   // Handle task submission from the form
   const handleTaskSubmit = (newTask) => {
-    console.log("New task submitted:", newTask); // log task submission for now
-    closeModal(); // close the modal
+    console.log("New task submitted:", newTask);
+    closeModal();
   };
 
-  // Determine the current view from the URL pathname.
-  // (If no view is found, default to "Monthly View")
+  // Handle settings navigation
+  const handleSettingsClick = () => {
+    navigate("/settings");
+    setIsMenuOpen(false); // Close the dropdown after navigation
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    // Clear user data from localStorage or context
+    localStorage.removeItem("userToken"); // Example - adjust based on your auth system
+    localStorage.removeItem("userData");
+    
+    // Redirect to login page
+    navigate("/login");
+    setIsMenuOpen(false); // Close the dropdown after logout
+    
+    // You might want to add additional logout logic here
+    // like clearing React context or making an API call to invalidate the session
+  };
+
+  // Determine the current view from the URL pathname
   const currentPath = location.pathname.toLowerCase();
   let currentView = "Monthly View";
   if (currentPath.includes("week")) {
@@ -81,8 +100,18 @@ const SideBar = () => {
         {/* Render nav dropdown for Settings and Logout */}
         {isMenuOpen && (
           <div className="nav-dropdown" ref={navDropdownRef}>
-            <button className="nav-dropdown-item">Settings</button>
-            <button className="nav-dropdown-item">Logout</button>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleSettingsClick}
+            >
+              Settings
+            </button>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
           </div>
         )}
         {/* View switcher button */}
