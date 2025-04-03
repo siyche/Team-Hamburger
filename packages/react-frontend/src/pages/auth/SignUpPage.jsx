@@ -4,7 +4,6 @@ import UsernamePasswordForm from './UsernamePasswordForm';
 export default function RegisterPage() {
     const handleSubmit = (event) => {
         event.preventDefault();
-
         // Handle form submission logic here
         // logging form submission to console for now
         console.log('Form submitted');

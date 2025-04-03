@@ -1,5 +1,4 @@
 // LoginPage.jsx 
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import UsernamePasswordForm from './UsernamePasswordForm';
@@ -7,7 +6,6 @@ import UsernamePasswordForm from './UsernamePasswordForm';
 export default function LoginPage() {
   const handleSubmit = (event) => {
     e.preventDefault();
-
     // handle form submission logic here
     // logging form submission to console for now
     console.log('Login Form submitted');
