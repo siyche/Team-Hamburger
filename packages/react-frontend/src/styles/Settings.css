@@ -1,0 +1,114 @@
+/* src/styles/Settings.css */
+
+/* src/styles/Settings.css */
+.settings-page {
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .settings-header {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 20px;
+    padding: 5px 10px;
+  }
+  
+  .back-button:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+  
+  .settings-content {
+    background: rgb(246, 246, 246);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .settings-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .settings-section:last-child {
+    border-bottom: none;
+  }
+  
+  .setting-option {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .setting-option label {
+    margin-left: 10px;
+    flex-grow: 1;
+  }
+  
+  .setting-option select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .account-button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .account-button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .save-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .save-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Dark theme styles */
+  .settings-page.dark {
+    background-color: #333;
+    color: white;
+  }
+  
+  .settings-page.dark .settings-content {
+    background-color: #444;
+    color: white;
+  }
+  
+  .settings-page.dark .back-button:hover {
+    background-color: #555;
+  }
+  
+  .settings-page.dark .account-button {
+    border-color: #666;
+    color: white;
+  }
+  
+  .settings-page.dark .account-button:hover {
+    background-color: #555;
+  }

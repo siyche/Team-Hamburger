@@ -9,15 +9,18 @@ import "./main.css"; // global styles if needed
 
 //TODO: WILL NEED TO BE REWORKED ONCE WE IMPLEMENT AUTHENTICATION TO INCLUDE PROTECTED ROUTING/LOGIN TOKEN
 // APP ROUTING BEGINS HERE TO ALL THE PAGES
+import Settings from './components/Settings'; // ADD THIS IMPORT
+import "./main.css";
+
 const App = () => (
   <Routes>
     <Route path="/month" element={<CalendarLayoutMonth />} />
     <Route path="/week" element={<CalendarLayoutWeek />} />
     <Route path="/day" element={<CalendarLayoutDay />} />
+    <Route path="/settings" element={<Settings />} /> 
     <Route path="*" element={<CalendarLayoutMonth />} />
   </Routes>
 );
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
