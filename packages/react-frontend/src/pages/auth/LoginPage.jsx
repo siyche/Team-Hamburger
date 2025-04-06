@@ -38,7 +38,7 @@ export default function LoginPage() {
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div>
-            <label htmlFor='username' className='block text-sm/6 text-gray-700'>
+            <label htmlFor='username' className='block text-sm text-gray-700'>
               Username
             </label>
             <div className='mt-2'>
