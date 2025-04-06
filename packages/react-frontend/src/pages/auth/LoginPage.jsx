@@ -87,7 +87,7 @@ export default function LoginPage() {
         {error && <div className="text-red-600">{error}</div>}
 
         {/* Div container in case user doesn't have an account, it will navigate the user towards signing up.*/}
-        <p className='mt-10 text-center text-sm/6 text-gray-500'>
+        <p className='mt-10 text-center text-sm text-gray-500'>
           Not a member?
           <Link to='/register' className='font-semibold leading-6 text-blue-600 hover:text-blue-500'>
             {' '}
