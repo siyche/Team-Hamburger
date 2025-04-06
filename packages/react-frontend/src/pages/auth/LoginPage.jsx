@@ -29,7 +29,7 @@ export default function LoginPage() {
           src='../../../public/hamburger.png'
           className='mx-auto h-10 w-auto'
         />
-        <h2 className='mt-10 text-center text-2xl/9 font-serif tracking-tight text-gray-900'>
+        <h2 className='mt-10 text-center text-2xl font-serif tracking-tight text-gray-900'>
           Sign in to your account
         </h2>
       </div>
