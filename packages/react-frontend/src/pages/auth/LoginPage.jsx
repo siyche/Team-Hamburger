@@ -1,14 +1,16 @@
 // LoginPage.jsx 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UsernamePasswordForm from './UsernamePasswordForm';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
+  const navigate = useNavigate(); // allows navigation to other routes
+
+  //TODO: Handle form submission here (this will be replaced with authentication logic)
   const handleSubmit = (event) => {
-    e.preventDefault();
-    // handle form submission logic here
-    // logging form submission to console for now
-    console.log('Login Form submitted');
+    event.preventDefault();
+    console.log('Login Form submitted. Authentication logics is unimplemented. Navigating to CalendarLayoutMonth.jsx')
+    navigate('/month'); // <- Adjust this path to whatever route renders CalendarLayoutMonth.jsx
   };
 
   return (
@@ -24,9 +26,9 @@ export default function LoginPage() {
         </h2>
       </div>
 
-      {/* Form for username and password */}
+      {/* Div container for Form -> Username and Password */}
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6'>
+        <form className='space-y-6' onSubmit={handleSubmit}>
           <div>
             <label htmlFor='username' className='block text-sm/6 text-gray-700'>
               Username
@@ -71,6 +73,7 @@ export default function LoginPage() {
             </div>
         </form>
 
+        {/* Div container in case user doesn't have an account, it will navigate the user towards signing up.*/}
         <p className='mt-10 text-center text-sm/6 text-gray-500'>
           Not a member?
           <Link to='/register' className='font-semibold leading-6 text-blue-600 hover:text-blue-500'>
