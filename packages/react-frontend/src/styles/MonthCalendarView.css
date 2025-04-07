@@ -2,7 +2,6 @@
 
 
 /* Container for the month calendar view */
-
 .month-calendar-view {
     flex-grow: 1;
     padding: 20px;
@@ -14,7 +13,6 @@
 
 
 /* Header displaying current month and year with navigation buttons */
-
 .month-year-header {
     width: auto !important;
     display: flex;
@@ -48,11 +46,10 @@
 
 .month-nav-buttons button:hover {
     background-color: #f0f0f0;
+    transition: 0.75s;
 }
 
-
 /* Day-of-week headers for month view */
-
 .month-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -69,9 +66,7 @@
     padding: 4px 0;
 }
 
-
 /* Calendar grid for month view */
-
 .month-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -82,9 +77,7 @@
     border: 1px solid transparent;
 }
 
-
 /* Each calendar cell (day) in month view */
-
 .month-calendar-cell {
     box-sizing: border-box;
     position: relative;
@@ -97,33 +90,25 @@
     border-radius: 10px;
 }
 
-
 /* Hover state for month view cells */
-
 .month-calendar-cell:hover {
     background-color: #cccccc;
 }
 
-
 /* For days not in the current month */
-
 .month-calendar-cell.grayed-out {
     background-color: #979797;
     transition: 0.75s;
 }
 
-
 /* Highlight the selected day */
-
 .month-calendar-cell.selected {
     background-color: #c1e0fb;
     border-color: black;
     transition: 0.75s;
 }
 
-
 /* Day number styling for month view */
-
 .month-calendar-cell span {
     position: absolute;
     top: 5px;
