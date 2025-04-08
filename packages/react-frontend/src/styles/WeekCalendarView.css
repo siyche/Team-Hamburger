@@ -1,22 +1,20 @@
-/* src/styles/MonthCalendarView.css */
+/* src/styles/WeekCalendarView.css */
 
 
-/* Container for the month calendar view */
+/* Container for the week calendar view */
 
-.month-calendar-view {
+.week-calendar-view {
     flex-grow: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
-/* Header displaying current month and year with navigation buttons */
+/* Header displaying current week (or month/year) with navigation buttons */
 
-.month-year-header {
-    width: auto !important;
+.week-year-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,92 +22,93 @@
     margin-bottom: 10px;
 }
 
-.month-year-header span {
+.week-year-header span {
     display: inline-flex;
     align-items: center;
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.month-nav-buttons {
+.week-nav-buttons {
     display: flex;
     gap: 10px;
 }
 
-.month-nav-buttons button {
+.week-nav-buttons button {
     background-color: transparent;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 4px 8px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.2s;
+    transition-duration: 0.75s;
 }
 
-.month-nav-buttons button:hover {
-    background-color: #f0f0f0;
+.week-nav-buttons button:hover {
+    background-color: #cccccc;
+    border-radius: 10px;
 }
 
 
-/* Day-of-week headers for month view */
+/* Day-of-week headers for week view */
 
-.month-day-headers {
+.week-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     background-color: #f0f0f0;
     font-weight: bold;
     text-align: center;
     margin-bottom: 1px;
     padding: 5px 0;
-    border-radius: 7px;
-
 }
 
-.month-day-headers div {
+.week-day-headers div {
     padding: 4px 0;
 }
 
 
-/* Calendar grid for month view */
+/* Calendar grid for week view */
 
-.month-calendar-grid {
+.week-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 150px);
-    /* 6 rows for 6 weeks */
     gap: 1px;
-    width: 100%;
     border: 1px solid transparent;
+    width: 100%;
 }
 
 
-/* Each calendar cell (day) in month view */
+/* Each calendar cell (day) in week view */
 
-.month-calendar-cell {
+.week-calendar-cell {
     box-sizing: border-box;
     position: relative;
     background-color: #e0e0e0;
     border: 1px solid #fff;
     cursor: pointer;
-    transition: 0.75s;
+    transition-duration: 0.75s;
     overflow: hidden;
     padding: 5px;
     border-radius: 10px;
+    /* Using aspect-ratio from original week view */
+    aspect-ratio: 1/4;
 }
 
 
-/* Hover state for month view cells */
+/* Hover state for week view cells */
 
-.month-calendar-cell:hover {
+.week-calendar-cell:hover {
     background-color: #cccccc;
+    transition: 0.75s;
 }
 
 
-/* For days not in the current month */
+/* For days not in the current week (if applicable) */
 
-.month-calendar-cell.grayed-out {
+.week-calendar-cell.grayed-out {
     background-color: #979797;
     transition: 0.75s;
 }
@@ -117,20 +116,18 @@
 
 /* Highlight the selected day */
 
-.month-calendar-cell.selected {
+.week-calendar-cell.selected {
     background-color: #c1e0fb;
     border-color: black;
     transition: 0.75s;
 }
 
 
-/* Day number styling for month view */
+/* Day number styling for week view */
 
-.month-calendar-cell span {
+.week-calendar-cell span {
     position: absolute;
     top: 5px;
     right: 5px;
-    font-size: 20px;
-    color: #333;
-    transition: color 0.3s;
+    font-size: 12px;
 }

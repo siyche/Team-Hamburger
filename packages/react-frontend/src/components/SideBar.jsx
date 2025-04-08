@@ -1,32 +1,164 @@
-// SideBar.jsx
-import React, { useState } from "react";
+// src/components/SideBar.jsx
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
+
+import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
+import CreateTaskForm from "./CreateTaskForm.jsx";
 
 const SideBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  // State for nav dropdown (hamburger) for settings/logout
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navDropdownRef = useRef(null);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // State for view dropdown for switching calendar views
+  const [isViewMenuOpen, setIsViewMenuOpen] = useState(false);
+  const viewDropdownRef = useRef(null);
+  const toggleViewMenu = () => setIsViewMenuOpen(!isViewMenuOpen);
+
+  // State for Create Task Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  // Handle task submission from the form
+  const handleTaskSubmit = (newTask) => {
+    console.log("New task submitted:", newTask);
+    closeModal();
   };
+
+  // Handle settings navigation
+  const handleSettingsClick = () => {
+    navigate("/settings");
+    setIsMenuOpen(false); // Close the dropdown after navigation
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    // Clear user data from localStorage or context
+    localStorage.removeItem("userToken"); // Example - adjust based on your auth system
+    localStorage.removeItem("userData");
+    
+    // Redirect to login page
+    navigate("/login");
+    setIsMenuOpen(false); // Close the dropdown after logout
+    
+    // You might want to add additional logout logic here
+    // like clearing React context or making an API call to invalidate the session
+  };
+
+  // Determine the current view from the URL pathname
+  const currentPath = location.pathname.toLowerCase();
+  let currentView = "Monthly View";
+  if (currentPath.includes("week")) {
+    currentView = "Weekly View";
+  } else if (currentPath.includes("day")) {
+    currentView = "Daily View";
+  }
+
+  // Function to change view by navigating to a new route
+  const handleViewChange = (view) => {
+    navigate(`/${view}`);
+    setIsViewMenuOpen(false);
+  };
+
+  // Add document click listener to close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMenuOpen &&
+        navDropdownRef.current &&
+        !navDropdownRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+      if (
+        isViewMenuOpen &&
+        viewDropdownRef.current &&
+        !viewDropdownRef.current.contains(event.target)
+      ) {
+        setIsViewMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen, isViewMenuOpen]);
 
   return (
     <div className="sidebar">
       <div className="nav-section">
+        {/* Hamburger button that toggles the nav dropdown */}
         <button className="nav-button" onClick={toggleMenu}>
-          <img src="../../public/hamburger.png" alt="Menu" width="30" />
+          <img src="/hamburger.png" alt="Menu" width="40" />
         </button>
-        <button className="button1">Monthly View</button>
-        
+        {/* Render nav dropdown for Settings and Logout */}
         {isMenuOpen && (
-          <div className="dropdown-menu">
-            <button className="dropdown-item">Option 1</button>
-            <button className="dropdown-item">Option 2</button>
-            <button className="dropdown-item">Option 3</button>
+          <div className="nav-dropdown" ref={navDropdownRef}>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleSettingsClick}
+            >
+              Settings
+            </button>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleSettingsClick}
+            >
+              Share
+            </button>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+        )}
+        {/* View switcher button */}
+        <button className="button1" onClick={toggleViewMenu}>
+          {currentView}
+        </button>
+        {isViewMenuOpen && (
+          <div className="view-dropdown" ref={viewDropdownRef}>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("month")}
+            >
+              Monthly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("week")}
+            >
+              Weekly View
+            </button>
+            <button
+              className="view-dropdown-item"
+              onClick={() => handleViewChange("day")}
+            >
+              Daily View
+            </button>
           </div>
         )}
       </div>
-      <CreateTaskButton />
+
+      {/* "Create Task" button triggers openModal */}
+      <CreateTaskButton onClick={openModal} />
+
+      {/* Modal with CreateTaskForm inside */}
+      <Modal
+        isOpen={isModalOpen}
+        onCloseRequested={closeModal}
+        headerLabel="Create Event / Task"
+      >
+        <CreateTaskForm onSubmit={handleTaskSubmit} onCancel={closeModal} />
+      </Modal>
 
       <div className="filter-section">
         <h3>Filter By Type</h3>
@@ -40,7 +172,6 @@ const SideBar = () => {
           <li className="filter-item lab">Lab</li>
           <li className="filter-item homework">Homework</li>
           <li className="filter-item presentation">Presentation</li>
-          <li className="filter-item exam">Exam</li>
         </ul>
       </div>
     </div>

@@ -1,11 +1,14 @@
 import React from "react";
 import "../styles/CreateTaskButton.css";
 
-<link src="/CreateTaskButton.css" rel="stylesheet" />;
 
-// props for this button include color
-function CreateTaskButton(props) {
-  return <button id="CreateTask"> Create Task </button>;
+// onclick is the props -> use to open modal
+function CreateTaskButton({onClick}) {
+  return (
+    <button id="CreateTask" onClick={onClick}> 
+     Create Task 
+    </button>
+  )
 }
 
 export default CreateTaskButton;

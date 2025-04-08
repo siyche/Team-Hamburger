@@ -1,116 +1,237 @@
 /* Sidebar.css */
 
-/* Existing styles remain the same until .nav-section */
+
+/* Sidebar container */
+
 .sidebar {
-  width: 250px;
-  background-color: #f0f0f0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: relative; /* Added for dropdown positioning */
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
 }
+
+
+/* Nav section container */
 
 .nav-section {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 1px;
-  position: relative; /* Added for dropdown positioning */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 1px;
+    position: relative;
 }
+
+
+/* Hamburger nav button */
 
 .nav-button {
-  padding: 13px 16px;
-  font-size: 20px;
-  border: none;
-  border-radius: 40px;
-  background-color: #d0d0d0;
-  cursor: pointer;
-}
-
-.button1 {
-  padding: 15px 21px;
-  font-size: 15px;
-  border: none;
-  border-radius: 25px;
-  background-color: #d0d0d0;
-  cursor: pointer;
-  font-family: "Arial";
-}
-
-/* New dropdown styles */
-.dropdown-menu {
-  position: absolute;
-  top: 100%; /* Positions it below the hamburger button */
-  left: 0;
-  background-color: #9a9a9a;
-  border: 1px solid #acacac;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  z-index: 1000; /* Ensures it appears above other content */
-}
-
-.dropdown-item {
-  width: 100%;
-  padding: 10px 10px;
-  border: none;
-  background-color: transparent;
-  text-align: left;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.dropdown-item:hover {
-  background-color: #717171;
+    padding: 13px 16px;
+    font-size: 20px;
+    border: none;
+    border-radius: 40px;
+    background-color: #d0d0d0;
+    cursor: pointer;
 }
 
 .nav-button:hover {
-  background-color: #c0c0c0;
+    background-color: #c0c0c0;
 }
 
-  
-  .filter-section {
-    border: 1px solid #ccc;
+
+/* Dropdown for hamburger nav (Settings/Logout) */
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    /* positions dropdown below the nav section */
+    left: 0;
+    width: 100%;
+    background-color: #9a9a9a;
+    border: 1px solid #acacac;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.nav-dropdown-item {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav-dropdown-item:hover {
+    background-color: #717171;
+    border-radius: 10px;
+}
+
+
+/* View switcher button (button1) */
+
+.button1 {
+    width: 100%;
+    padding: 15px 21px;
+    font-size: 15px;
+    border: none;
+    border-radius: 25px;
+    background-color: #d0d0d0;
+    cursor: pointer;
+    font-family: "Arial";
+}
+
+.button1:hover {
+    background-color: #c0c0c0;
+}
+
+
+/* Dropdown for view switching */
+
+.view-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #9a9a9a;
+    border: 1px solid #acacac;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.view-dropdown-item {
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.view-dropdown-item:hover {
+    background-color: #848484;
+}
+
+
+/* Filter section container */
+
+.filter-section {
+    border: 1px solid #bdbdbd;
     padding: 10px;
     border-radius: 5px;
-  }
-  
-  .filter-section h3 {
+}
+
+
+/* Filter section header */
+
+.filter-section h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
-  }
-  
-  .filter-list {
+}
+
+
+/* Filter list */
+
+.filter-list {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .filter-item {
+}
+
+
+/* Individual filter items */
+
+.filter-item {
     padding: 5px;
     margin: 5px 0;
     border-radius: 3px;
     font-size: 14px;
-  }
-  
+}
 
-  .assignment { background-color: #de1f1f; color: rgb(0, 0, 0); } /* Red */
-  .study { background-color: #cc6600; color: rgb(0, 0, 0); } /* Orange */
-  .midterm { background-color: #c800c8; color: rgb(0, 0, 0); } /* Magenta */
-  .final { background-color: #e500e5; color: rgb(0, 0, 0); } /* Pink (same as Midterm in mockup) */
-  .quiz { background-color: #00c600; color: rgb(0, 0, 0); } /* Green */
-  .lecture { background-color: #3d3de4; color: rgb(0, 0, 0); } /* Blue */
-  .lab { background-color: #1b9e1b; color: rgb(0, 0, 0); } /* Dark Green */
-  .homework { background-color: #c3c310; color: rgb(0, 0, 0); } /* Yellow */
-  .presentation { background-color: #bc08bc; color: rgb(0, 0, 0); } /* Purple */
-  .exam { background-color: #fc6d6d; color: rgb(0, 0, 0); } /* Light Pink */
 
-  .nav-section {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 1px; 
-  }
-  
+/* Specific filter item color settings */
+
+
+/* Assignment */
+
+.assignment {
+    background-color: #d53e4f;
+    color: #000;
+}
+
+
+/* Study */
+
+.study {
+    background-color: #f46d43;
+    color: #000;
+}
+
+
+/* Midterm */
+
+.midterm {
+    background-color: #fdae61;
+    color: #000;
+}
+
+
+/* Final */
+
+.final {
+    background-color: #fee08b;
+    color: #000;
+}
+
+
+/* Quiz */
+
+.quiz {
+    background-color: #e5e54d;
+    color: #000;
+}
+
+
+/* Lecture */
+
+.lecture {
+    background-color: #cde362;
+    color: #000;
+}
+
+
+/* Lab */
+
+.lab {
+    background-color: #abdda4;
+    color: #000;
+}
+
+
+/* Homework */
+
+.homework {
+    background-color: #66c2a5;
+    color: #000;
+}
+
+
+/* Presentation */
+
+.presentation {
+    background-color: #3288bd;
+    color: #000;
+}
+
+

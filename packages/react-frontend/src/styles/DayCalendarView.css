@@ -1,0 +1,140 @@
+/* src/styles/DayCalendarView.css */
+
+
+/* Container for the calendar view */
+
+.day-calendar-view {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header displaying current month and year with navigation buttons */
+
+.month-time-header {
+    display: flex;
+    width: 80vw;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.month-time-header span {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-buttons button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: 0.75s;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.nav-buttons button:hover {
+    background-color: #f0f0f0;
+    transition: 0.75s;
+}
+
+
+/* Day-of-week headers */
+
+.day-headers {
+    display: grid;
+    width: 80vw;
+    border-radius: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 1px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.day-headers div {
+    padding: 4px 0;
+}
+
+
+/* Calendar grid styling */
+
+.calendar-grid {
+    display: grid;
+    width: 80vw;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: 12;
+    gap: 1px;
+    border: 1px transparent #ccc;
+}
+
+
+/* Each cell in the grid */
+
+.calendar-cell {
+    position: relative;
+    aspect-ratio: 24;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    border: 1px solid #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition-duration: 0.75s;
+    transition-delay: .0s;
+    font-size: larger;
+    padding-bottom: 3px;
+}
+
+
+/* Each cell in the grid (when hovered over) */
+
+.calendar-cell:hover {
+    position: relative;
+    aspect-ratio: 24;
+    border-radius: 10px;
+    background-color: #cccccc;
+    border: 1px solid #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+    transition-duration: 0.75s;
+    transition-delay: .0s;
+    font-size: larger;
+    padding-bottom: 3px;
+}
+
+
+/* Position the date number within the cell */
+
+.calendar-cell span {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+}

@@ -1,7 +1,0 @@
-/* src/styles/CalendarLayout.css */
-/* This file defines the overall three-panel layout */
-.calendar-layout {
-  display: flex;
-  height: 100vh; /* Full viewport height */
-  font-family: Arial, sans-serif;
-}
