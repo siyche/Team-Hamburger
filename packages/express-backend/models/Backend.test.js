@@ -264,12 +264,10 @@ describe('Calendar and User Tests', () => {
       _ownerid: testUser._id,
       name: 'Test Calendar',
       description: 'A test calendar',
-      color: '#FF0000'
     });
     
     expect(calendar.name).toBe('Test Calendar');
     expect(calendar.description).toBe('A test calendar');
-    expect(calendar.color).toBe('#FF0000');
     expect(calendar._ownerid).toEqual(testUser._id);
     expect(calendar.events).toEqual([]);
     
@@ -292,14 +290,12 @@ describe('Calendar and User Tests', () => {
       _ownerid: user._id,
       name: 'Work Calendar',
       description: 'Calendar for work events',
-      color: '#0000FF'
     });
     
     const calendar2 = await Calendar.create({
       _ownerid: user._id,
       name: 'Personal Calendar',
       description: 'Calendar for personal events',
-      color: '#00FF00'
     });
     
     // Create events for calendar1
