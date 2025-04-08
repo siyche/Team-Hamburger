@@ -7,7 +7,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   // State variables for form inputs
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // State variables for loading and error handling
@@ -17,7 +17,8 @@ export default function LoginPage() {
   //TODO: Handle form submission here (this will be replaced with authentication logic)
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Login Form submitted with:", { username, password });
+    console.log("Login Form submitted with:", { email, password });
+    // ALEX— IMPLEMENT THE AUTHENTICATION LOGIC HERE (.JSX), SENDING PASSWORD TO BACKEND TO BE ENCRYPTED. REFERENCE THE ACCESS CONTROL CANVAS ASSIGNMENT FOR MORE DETAILS/RESOURCES
     navigate("/month"); // <- Adjust this path to whatever route renders CalendarLayoutMonth.jsx
   };
 
@@ -34,22 +35,22 @@ export default function LoginPage() {
         </h2>
       </div>
 
-      {/* Div container for Form -> Username and Password */}
+      {/* Div container for Form -> Username (their) and Password */}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username" className="block text-sm text-gray-700">
-              Username
+            <label htmlFor="email" className="block text-sm text-gray-700">
+              Email
             </label>
             <div className="mt-2">
               <input
-                id="username"
-                name="username"
+                id="email"
+                name="email"
                 type="text"
-                autoComplete="username"
+                autoComplete="email"
                 required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
