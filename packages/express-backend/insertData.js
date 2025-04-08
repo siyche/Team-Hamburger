@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Event = require('./models/Event'); // adjust path if needed
+const Event = require('./src/models/Event'); // adjust path if needed
 
 async function insertSampleEvent() {
   try {
