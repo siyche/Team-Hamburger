@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const calendarSchema = new mongoose.Schema(
   {
@@ -15,11 +15,11 @@ const calendarSchema = new mongoose.Schema(
       type: String,
     },
     dates: [Date],
-    events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
+    events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   },
   { versionKey: false }
 );
 
-const Calendar = mongoose.model('Calendar', calendarSchema);
+const Calendar = mongoose.model("Calendar", calendarSchema);
 
-export default Calendar; 
+module.exports = mongoose.model("Calendar", calendarSchema);
