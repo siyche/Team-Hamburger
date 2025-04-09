@@ -10,7 +10,7 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // State variables for loading and error handling
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function SignupPage() {
       name,
       email,
       password,
-      confirmpassword,
+      confirmPassword,
     });
     navigate("/login");
   };
@@ -109,8 +109,8 @@ export default function SignupPage() {
                 type="password"
                 required
                 autoComplete="new-password"
-                value={confirmpassword}
-                onChange={(e) => setConfirmpassword(e.target.value)}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>

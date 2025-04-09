@@ -43,11 +43,11 @@ const SideBar = () => {
     // Clear user data from localStorage or context
     localStorage.removeItem("userToken"); // Example - adjust based on your auth system
     localStorage.removeItem("userData");
-    
+
     // Redirect to login page
     navigate("/login");
     setIsMenuOpen(false); // Close the dropdown after logout
-    
+
     // You might want to add additional logout logic here
     // like clearing React context or making an API call to invalidate the session
   };
@@ -100,22 +100,13 @@ const SideBar = () => {
         {/* Render nav dropdown for Settings and Logout */}
         {isMenuOpen && (
           <div className="nav-dropdown" ref={navDropdownRef}>
-            <button 
-              className="nav-dropdown-item" 
-              onClick={handleSettingsClick}
-            >
+            <button className="nav-dropdown-item" onClick={handleSettingsClick}>
               Settings
             </button>
-            <button 
-              className="nav-dropdown-item" 
-              onClick={handleSettingsClick}
-            >
+            <button className="nav-dropdown-item" onClick={handleSettingsClick}>
               Share
             </button>
-            <button 
-              className="nav-dropdown-item" 
-              onClick={handleLogout}
-            >
+            <button className="nav-dropdown-item" onClick={handleLogout}>
               Logout
             </button>
           </div>
