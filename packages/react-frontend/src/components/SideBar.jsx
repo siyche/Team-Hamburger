@@ -95,7 +95,7 @@ const SideBar = () => {
       <div className="nav-section">
         {/* Hamburger button that toggles the nav dropdown */}
         <button className="nav-button" onClick={toggleMenu}>
-          <img src="/hamburger.png" alt="Menu" width="30" />
+          <img src="/hamburger.png" alt="Menu" width="40" />
         </button>
         {/* Render nav dropdown for Settings and Logout */}
         {isMenuOpen && (
@@ -105,6 +105,12 @@ const SideBar = () => {
               onClick={handleSettingsClick}
             >
               Settings
+            </button>
+            <button 
+              className="nav-dropdown-item" 
+              onClick={handleSettingsClick}
+            >
+              Share
             </button>
             <button 
               className="nav-dropdown-item" 

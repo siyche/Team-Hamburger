@@ -1,5 +1,4 @@
-// Calendar.js
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const calendarSchema = new mongoose.Schema(
   {
@@ -7,6 +6,13 @@ const calendarSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
     },
     dates: [Date],
     events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
@@ -16,4 +22,4 @@ const calendarSchema = new mongoose.Schema(
 
 const Calendar = mongoose.model("Calendar", calendarSchema);
 
-export default Calendar;
+module.exports = Calendar;

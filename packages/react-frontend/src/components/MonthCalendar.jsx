@@ -62,6 +62,7 @@ const MonthCalendarView = ({ onDaySelect }) => {
         </span>
         <div className="month-nav-buttons">
           <button onClick={handlePrevMonth}>&lt;</button>
+          <button onClick={handlePrevMonth}>Today</button>
           <button onClick={handleNextMonth}>&gt;</button>
         </div>
       </div>
