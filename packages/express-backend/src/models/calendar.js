@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const calendarSchema = new mongoose.Schema(
   {
@@ -22,4 +22,4 @@ const calendarSchema = new mongoose.Schema(
 
 const Calendar = mongoose.model("Calendar", calendarSchema);
 
-module.exports = mongoose.model("Calendar", calendarSchema);
+module.exports = Calendar;
