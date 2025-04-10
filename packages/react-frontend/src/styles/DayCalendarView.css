@@ -1,35 +1,30 @@
 /* src/styles/DayCalendarView.css */
 
-
 /* Container for the calendar view */
-
 .day-calendar-view {
     flex-grow: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-
 /* Header displaying current month and year with navigation buttons */
-
 .month-time-header {
+    width: auto !important;
     display: flex;
-    width: 80vw;
     justify-content: space-between;
     align-items: center;
     font-size: 24px;
     margin-bottom: 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .month-time-header span {
     display: inline-flex;
-    justify-content: space-between;
     align-items: center;
     font-size: 24px;
     margin-bottom: 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .nav-buttons {
@@ -53,12 +48,9 @@
     transition: 0.75s;
 }
 
-
 /* Day-of-week headers */
-
 .day-headers {
     display: grid;
-    width: 80vw;
     border-radius: 10px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
@@ -68,19 +60,15 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 1px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .day-headers div {
     padding: 4px 0;
 }
 
-
 /* Calendar grid styling */
-
 .calendar-grid {
     display: grid;
-    width: 80vw;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(12, 1fr);
     grid-template-rows: 12;
@@ -90,7 +78,6 @@
 
 
 /* Each cell in the grid */
-
 .calendar-cell {
     position: relative;
     aspect-ratio: 24;
@@ -102,7 +89,6 @@
     justify-content: center;
     align-items: flex-end;
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition-duration: 0.75s;
     transition-delay: .0s;
     font-size: larger;
@@ -111,7 +97,6 @@
 
 
 /* Each cell in the grid (when hovered over) */
-
 .calendar-cell:hover {
     position: relative;
     aspect-ratio: 24;
@@ -131,7 +116,6 @@
 
 
 /* Position the date number within the cell */
-
 .calendar-cell span {
     position: absolute;
     top: 5px;
