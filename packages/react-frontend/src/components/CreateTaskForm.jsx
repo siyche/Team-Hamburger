@@ -17,7 +17,6 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
     const dateTimeString = `${date}T${time}`;
     const eventDate = new Date(dateTimeString);
 
-    // Create the event object matching your backend schema
     const newEvent = {
       date: eventDate,        // Date field
       flags: [],              // Empty flags array
