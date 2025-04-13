@@ -18,4 +18,9 @@ export default User;
 - Await response. If valid, let them in. If not, display error. Response should return a token or False 
 - BACKEND: 
 - Specify API routes for login and sign-up. They should constuct User models with the given data and check the database. 
-- Encrypt password, compare or add to database, and send back resulting token or error code/message. */
+- Encrypt password, compare or add to database, and send back resulting token or error code/message. 
+
+- Make App.jsx file with token props 
+- Make functions to access/search database 
+- Get rid of dummy user 
+- Mirror logic on /login */

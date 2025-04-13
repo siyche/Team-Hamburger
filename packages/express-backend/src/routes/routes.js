@@ -11,6 +11,8 @@ const router = express.Router();
 router.use(cors());
 router.use(express.json());
 
+const fakeUser = { email: "", pwd: "" };
+
 function generateAccessToken(email) {
     return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
         expiresIn: "900s",
@@ -46,17 +48,16 @@ router.post("/login", async(req, res) => {
 });
 
 router.post("/register", async(req, res) => {
-    console.log("Made it to backend");
     const { name, email, password, confirmPassword } = req.body;
 
     // Email and password are missing
     if (!email || !password) {
-        res.status(400).json({ error: "Error: Invalid input data." });
+        return res.status(400).json({ error: "Error: Invalid input data." });
     }
 
     // Password and confirmPassword differ
     if (password !== confirmPassword) {
-        res
+        return res
             .status(400)
             .json({ error: "Error: Password and confirmed password don't match." });
     }
@@ -64,7 +65,7 @@ router.post("/register", async(req, res) => {
     // Email already in use
     if (email === fakeUser.email) {
         // TODO: change to search database
-        res.status(409).json({ error: "Error: Email already taken." });
+        return res.status(409).json({ error: "Error: Email already taken." });
     }
 
     // Proceed if everything is correct

@@ -5,7 +5,7 @@ const BACKEND_URL = "http://localhost:8000";
 // import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
-  // hook to navigate between pages
+  // Hook to navigate between pages
   const navigate = useNavigate();
 
   // State variables for form inputs
@@ -66,7 +66,7 @@ export default function SignupPage() {
         body: JSON.stringify(user),
       });
 
-      const data = await response.json();
+      const data = await response.text();
 
       console.log("makeSignupCall() response: ", data);
 
