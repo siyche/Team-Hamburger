@@ -20,7 +20,7 @@ export default User;
 - Specify API routes for login and sign-up. They should constuct User models with the given data and check the database. 
 - Encrypt password, compare or add to database, and send back resulting token or error code/message. 
 
-- Make App.jsx file with token props 
+- Edit main.jsx for protected routing 
 - Make functions to access/search database 
 - Get rid of dummy user 
 - Mirror logic on /login */

@@ -22,10 +22,7 @@ function generateAccessToken(email) {
 router.post("/login", async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    // Call a model function to retrieve an existing user based on username
-    //  (or any other unique identifier such as email if that applies to your app)
-    // Using our fake user for demo purposes
-    const retrievedUser = fakeUser; // TODO: replace with real function
+    const retrievedUser = await User.findOne({ email });
     if (retrievedUser.email && retrievedUser.password) {
         const isValid = await bcrypt.compare(password, retrievedUser.password);
 
@@ -51,7 +48,7 @@ router.post("/register", async(req, res) => {
     const { name, email, password, confirmPassword } = req.body;
 
     // Email and password are missing
-    if (!email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
         return res.status(400).json({ error: "Error: Invalid input data." });
     }
 
@@ -62,23 +59,38 @@ router.post("/register", async(req, res) => {
             .json({ error: "Error: Password and confirmed password don't match." });
     }
 
-    // Email already in use
-    if (email === fakeUser.email) {
-        // TODO: change to search database
-        return res.status(409).json({ error: "Error: Email already taken." });
+    // Password is too short
+    if (password.length < 8) {
+        return res
+            .status(400)
+            .json({ error: "Password must be at least 8 characters." });
     }
 
-    // Proceed if everything is correct
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    fakeUser.name = name; // TODO: call model function and assign username and hashedPassword to it
-    fakeUser.email = email;
-    fakeUser.password = hashedPassword;
-    // TODO: store User in database
+    // Email already in use
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ error: "Error: Email already taken." });
+        }
 
-    const token = generateAccessToken(email);
-    console.log("JWT: ", token);
-    res.status(201).send(token);
+        // Proceed if everything is correct
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+        });
+
+        await newUser.save();
+
+        const token = generateAccessToken(email);
+        console.log("JWT: ", token);
+        res.status(201).send(token);
+    } catch (error) {
+        res.status(500).json({ error: "Server error." });
+    }
 });
 
 // Middleware function for all access-controlled endpoints
