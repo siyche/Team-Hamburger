@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const BACKEND_URL = "http://localhost:8000";
+// import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
   // hook to navigate between pages
@@ -19,14 +21,64 @@ export default function SignupPage() {
   //TODO: Handle form submission here (this will be replaced with authentication/account creation logic)
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Sign up form submitted with:", {
-      name,
-      email,
-      password,
-      confirmPassword,
+    makeSignupCall().then((response) => {
+      // Valid credentials, sign user in
+      if (response && response.status === 201) {
+        const token = response.data;
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        props.setToken(token); // TODO: make this make sense
+        console.log("Sign up form submitted with:", {
+          name,
+          email,
+          password,
+          confirmPassword,
+        });
+        navigate("/month"); // TODO: change to user's default view
+      }
+      // Invalid credentials, display appropriate error message
+      else {
+        if (response.status === 400 || response.status === 409) {
+          console.log(response.data);
+        } else {
+          console.log("Error: unknown issue creating account.");
+        }
+        // TODO: take action (clear form, etc.)
+      }
     });
-    navigate("/login");
   };
+
+  // Create user, send data to backend
+  async function makeSignupCall() {
+    try {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      };
+      const response = await fetch(`${BACKEND_URL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.json();
+
+      console.log("makeSignupCall() response: ", data);
+
+      return {
+        status: response.status,
+        data,
+      };
+    } catch (error) {
+      console.log("Signup error:", error);
+      return false;
+    }
+  }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 font-serif">
