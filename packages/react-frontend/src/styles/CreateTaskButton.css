@@ -10,10 +10,8 @@
     transition-duration: 0.25s;
     transition-delay: .05s;
     font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border: 2px solid black;
     border-radius: 40px;
-    /* 40 = 32x2 (padding) + 16 (font size) */
 }
 
 #CreateTask:hover {
@@ -27,8 +25,6 @@
     transition-duration: 0.25s;
     transition-delay: .05s;
     font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border: 2px solid black;
     border-radius: 42px;
-    /* 42 = 32x2 (padding) + 18 (font size) */
 }

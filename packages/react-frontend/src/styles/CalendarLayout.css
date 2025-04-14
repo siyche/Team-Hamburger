@@ -4,7 +4,7 @@
 .calendar-layout {
     display: flex;
     height: 100vh; /* Full viewport height */
-    font-family: Arial, sans-serif;
+    font-family: Noto Sans;
   }
   
   /* Sidebar gets a fixed width */
@@ -16,7 +16,7 @@
   
   /* Current day view gets a fixed width (if it exists) */
   .current-day-view {
-    flex: 0 0 250px; /* fixed 250px width */
+    flex: 0 0 300px; /* fixed 250px width */
     background-color: #f0f0f0;
     padding: 20px;
     border-left: 1px solid #ccc;
