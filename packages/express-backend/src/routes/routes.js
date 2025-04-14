@@ -13,6 +13,8 @@ router.use(express.json());
 
 const fakeUser = { email: "", pwd: "" };
 
+// token generation function 
+// double check that TOKEN_SECRET is set in .env file
 function generateAccessToken(email) {
     return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
         expiresIn: "900s",
@@ -27,9 +29,10 @@ router.post("/login", async(req, res) => {
     // Matching account found
     if (retrievedUser) {
         const isValid = await bcrypt.compare(password, retrievedUser.password);
-
+        console.log("User found: ", retrievedUser);
         // Valid password, generate token
         if (isValid) {
+            console.log({"generaing token for": email});
             const token = generateAccessToken(email);
             res.status(200).send(token);
         }

@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -15,10 +16,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  //TODO: Handle form submission here (this will be replaced with authentication logic)
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Login Form submitted with:", { email, password });
+    setError(""); // clear any previous error messages
+    
     makeLoginCall().then((response) => {
       if (response && response.status === 200) {
         // Valid credentials, sign user in
@@ -30,16 +31,16 @@ export default function LoginPage() {
           email,
           password,
         });
-        navigate("/month"); // <- Adjust this path to whatever route renders CalendarLayoutMonth.jsx
+        navigate("/month"); // render by default the month view, but TODO: change to user's default view
       }
       // Invalid credentials, display appropriate error message
       else {
         if (response.status == 401) {
           console.log(response.data);
+          setError("Invalid email or password.");
         } else {
           console.log("Error: unknown issue logging in:", response.status);
         }
-        // TODO: take action (clear form, etc.)
       }
     });
   };

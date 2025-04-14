@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +22,8 @@ export default function SignupPage() {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError(""); // clear any previous error messages
+    
     makeSignupCall().then((response) => {
       // Valid credentials, sign user in
       if (response && response.status === 201) {
@@ -35,17 +38,18 @@ export default function SignupPage() {
           password,
           confirmPassword,
         });
-        navigate("/month"); // TODO: change to user's default view
+        navigate("/month"); // TODO: change to user's default view (will need preferences.js route in backend)
       }
       // Invalid credentials, display appropriate error message
       else {
-        if (response.status === 400 || response.status === 409) {
+        if (response.status === 400) {
           console.log(response.data);
-        } else {
+          setError("Double check that your passwords match.");
+        } else if (response.status === 409) {
+          setError("Email already exists. Try a different one.");
+        } else
           console.log("Error: unknown issue creating account:", response.data);
         }
-        // TODO: take action (clear form, etc.)
-      }
     });
   };
 
@@ -176,6 +180,8 @@ export default function SignupPage() {
             </button>
           </div>
         </form>
+
+        {/* Error message if the user is not able to sign up */}
         {error && <div className="text-red-600">{error}</div>}
 
         {/* Div container in case user doesn't have an account, it will navigate the user towards signing up.*/}
