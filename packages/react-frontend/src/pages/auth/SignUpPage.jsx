@@ -1,32 +1,88 @@
+import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const BACKEND_URL = "http://localhost:8000";
+// import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
-  // hook to navigate between pages
+  // Hook to navigate between pages
   const navigate = useNavigate();
 
   // State variables for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // State variables for loading and error handling
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  //TODO: Handle form submission here (this will be replaced with authentication/account creation logic)
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Sign up form submitted with:", {
-      name,
-      email,
-      password,
-      confirmpassword,
+    setError(""); // clear any previous error messages
+    
+    makeSignupCall().then((response) => {
+      // Valid credentials, sign user in
+      if (response && response.status === 201) {
+        const token = response.data;
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        localStorage.setItem("token", token);
+        console.log("Sign up form submitted with:", {
+          name,
+          email,
+          password,
+          confirmPassword,
+        });
+        navigate("/month"); // TODO: change to user's default view (will need preferences.js route in backend)
+      }
+      // Invalid credentials, display appropriate error message
+      else {
+        if (response.status === 400) {
+          console.log(response.data);
+          setError("Double check that your passwords match.");
+        } else if (response.status === 409) {
+          setError("Email already exists. Try a different one.");
+        } else
+          console.log("Error: unknown issue creating account:", response.data);
+        }
     });
-    navigate("/login");
   };
+
+  // Create user, send data to backend
+  async function makeSignupCall() {
+    try {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      };
+      const response = await fetch(`${BACKEND_URL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.text();
+
+      console.log("makeSignupCall() response: ", data);
+
+      return {
+        status: response.status,
+        data,
+      };
+    } catch (error) {
+      console.log("Signup error:", error);
+      return false;
+    }
+  }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 font-serif">
@@ -109,8 +165,8 @@ export default function SignupPage() {
                 type="password"
                 required
                 autoComplete="new-password"
-                value={confirmpassword}
-                onChange={(e) => setConfirmpassword(e.target.value)}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
@@ -124,6 +180,8 @@ export default function SignupPage() {
             </button>
           </div>
         </form>
+
+        {/* Error message if the user is not able to sign up */}
         {error && <div className="text-red-600">{error}</div>}
 
         {/* Div container in case user doesn't have an account, it will navigate the user towards signing up.*/}

@@ -53,6 +53,7 @@ const DayCalendarView = ({ onDaySelect }) => {
           {currentDate.toLocaleString("default", { weekday: "long" })}
           {/* Day of the week */}
           {", "}
+          &nbsp;
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
           {currentDate.getDate()}
           {", "}

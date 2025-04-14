@@ -1,8 +1,9 @@
-// backend.js 
+// backend.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
+import routes from "../routes/routes.js";
 
 dotenv.config(); // Load environment variables
 
@@ -15,10 +16,10 @@ app.use(express.json());
 // Connect to MongoDB Atlas
 connectDB();
 
-const PORT = process.env.PORT || 8000;
+// Use API routes
+app.use("/", routes);
 
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log(
-        `🚀 Server running on port ${PORT}`
-    );
+    console.log(`🚀 Server running on port ${PORT}`);
 });
