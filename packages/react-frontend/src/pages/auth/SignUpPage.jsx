@@ -18,7 +18,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  //TODO: Handle form submission here (this will be replaced with authentication/account creation logic)
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     makeSignupCall().then((response) => {
@@ -28,7 +28,7 @@ export default function SignupPage() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        props.setToken(token); // TODO: make this make sense
+        localStorage.setItem("token", token);
         console.log("Sign up form submitted with:", {
           name,
           email,
@@ -42,7 +42,7 @@ export default function SignupPage() {
         if (response.status === 400 || response.status === 409) {
           console.log(response.data);
         } else {
-          console.log("Error: unknown issue creating account.");
+          console.log("Error: unknown issue creating account:", response.data);
         }
         // TODO: take action (clear form, etc.)
       }

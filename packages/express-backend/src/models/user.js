@@ -21,6 +21,4 @@ export default User;
 - Encrypt password, compare or add to database, and send back resulting token or error code/message. 
 
 - Edit main.jsx for protected routing 
-- Make functions to access/search database 
-- Get rid of dummy user 
-- Mirror logic on /login */
+*/

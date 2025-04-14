@@ -23,7 +23,9 @@ router.post("/login", async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const retrievedUser = await User.findOne({ email });
-    if (retrievedUser.email && retrievedUser.password) {
+
+    // Matching account found
+    if (retrievedUser) {
         const isValid = await bcrypt.compare(password, retrievedUser.password);
 
         // Valid password, generate token
@@ -34,13 +36,15 @@ router.post("/login", async(req, res) => {
 
         // Invalid password, unauthorized
         else {
-            res.status(401).send("Unauthorized—Invalid Password");
+            return res
+                .status(401)
+                .json({ error: "Error: Incorrect email or password." });
         }
     }
 
     // Invalid email, unauthoried
     else {
-        res.status(401).send("Unauthorized—Invalid Email");
+        res.status(401).json({ error: "Error: Account not found." });
     }
 });
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const BACKEND_URL = "http://localhost:8000";
 
 export default function LoginPage() {
   // hook to navigate between pages
@@ -18,9 +19,61 @@ export default function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Login Form submitted with:", { email, password });
-    // ALEX— IMPLEMENT THE AUTHENTICATION LOGIC HERE (.JSX), SENDING PASSWORD TO BACKEND TO BE ENCRYPTED. REFERENCE THE ACCESS CONTROL CANVAS ASSIGNMENT FOR MORE DETAILS/RESOURCES
-    navigate("/month"); // <- Adjust this path to whatever route renders CalendarLayoutMonth.jsx
+    makeLoginCall().then((response) => {
+      if (response && response.status === 200) {
+        // Valid credentials, sign user in
+        const token = response.data;
+        setEmail("");
+        setPassword("");
+        localStorage.setItem("token", token);
+        console.log("Login form submitted with:", {
+          email,
+          password,
+        });
+        navigate("/month"); // <- Adjust this path to whatever route renders CalendarLayoutMonth.jsx
+      }
+      // Invalid credentials, display appropriate error message
+      else {
+        if (response.status == 401) {
+          console.log(response.data);
+        } else {
+          console.log("Error: unknown issue logging in:", response.status);
+        }
+        // TODO: take action (clear form, etc.)
+      }
+    });
   };
+
+  // Create user, send data to backend
+  async function makeLoginCall() {
+    try {
+      const user = {
+        name: "", // irrelevant in this scenario
+        email: email,
+        password: password,
+        confirmPassword: password, // irrelevant in this scenario; making it the same for simplicity
+      };
+      const response = await fetch(`${BACKEND_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.text();
+
+      console.log("makeLoginCall() response: ", data);
+
+      return {
+        status: response.status,
+        data,
+      };
+    } catch (error) {
+      console.log("Login error:", error);
+      return false;
+    }
+  }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 font-serif">

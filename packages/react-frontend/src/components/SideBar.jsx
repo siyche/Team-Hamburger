@@ -41,8 +41,8 @@ const SideBar = () => {
   // Handle logout
   const handleLogout = () => {
     // Clear user data from localStorage or context
-    localStorage.removeItem("userToken"); // Example - adjust based on your auth system
-    localStorage.removeItem("userData");
+    localStorage.removeItem("token");
+    // localStorage.removeItem("userData");
 
     // Redirect to login page
     navigate("/login");
