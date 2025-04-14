@@ -4,9 +4,9 @@ class Date {
     this.year = year; // 0 <= x <= 10000
     this.month = month; // 1 <= x <= 12
     this.day = day; // 1 <= x <= 31
-    this.hour = hour; // 0 <= x <= 24
-    this.minute = minute; // 0 <= x <= 60
-    this.second = second; // 0 <= x <= 60
+    this.hour = hour; // 0 <= x <= 23
+    this.minute = minute; // 0 <= x <= 59
+    this.second = second; // 0 <= x <= 59
   }
 
   static addDate(yr, mo, da) {
@@ -17,7 +17,7 @@ class Date {
     const now = new Date();
     return new Date(
       now.getFullYear(),
-      now.getMonth() + 1, // JavaScript months are 0-based
+      now.getMonth() - 1, // JavaScript months are 0-based
       now.getDate(),
       now.getHours(),
       now.getMinutes(),
