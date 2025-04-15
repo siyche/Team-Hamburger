@@ -1,5 +1,4 @@
 import { authenticateUser } from "./Auth.js";
-import Calendar from "../models/calendar.js";
 import express from "express";
 import cors from "cors";
 import User from "../models/user.js";

@@ -10,6 +10,7 @@ const CurrentDayView = ({ selectedDay }) => {
       const fetchEvents = async () => {
         try {
           const token = localStorage.getItem("token");
+          // TODO: fix backend api for events to be less complicated
           const response = await fetch("http://localhost:8000/events/events", {
             headers: {
               Authorization: `Bearer ${token}`,
