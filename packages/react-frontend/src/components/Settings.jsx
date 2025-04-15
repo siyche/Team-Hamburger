@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
+const BACKEND_URL = "http://localhost:8000";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -25,7 +26,12 @@ const Settings = () => {
   }, []);
 
   const handleBackClick = () => {
-    if (isDirty && !window.confirm("You have unsaved changes. Are you sure you want to leave?")) {
+    if (
+      isDirty &&
+      !window.confirm(
+        "You have unsaved changes. Are you sure you want to leave?"
+      )
+    ) {
       return;
     }
     navigate(-1);
@@ -33,9 +39,9 @@ const Settings = () => {
 
   const handleSettingChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setSettings(prev => ({
+    setSettings((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
     setIsDirty(true);
   };
@@ -48,12 +54,35 @@ const Settings = () => {
     alert("Settings saved successfully!");
   };
 
+  async function deleteAccount() {
+    const email = localStorage.getItem("email");
+    const response = await fetch(`${BACKEND_URL}/auth/settings`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userEmail: email }),
+    });
+
+    const status = response.status;
+    if (status === 204) {
+      console.log("Account successfully deleted.");
+      localStorage.removeItem("email");
+      localStorage.removeItem("token");
+      navigate("/register");
+    } else {
+      console.log("Error deleting account: ", status);
+    }
+  }
+
   const applyTheme = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
   };
 
   const resetToDefaults = () => {
-    if (window.confirm("Are you sure you want to reset all settings to default?")) {
+    if (
+      window.confirm("Are you sure you want to reset all settings to default?")
+    ) {
       const defaults = {
         theme: "light",
         notifications: false,
@@ -68,7 +97,10 @@ const Settings = () => {
   };
 
   return (
-    <div className={`settings-page ${settings.theme}`} data-theme={settings.theme}>
+    <div
+      className={`settings-page ${settings.theme}`}
+      data-theme={settings.theme}
+    >
       <div className="settings-header">
         <button className="back-button" onClick={handleBackClick}>
           &larr; Back
@@ -93,7 +125,7 @@ const Settings = () => {
               <option value="system">System Default</option>
             </select>
           </div>
-          
+
           <div className="setting-option">
             <label htmlFor="defaultView">Default View:</label>
             <select
@@ -171,7 +203,7 @@ const Settings = () => {
           </div>
           <div className="setting-option">
             {!showDeleteConfirm ? (
-              <button 
+              <button
                 className="account-button danger"
                 onClick={() => setShowDeleteConfirm(true)}
               >
@@ -180,8 +212,13 @@ const Settings = () => {
             ) : (
               <div className="delete-confirm">
                 <span>Are you sure?</span>
-                <button className="account-button danger">Confirm</button>
-                <button 
+                <button
+                  className="account-button danger"
+                  onClick={deleteAccount}
+                >
+                  Confirm
+                </button>
+                <button
                   className="account-button"
                   onClick={() => setShowDeleteConfirm(false)}
                 >
@@ -193,9 +230,8 @@ const Settings = () => {
         </div>
 
         <div className="settings-actions">
-  
-          <button 
-            className="save-button" 
+          <button
+            className="save-button"
             onClick={handleSaveSettings}
             disabled={!isDirty}
           >

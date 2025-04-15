@@ -23,7 +23,7 @@ export default function SignupPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(""); // clear any previous error messages
-    
+
     makeSignupCall().then((response) => {
       // Valid credentials, sign user in
       if (response && response.status === 201) {
@@ -32,6 +32,7 @@ export default function SignupPage() {
         setPassword("");
         setConfirmPassword("");
         localStorage.setItem("token", token);
+        localStorage.setItem("email", email);
         console.log("Sign up form submitted with:", {
           name,
           email,
@@ -49,7 +50,7 @@ export default function SignupPage() {
           setError("Email already exists. Try a different one.");
         } else
           console.log("Error: unknown issue creating account:", response.data);
-        }
+      }
     });
   };
 

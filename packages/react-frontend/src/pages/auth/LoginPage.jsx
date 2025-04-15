@@ -19,7 +19,7 @@ export default function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(""); // clear any previous error messages
-    
+
     makeLoginCall().then((response) => {
       if (response && response.status === 200) {
         // Valid credentials, sign user in
@@ -27,6 +27,7 @@ export default function LoginPage() {
         setEmail("");
         setPassword("");
         localStorage.setItem("token", token);
+        localStorage.setItem("email", email);
         console.log("Login form submitted with:", {
           email,
           password,

@@ -14,13 +14,41 @@ router.use(express.json());
 
 const fakeUser = { email: "", pwd: "" };
 
-// token generation function 
+// token generation function
 // double check that TOKEN_SECRET is set in .env file
 function generateAccessToken(email) {
     return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
         expiresIn: "900s",
     });
 }
+
+router.delete("/settings", async(req, res) => {
+    const email = req.body.userEmail;
+    console.log("test");
+    console.log("UserEmail:", email);
+    try {
+        const existingUser = await User.findOne({ email });
+        console.log("ExistingUser:", existingUser);
+
+        // Account somehow does not exist
+        if (!existingUser) {
+            return res.status(409).json({ error: "Error: Account does not exist." });
+        }
+
+        // Proceed if everything is correct
+        try {
+            await User.deleteOne({ email: email });
+            // TODO: also delete associated calendar data
+            return res.status(204).end();
+        } catch (error) {
+            console.log("1");
+            res.status(500).json({ error: "Server error." });
+        }
+    } catch (error) {
+        console.log("2");
+        res.status(500).json({ error: "Server error." });
+    }
+});
 
 router.post("/login", async(req, res) => {
     const email = req.body.email;
@@ -33,7 +61,7 @@ router.post("/login", async(req, res) => {
         console.log("User found: ", retrievedUser);
         // Valid password, generate token
         if (isValid) {
-            console.log({"generaing token for": email});
+            console.log({ "generaing token for": email });
             const token = generateAccessToken(email);
             res.status(200).send(token);
         }
@@ -106,7 +134,7 @@ router.post("/register", async(req, res) => {
         // Add the new calendar to the user's calendars array
         newUser.calendars.push(newCalendar._id);
         await newUser.save();
-        
+
         // Generate a JWT token for the new user
         const token = generateAccessToken(email);
 
