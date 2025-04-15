@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // Define embedded schemas
 const prioritySchema = new mongoose.Schema({
@@ -92,4 +92,4 @@ eventSchema.statics.rmEvent = async function (eid) {
 };
 
 // Export the model
-module.exports = mongoose.model('Event', eventSchema);
+export default Event;
