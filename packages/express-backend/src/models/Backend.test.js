@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Event = require("./Event");
-const Calendar = require("./Calendar");
+const Event = require("./event");
+const Calendar = require("./calendar");
 const User = require("./user");
 let mongoServer;
 
