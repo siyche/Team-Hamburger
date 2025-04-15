@@ -92,4 +92,5 @@ eventSchema.statics.rmEvent = async function (eid) {
 };
 
 // Export the model
+const Event = mongoose.model("Event", eventSchema);
 export default Event;

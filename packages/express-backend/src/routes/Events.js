@@ -9,7 +9,8 @@
     
 // 4. Write Tests for the routes
 
-import authenticateUser from "./Auth.js";
+import { authenticateUser } from "./Auth.js";
+import Calendar from "../models/calendar.js";
 import express from "express";
 import cors from "cors";
 import User from "../models/user.js";
@@ -21,7 +22,8 @@ router.use(express.json());
 
 router.post("/events", authenticateUser, async (req, res) => {
     try {
-        const email = req.user || {}; // get user email
+        const email = req.user.email; // get user email
+        console.log("User email:", email);
         const user = await User.findOne({ email }).populate("calendars"); // find user by email and populate calendars
 
         if (!user || user.calendars.length === 0) {
@@ -29,7 +31,7 @@ router.post("/events", authenticateUser, async (req, res) => {
                 .status(404).json({ error: "User or calendars not found." });
         }
 
-        const calendar = user.calendars(0); // get first calendaer by default (in future, change)
+        const calendar = user.calendars[0]; // get first calendaer by default (in future, change)
         const eventData = req.body; // get event data from request body
 
         const newEvent = new Event(eventData)
@@ -44,6 +46,8 @@ router.post("/events", authenticateUser, async (req, res) => {
         console.error("Event creation error:", error);
         res.status(500).json({ error: "Internal server error." });
       } 
-    });
+ });
+
+ 
    
 export default router;

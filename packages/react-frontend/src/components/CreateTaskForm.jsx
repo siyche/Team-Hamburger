@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/CreateTaskForm.css";
-
 const CreateTaskForm = ({ onSubmit, onCancel }) => {
   // State variables for form inputs
   const [date, setDate] = useState("");
@@ -14,7 +13,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const dateTimeString = `${date}T${time}`;
@@ -55,8 +54,33 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
       newEvent.length = 60;
     }
 
-    if (onSubmit) {
-      onSubmit(newEvent);
+    // attempt POST request to backend
+    try {
+      const token = localStorage.getItem("token");
+      //TODO: clean up API URL
+      const response = await fetch("http://localhost:8000/events/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newEvent),
+      })
+
+      if (!response.ok) {
+        const err = await response.json();
+        alert(`❌ Failed to create event: ${err.error}`);
+        return;
+      }
+  
+      const result = await response.json();
+      alert("✅ Event created successfully!");
+      console.log("Created event:", result);
+      
+      if (onSubmit) onSubmit(result);
+    } catch {
+      console.error("Error submitting event:", error);
+      alert("🚨 Network error. Please try again.");
     }
   };
 
