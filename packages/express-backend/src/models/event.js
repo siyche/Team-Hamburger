@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import mongoose from "mongoose";
-=======
-import mongoose from 'mongoose';
->>>>>>> origin/main
 
 // Define embedded schemas
 const prioritySchema = new mongoose.Schema({
@@ -96,11 +92,6 @@ eventSchema.statics.rmEvent = async function (eid) {
   return this.findByIdAndDelete(eid);
 };
 
-<<<<<<< HEAD
 // Export the model
 const Event = mongoose.model("Event", eventSchema);
-=======
-// Change the export syntax
-const Event = mongoose.model('Event', eventSchema);
->>>>>>> origin/main
 export default Event;
