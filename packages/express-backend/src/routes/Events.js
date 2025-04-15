@@ -2,7 +2,7 @@ import { authenticateUser } from "./Auth.js";
 import express from "express";
 import cors from "cors";
 import User from "../models/user.js";
-import Event from "../models/event.js";
+import Event from "../models/Event.js";
 
 const router = express.Router();
 router.use(cors());
