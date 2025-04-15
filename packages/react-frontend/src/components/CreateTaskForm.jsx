@@ -11,6 +11,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
   const [inProgress, setInProgress] = useState(false);
   const [courseDept, setCourseDept] = useState("CSC");
   const [courseNo, setCourseNo] = useState("");
+  const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
 
   const handleSubmit = (e) => {
@@ -28,6 +29,7 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
         amount: 0,
         label: priority,
       },
+      title,
       details,
     };
 
@@ -160,6 +162,17 @@ const CreateTaskForm = ({ onSubmit, onCancel }) => {
           </div>
         </>
       )}
+      <div className="form-group">
+        <label htmlFor="title">Title:</label>
+          <input
+          type="text"
+          id="title"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          />
+      </div>
       <div className="form-group">
         <label htmlFor="details">Details:</label>
         <textarea

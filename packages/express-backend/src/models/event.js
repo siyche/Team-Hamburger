@@ -18,12 +18,14 @@ const eventSchema = new mongoose.Schema({
   flags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Flag' }],
   visible: { type: Boolean, default: true },
   priority: prioritySchema,
+  title: { type: String, required: true }, // NEW -> to support adding titles for easy identitification of event
 
   // Regular-specific fields (optional)
   all_day: { type: Boolean },
   start_date: { type: Date },
   end_date: { type: Date },
   length: { type: Number },
+  
 
   // Task-specific fields (optional)
   date_created: { type: Date },

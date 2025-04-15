@@ -21,8 +21,10 @@
     color: #333;
   }
   
+  /* Input fields and text areas styling*/
   .form-group input[type="date"],
   .form-group input[type="time"],
+  .form-group input[type="text"],
   .form-group select,
   .form-group textarea {
     padding: 8px;
@@ -35,6 +37,7 @@
   
   .form-group input[type="date"]:focus,
   .form-group input[type="time"]:focus,
+  .form-group input[type="text"],
   .form-group select:focus,
   .form-group textarea:focus {
     border-color: #888;
