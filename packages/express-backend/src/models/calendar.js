@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const calendarSchema = new mongoose.Schema(
   {
@@ -19,5 +19,4 @@ const calendarSchema = new mongoose.Schema(
 );
 
 const Calendar = mongoose.model("Calendar", calendarSchema);
-
 export default Calendar;
