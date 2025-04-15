@@ -11,9 +11,7 @@ const calendarSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-    },
+    description: String,
     dates: [Date],
     events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   },

@@ -3,7 +3,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
-import routes from "../routes/routes.js";
+
+import auth from "../routes/Auth.js";
+import events from "../routes/Events.js";
 
 dotenv.config(); // Load environment variables
 
@@ -17,7 +19,8 @@ app.use(express.json());
 connectDB();
 
 // Use API routes
-app.use("/", routes);
+app.use("/auth", auth);
+app.use("/events", events);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

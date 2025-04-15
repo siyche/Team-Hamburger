@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
+import Calendar from "../models/calendar.js";
 
 const router = express.Router();
 router.use(cors());
@@ -92,7 +93,23 @@ router.post("/register", async(req, res) => {
 
         await newUser.save();
 
+        // Create a default calendar for the new user
+        const newCalendar = new Calendar({
+            _ownerid: newUser._id,
+            name: `${name}'s Calendar`,
+            description: `Default calendar for ${name}`,
+        });
+
+        // Save the new calendar to the database
+        await newCalendar.save();
+
+        // Add the new calendar to the user's calendars array
+        newUser.calendars.push(newCalendar._id);
+        await newUser.save();
+        
+        // Generate a JWT token for the new user
         const token = generateAccessToken(email);
+
         console.log("JWT: ", token);
         res.status(201).send(token);
     } catch (error) {
@@ -101,7 +118,8 @@ router.post("/register", async(req, res) => {
 });
 
 // Middleware function for all access-controlled endpoints
-function authenticateUser(req, res, next) {
+export function authenticateUser(req, res, next) {
+    console.log("Authenticating user...");
     // Get token
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -116,6 +134,7 @@ function authenticateUser(req, res, next) {
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log("Decoded token: ", decoded);
+        req.user = decoded;
         next();
     } catch (error) {
         console.log(error);

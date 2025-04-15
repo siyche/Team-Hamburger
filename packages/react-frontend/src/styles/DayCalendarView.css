@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /* Header displaying current month and year with navigation buttons */

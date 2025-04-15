@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 // Define embedded schemas
 const prioritySchema = new mongoose.Schema({
@@ -18,12 +18,15 @@ const eventSchema = new mongoose.Schema({
   flags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Flag' }],
   visible: { type: Boolean, default: true },
   priority: prioritySchema,
+  title: { type: String, required: true }, // NEW -> to support adding titles for easy identitification of event
+  details: { type: String }, // not required (optional)
 
   // Regular-specific fields (optional)
   all_day: { type: Boolean },
   start_date: { type: Date },
   end_date: { type: Date },
   length: { type: Number },
+  
 
   // Task-specific fields (optional)
   date_created: { type: Date },
@@ -89,6 +92,6 @@ eventSchema.statics.rmEvent = async function (eid) {
   return this.findByIdAndDelete(eid);
 };
 
-// Change the export syntax
-const Event = mongoose.model('Event', eventSchema);
+// Export the model
+const Event = mongoose.model("Event", eventSchema);
 export default Event;

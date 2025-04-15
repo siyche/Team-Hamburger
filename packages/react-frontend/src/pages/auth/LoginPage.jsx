@@ -54,7 +54,7 @@ export default function LoginPage() {
         password: password,
         confirmPassword: password, // irrelevant in this scenario; making it the same for simplicity
       };
-      const response = await fetch(`${BACKEND_URL}/login`, {
+      const response = await fetch(`${BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
