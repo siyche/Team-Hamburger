@@ -1,14 +1,3 @@
-//Darryl's TODOS
-// 1. Look at schemas for events and tasks and rework the form from the frontend to make sure the backend gets the expected data types
-
-// 2. Create the routes for creating a task and event. This will require a get route and a post route
-    // 2a. Options to Delete and Update Tasks and events will require a different api route and consequently a new issue
-
-// 3. After finishing the task and event creation and get routes, then we will need to work on writing the handleSubmit function for the form
-    // 3a. Double check that we do get token data (email) from the frontend that is sent to the backend as to tie the type of events/task to a user
-    
-// 4. Write Tests for the routes
-
 import { authenticateUser } from "./Auth.js";
 import Calendar from "../models/calendar.js";
 import express from "express";
@@ -46,8 +35,35 @@ router.post("/events", authenticateUser, async (req, res) => {
         console.error("Event creation error:", error);
         res.status(500).json({ error: "Internal server error." });
       } 
- });
+});
 
- 
-   
+router.get("/events", authenticateUser, async (req, res) => {
+  try {
+    const email = req.user.email;
+    console.log("User found for get events api:", email);
+
+    // Find the user by email and populate the calendars and events
+    const user = await User.findOne({ email }).populate({
+      path: "calendars",
+      populate: {
+        path: "events",
+      },
+    });
+
+    // Check if the user and calendars exist
+    if (!user || user.calendars.length === 0) {
+      return res.status(404).json({ error: "User or calendars not found." });
+    }
+
+    // Get the first calendar and its events
+    const calendar = user.calendars[0];
+    const events = calendar.events || [];
+
+    res.status(200).json(events);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
 export default router;

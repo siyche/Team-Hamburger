@@ -19,6 +19,7 @@ const eventSchema = new mongoose.Schema({
   visible: { type: Boolean, default: true },
   priority: prioritySchema,
   title: { type: String, required: true }, // NEW -> to support adding titles for easy identitification of event
+  details: { type: String }, // not required (optional)
 
   // Regular-specific fields (optional)
   all_day: { type: Boolean },
