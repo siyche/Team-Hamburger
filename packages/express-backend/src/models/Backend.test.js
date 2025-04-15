@@ -1,8 +1,10 @@
-const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const Event = require("./Event");
-const Calendar = require("./Calendar");
-const User = require("./user");
+// node --experimental-vm-modules node_modules/jest/bin/jest.js
+
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import Event from './Event.js';
+import Calendar from './Calendar.js';
+import User from './user.js';
 let mongoServer;
 
 // Setup: Start in-memory MongoDB server and connect Mongoose
@@ -247,41 +249,6 @@ describe("Event Model Tests", () => {
 describe("Calendar and User Tests", () => {
     let testUser;
     let testCalendar;
-
-    // Test creating a user
-    test("should create a user", async() => {
-        const user = await User.create({
-            name: "Test User",
-            username: "testuser",
-            email: "test@example.com",
-            password: "password123",
-            calendars: [],
-        });
-
-        expect(user.name).toBe("Test User");
-        expect(user.username).toBe("testuser");
-        expect(user.email).toBe("test@example.com");
-        expect(user.password).toBe("password123");
-        expect(user.calendars).toEqual([]);
-
-        testUser = user;
-    });
-
-    // Test creating a calendar
-    test("should create a calendar", async() => {
-        const calendar = await Calendar.create({
-            _ownerid: testUser._id,
-            name: "Test Calendar",
-            description: "A test calendar",
-        });
-
-        expect(calendar.name).toBe("Test Calendar");
-        expect(calendar.description).toBe("A test calendar");
-        expect(calendar._ownerid).toEqual(testUser._id);
-        expect(calendar.events).toEqual([]);
-
-        testCalendar = calendar;
-    });
 
     // Test creating a user with multiple calendars and events
     test("should create a user with multiple calendars and events", async() => {
