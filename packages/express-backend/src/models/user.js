@@ -1,5 +1,5 @@
 // User.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
@@ -12,13 +12,16 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 export default User;
 
-/* ALEX— STEPS: 
-- FRONTEND: 
-- Send user info off to backend in the form of a Const ✓
-- Await response. If valid, let them in. If not, display error. Response should return a token or False 
-- BACKEND: 
-- Specify API routes for login and sign-up. They should constuct User models with the given data and check the database. 
-- Encrypt password, compare or add to database, and send back resulting token or error code/message. 
+/* BUGS: 
+- "Today" button doesn't work as intended 
+- Capitalization matters in email
 
-- Edit main.jsx for protected routing 
+TODO: 
+- Add robust password requirements 
+- Add login with Google 
+- Remove user data with account deletion 
+- Add "Welcome, <name>" message 
+- UI consistency changes 
+- Automatically refresh when token expires 
+- Automatically refresh events tab after submitting form 
 */

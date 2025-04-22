@@ -18,7 +18,7 @@ const fakeUser = { email: "", pwd: "" };
 // double check that TOKEN_SECRET is set in .env file
 function generateAccessToken(email) {
     return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-        expiresIn: "900s",
+        expiresIn: "18000s", // 5 hours
     });
 }
 
