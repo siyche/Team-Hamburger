@@ -1,25 +1,17 @@
-// db.js
+// src/config/db.js
+import mongoose from 'mongoose';
 
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config(); // Load .env file
-
-const connectDB = async () => {
-  try {
-    const mongoURI = process.env.MONGO_URI; // Ensure MONGO_URI is loaded
-    if (!mongoURI) throw new Error("MONGO_URI is missing in .env file");
-
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    console.log("✅ MongoDB Atlas Connected Successfully!");
-  } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error.message);
-    process.exit(1); // Exit process on failure
+export default async function connectDB() {
+  const mongoURI = process.env.MONGO_URI;
+  if (!mongoURI) {
+    console.error('❌ MONGO_URI is missing in .env file');
+    process.exit(1);
   }
-};
-
-export default connectDB; // Use `export default` for ES modules
+  try {
+    await mongoose.connect(mongoURI);
+    console.log('✅ MongoDB Atlas Connected Successfully!');
+  } catch (err) {
+    console.error('❌ MongoDB Connection Error:', err.message);
+    process.exit(1);
+  }
+}

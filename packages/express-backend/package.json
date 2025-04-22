@@ -4,9 +4,9 @@
     "type": "module",
     "main": "src/config/backend.js",
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-        "dev": "npx nodemon src/config/backend.js",
-        "start": "node src/config/backend.js"
+        "test": "jest --config=./jest.config.cjs",
+        "dev": "npx nodemon src/index.js",
+        "start": "node src/index.js"
     },
     "repository": {
         "type": "git",
@@ -20,10 +20,11 @@
     "homepage": "https://github.com/siyche/Team-Hamburger#readme",
     "description": "",
     "devDependencies": {
-        "nodemon": "^3.1.9",
         "@babel/core": "^7.24.0",
         "@babel/preset-env": "^7.24.0",
-        "babel-jest": "^29.7.0"
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.9"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
@@ -31,6 +32,7 @@
         "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "jsonwebtoken": "^9.0.2",
-        "mongodb": "^6.13.0"
+        "mongodb": "^6.13.0",
+        "mongodb-memory-server": "^10.1.4"
     }
 }
