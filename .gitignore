@@ -3,3 +3,4 @@ packages/express-backend/.env
 .DS_Store
 packages/express-backend/.DS_Store
 packages/express-backend/src/models/.DS_Store
+packages/express-backend/coverage
