@@ -2,9 +2,9 @@
 
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import Event from './Event.js';
-import Calendar from './Calendar.js';
-import User from './user.js';
+import Event from '../Event.js';
+import Calendar from '../Calendar.js';
+import User from '../User.js';
 let mongoServer;
 
 // Setup: Start in-memory MongoDB server and connect Mongoose
