@@ -1,5 +1,3 @@
-
-
 import Priority from '../../src/models/Priority.js';
 
 describe('Priority Class Tests', () => {
