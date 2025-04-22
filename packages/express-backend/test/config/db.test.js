@@ -6,7 +6,7 @@ describe('connectDB()', () => {
     let exitSpy, logSpy, errorSpy, connectSpy;
   
     beforeAll(() => {
-      // 1 Spy on process.exit so it throws instead of killing Jest
+      // 1) Spy on process.exit so it throws instead of killing Jest:
       exitSpy = jest
         .spyOn(process, 'exit')
         .mockImplementation(code => { throw new Error(`process.exit:${code}`); });
@@ -29,7 +29,6 @@ describe('connectDB()', () => {
       // Restore original implementations
       jest.restoreAllMocks();
     });
-
 
     // Test that connectDB connects to fake MONGO_URI successfully by ;istening to console
     test('should connect to MongoDB successfully', async () => {
@@ -67,5 +66,4 @@ describe('connectDB()', () => {
       // Should call process.exit(1)
       expect(exitSpy).toHaveBeenCalledWith(1);
     });
-
   });
