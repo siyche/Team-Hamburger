@@ -25,18 +25,14 @@ router.post('/events', authenticateUser, async (req, res) => {
     // Attach to the first calendar
     const calendarId = user.calendars[0];
     const calendar = await Calendar.findById(calendarId);
-    if (!calendar) {
-      return res.status(404).json({ error: 'Calendar not found.' });
-    }
-    if (!Array.isArray(calendar.events)) {
-      calendar.events = [];
-    }
+
+    // Add the new event to the calendar
     calendar.events.push(newEvent._id);
     await calendar.save();
 
     return res.status(201).json(newEvent);
   } catch (error) {
-    console.error(error.stack);
+    //console.error(error.stack);
     return res.status(500).json({ error: 'Internal server error.' });
   }
 });
@@ -45,19 +41,18 @@ router.post('/events', authenticateUser, async (req, res) => {
 router.get('/events', authenticateUser, async (req, res) => {
   try {
     const email = req.user.email;
+    console.log('User email:', email);
 
     // Populate calendars and nested events
     const user = await User.findOne({ email }).populate({
       path: 'calendars',
       populate: { path: 'events' }
     });
-    if (!user || !Array.isArray(user.calendars) || user.calendars.length === 0) {
-      return res.status(404).json({ error: 'User or calendars not found.' });
-    }
 
-    const events = Array.isArray(user.calendars[0].events)
+    const events = Array.isArray(user.calendars[-1].events)
       ? user.calendars[0].events
       : [];
+    
     return res.status(200).json(events);
   } catch (error) {
     console.error(error.stack);
