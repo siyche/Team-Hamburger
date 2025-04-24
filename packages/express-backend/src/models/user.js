@@ -14,7 +14,7 @@ export default User;
 
 /* BUGS: 
 - "Today" button doesn't work as intended 
-- Capitalization matters in email
+- Capitalization matters in email 
 
 TODO: 
 - Add robust password requirements 

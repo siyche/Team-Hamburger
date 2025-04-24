@@ -12,6 +12,7 @@
 
 
 /* Header displaying current week (or month/year) with navigation buttons */
+
 .week-year-header {
     display: flex;
     justify-content: space-between;
@@ -49,6 +50,7 @@
 
 
 /* Day-of-week headers for week view */
+
 .week-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -68,6 +70,7 @@
 
 
 /* Calendar grid for week view */
+
 .week-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -76,7 +79,9 @@
     width: 100%;
 }
 
+
 /* Each calendar cell (day) in week view */
+
 .week-calendar-cell {
     box-sizing: border-box;
     position: relative;
@@ -93,6 +98,7 @@
 
 
 /* Hover state for week view cells */
+
 .week-calendar-cell:hover {
     background-color: #cccccc;
     transition: 0.75s;
@@ -100,6 +106,7 @@
 
 
 /* For days not in the current week (if applicable) */
+
 .week-calendar-cell.grayed-out {
     background-color: #979797;
     transition: 0.75s;
@@ -107,6 +114,7 @@
 
 
 /* Highlight the selected day */
+
 .week-calendar-cell.selected {
     background-color: #c1e0fb;
     border-color: black;
@@ -115,6 +123,7 @@
 
 
 /* Day number styling for week view */
+
 .week-calendar-cell span {
     position: absolute;
     top: 5px;
