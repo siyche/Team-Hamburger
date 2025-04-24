@@ -6,6 +6,7 @@ export default async function connectDB() {
   if (!mongoURI) {
     console.error('❌ MONGO_URI is missing in .env file');
     process.exit(1);
+    throw new Error('process.exit:1');
   }
   try {
     await mongoose.connect(mongoURI);
@@ -13,5 +14,6 @@ export default async function connectDB() {
   } catch (err) {
     console.error('❌ MongoDB Connection Error:', err.message);
     process.exit(1);
+    throw new Error('process.exit:1');
   }
 }
