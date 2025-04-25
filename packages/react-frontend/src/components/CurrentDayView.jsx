@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import '../styles/CurrentDayView.css';
-
 const CurrentDayView = ({ selectedDay }) => {
     // Fetch events from the backend
     const [events, setEvents] = useState([]);
@@ -31,6 +31,16 @@ const CurrentDayView = ({ selectedDay }) => {
       fetchEvents();
     }, []);
 
+    const handleEdit = (event) => {
+      // TODO: implement edit logic
+      console.log('Edit event', event);
+    };
+
+    const handleDelete = (id) => {
+      // TODO: implement delete logic
+      console.log('Delete event', id);
+    };
+
     return (
         <div className="current-day-view">
         {/* Display the selected day's full date */}
@@ -47,6 +57,10 @@ const CurrentDayView = ({ selectedDay }) => {
             })
             .map((event, index) => (
               <div key={index} className="event-item">
+                <div className="action-icons">
+                  <PencilIcon className="icon edit-icon" onClick={() => handleEdit(event)} />
+                  <TrashIcon className="icon delete-icon" onClick={() => handleDelete(event.id)} />
+                </div>
                 <div className="event-time">
                   {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
