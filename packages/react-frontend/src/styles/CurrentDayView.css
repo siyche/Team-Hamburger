@@ -61,3 +61,7 @@
   height: 20px;
   cursor: pointer;
 }
+
+.delete-icon:hover {
+  color: red;
+}
