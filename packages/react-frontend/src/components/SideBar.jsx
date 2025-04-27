@@ -7,7 +7,7 @@ import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
 
-const SideBar = () => {
+const SideBar = ({ onEventCreated }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const SideBar = () => {
   const handleTaskSubmit = (newTask) => {
     console.log("New task submitted:", newTask);
     closeModal();
+    onEventCreated(); // Refresh events after creating a new task
   };
 
   // Handle settings navigation

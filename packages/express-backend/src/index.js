@@ -16,8 +16,9 @@ if (authRoutes && typeof authRoutes.use === 'function') {
   app.use('/auth', authRoutes);
 }
 
-// Mount events routes
-app.use('/events', eventRoutes);
+// mount routes
+app.use('/auth', authRoutes);
+app.use('/api/events', eventRoutes);
 
 // Export app for testing
 export default app;
