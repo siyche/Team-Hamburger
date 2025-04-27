@@ -1,3 +1,4 @@
+import Calendar from "../models/Calendar.js";
 import { authenticateUser } from "./Auth.js";
 import express from "express";
 import cors from "cors";
@@ -75,12 +76,21 @@ router.delete("/:id", authenticateUser, async(req, res) => {
   }
   try {
     const deletedEvent = await Event.findOneAndDelete({
-       _id: id,
-       owner: req.user._id 
+      _id: id,
+      owner: req.user._id 
     });
-    
     if (!deletedEvent) {
       return res.status(404).json({ error: "Event not found." });
+    }
+
+    // Now remove this event’s ID from the user’s calendar
+    const email = req.user.email;
+    const user = await User.findOne({ email }).populate('calendars');
+    const calendar = user.calendars[0]; // assuming single calendar
+    const eventIndex = calendar.events.indexOf(id);
+    if (eventIndex > -1) {
+      calendar.events.splice(eventIndex, 1);
+      await calendar.save();
     }
 
     res.status(200).json({ message: "Event deleted successfully." });
