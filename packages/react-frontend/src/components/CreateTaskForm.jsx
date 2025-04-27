@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/CreateTaskForm.css";
-const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
+const CreateTaskForm = ({ onSubmit, onCancel }) => {
   // State variables for form inputs
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -13,34 +13,6 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
 
-  // Effect to populate form with initial event data if user is editing form
-  useEffect(() => {
-    if (initialEvent) {
-      // Populate form with initial event data
-      const dateObj = new Date(initialEvent.date);
-      setDate(dateObj.toISOString().slice(0, 10));
-      const timeString = dateObj.toString().split(' ')[4].slice(0, 5);
-      setTime(timeString);
-      
-      setTitle(initialEvent.title);
-      setDetails(initialEvent.details || '');
-
-      // logic for setting form data based on event type from initialEvent 
-      if (initialEvent.deadline) {
-        setEventType('Task');
-        setDeadline(new Date(initialEvent.deadline).toISOString().slice(0, 10));
-        setInProgress(initialEvent.in_progress);
-      } else if (initialEvent.course_no) {
-        setEventType('Academic');
-        setCourseDept(initialEvent.course_no.dept);
-        setCourseNo(initialEvent.course_no.no.toString());
-      } else {
-        setEventType('Regular');
-      }
-    }
-  }, [initialEvent]);
-
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,10 +31,6 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       title,
       details,
     };
-
-    if (initialEvent) {
-      newEvent.id = initialEvent.id;
-    }
 
     // Set specific properties based on event type (i.e. Task, Academic, Regular)
     if (eventType === "Task") {
@@ -86,19 +54,12 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       newEvent.length = 60;
     }
 
-    // attempt POST or PUT request to backend
+    // attempt POST request to backend
     try {
       const token = localStorage.getItem("token");
       //TODO: clean up API URL
-      const method = initialEvent ? 'PUT' : 'POST';
-
-      console.log("Method chosen:", method, "for event");
-
-      const url = initialEvent
-        ? `http://localhost:8000/api/events/${initialEvent._id}`
-        : 'http://localhost:8000/api/events';
-      const response = await fetch(url, {
-        method,
+      const response = await fetch("http://localhost:8000/events/events", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -113,10 +74,11 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       }
   
       const result = await response.json();
+      alert("✅ Event created successfully!");
       console.log("Created event:", result);
       
       if (onSubmit) onSubmit(result);
-    } catch (error) {
+    } catch {
       console.error("Error submitting event:", error);
       alert("🚨 Network error. Please try again.");
     }
