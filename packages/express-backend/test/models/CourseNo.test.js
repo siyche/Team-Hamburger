@@ -1,5 +1,3 @@
-
-
 import CourseNo from '../../src/models/CourseNo.js';
 
 describe('CourseNo Class Tests', () => {
