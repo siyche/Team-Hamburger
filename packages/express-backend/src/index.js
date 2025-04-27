@@ -18,7 +18,7 @@ await connectDB();
 
 // mount routes
 app.use('/auth', authRoutes);
-app.use('/events', eventRoutes);
+app.use('/api/events', eventRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

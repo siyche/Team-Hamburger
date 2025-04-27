@@ -9,29 +9,29 @@ const CurrentDayView = ({ selectedDay }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [eventToEdit, setEventToEdit] = useState(null);
     
+    const fetchEvents = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        // TODO: remove hardcoded localhost url in prepration for deployment
+        const response = await fetch("http://localhost:8000/api/events", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setEvents(data);
+        } else {
+          console.error("Failed to fetch events");
+        }
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      }
+    };
+
     // useEffect to fetch events when the component mounts
     useEffect(() => {
-      const fetchEvents = async () => {
-        try {
-          const token = localStorage.getItem("token");
-          // TODO: fix backend api for events to be less complicated
-          const response = await fetch("http://localhost:8000/events/events", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            setEvents(data);
-          } else {
-            console.error("Failed to fetch events");
-          }
-        } catch (err) {
-          console.error("Error fetching events:", err);
-        }
-      };
-    
       fetchEvents();
     }, []);
 
@@ -40,16 +40,38 @@ const CurrentDayView = ({ selectedDay }) => {
       setIsEditModalOpen(true);
     };
 
-    const handleDelete = (id) => {
-      // TODO: implement delete logic
+    const handleDelete = async (id) => {
       console.log('Delete event', id);
+      
+      // TODO: temporary delete confirmation - ideally, this should be a modal with styles
+      const deleteConfirm = window.confirm("Are you sure you want to delete this event?");
+      if (!deleteConfirm) return;
+
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:8000/api/events/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || 'Failed to delete event');
+        } 
+        await fetchEvents(); // re-fetch events after deletion
+      } catch (error) {
+        console.error('Error deleting event:', error);
+        alert(`❌ Failed to delete event: ${error.message}`);
+      }
     };
 
     // Function to handle event updates
     const handleUpdate = async (updatedEvent) => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/events/events/${updatedEvent.id}`, {
+        const response = await fetch(`http://localhost:8000/api/events/${updatedEvent._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -63,7 +85,7 @@ const CurrentDayView = ({ selectedDay }) => {
         setIsEditModalOpen(false);
         setEventToEdit(null);
         // re-fetch events
-        const eventsRes = await fetch("http://localhost:8000/events/events", {
+        const eventsRes = await fetch("http://localhost:8000/api/events", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const allEvents = await eventsRes.json();
@@ -91,7 +113,7 @@ const CurrentDayView = ({ selectedDay }) => {
               <div key={index} className="event-item">
                 <div className="action-icons">
                   <PencilIcon className="icon edit-icon" onClick={() => handleEdit(event)} />
-                  <TrashIcon className="icon delete-icon" onClick={() => handleDelete(event.id)} />
+                  <TrashIcon className="icon delete-icon" onClick={() => handleDelete(event._id)} />
                 </div>
                 <div className="event-time">
                   {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

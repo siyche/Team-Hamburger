@@ -93,8 +93,8 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       //TODO: clean up API URL
       const method = initialEvent ? 'PUT' : 'POST';
       const url = initialEvent
-        ? `http://localhost:8000/events/events/${initialEvent.id}`
-        : 'http://localhost:8000/events/events';
+        ? `http://localhost:8000/api/events/${initialEvent.id}`
+        : 'http://localhost:8000/api/events';
       const response = await fetch(url, {
         method,
         headers: {
