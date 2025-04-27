@@ -22,11 +22,10 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       const timeString = dateObj.toString().split(' ')[4].slice(0, 5);
       setTime(timeString);
       
-      
       setTitle(initialEvent.title);
       setDetails(initialEvent.details || '');
 
-    
+      // logic for setting form data based on event type from initialEvent 
       if (initialEvent.deadline) {
         setEventType('Task');
         setDeadline(new Date(initialEvent.deadline).toISOString().slice(0, 10));
@@ -92,8 +91,11 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       const token = localStorage.getItem("token");
       //TODO: clean up API URL
       const method = initialEvent ? 'PUT' : 'POST';
+
+      console.log("Method chosen:", method, "for event");
+
       const url = initialEvent
-        ? `http://localhost:8000/api/events/${initialEvent.id}`
+        ? `http://localhost:8000/api/events/${initialEvent._id}`
         : 'http://localhost:8000/api/events';
       const response = await fetch(url, {
         method,
@@ -111,7 +113,6 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       }
   
       const result = await response.json();
-      alert("✅ Event created successfully!");
       console.log("Created event:", result);
       
       if (onSubmit) onSubmit(result);

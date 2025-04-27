@@ -3,38 +3,11 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Modal from './Modal';
 import CreateTaskForm from './CreateTaskForm';
 import '../styles/CurrentDayView.css';
-const CurrentDayView = ({ selectedDay }) => {
-    // Fetch events from the backend
-    const [events, setEvents] = useState([]);
+const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [eventToEdit, setEventToEdit] = useState(null);
     
-    const fetchEvents = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        // TODO: remove hardcoded localhost url in prepration for deployment
-        const response = await fetch("http://localhost:8000/api/events", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
   
-        if (response.ok) {
-          const data = await response.json();
-          setEvents(data);
-        } else {
-          console.error("Failed to fetch events");
-        }
-      } catch (err) {
-        console.error("Error fetching events:", err);
-      }
-    };
-
-    // useEffect to fetch events when the component mounts
-    useEffect(() => {
-      fetchEvents();
-    }, []);
-
     const handleEdit = (event) => {
       setEventToEdit(event);
       setIsEditModalOpen(true);
@@ -67,32 +40,11 @@ const CurrentDayView = ({ selectedDay }) => {
       }
     };
 
-    // Function to handle event updates
-    const handleUpdate = async (updatedEvent) => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/api/events/${updatedEvent._id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(updatedEvent),
-        });
-        if (!response.ok) throw new Error('Update failed');
-        // refresh list
-        const data = await response.json();
-        setIsEditModalOpen(false);
-        setEventToEdit(null);
-        // re-fetch events
-        const eventsRes = await fetch("http://localhost:8000/api/events", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const allEvents = await eventsRes.json();
-        setEvents(allEvents);
-      } catch (err) {
-        console.error('Error updating event:', err);
-      }
+    // Function to handle event updates after form submission
+    const handleUpdate = () => {
+      setIsEditModalOpen(false);
+      setEventToEdit(null);
+      refreshEvents(); // Refresh events after editing
     };
 
     return (
@@ -126,30 +78,27 @@ const CurrentDayView = ({ selectedDay }) => {
               </div>
             ))}
         </div>
-        {isEditModalOpen && (
-  <Modal
-    isOpen={isEditModalOpen}
-    onCloseRequested={() => {
-      setIsEditModalOpen(false);
-      setEventToEdit(null);
-    }}
-    headerLabel="Edit Event"
-  >
-    <CreateTaskForm
-      initialEvent={eventToEdit}
-      onSubmit={handleUpdate}
-      onCancel={() => {
-        setIsEditModalOpen(false);
-        setEventToEdit(null);
-      }}
-    />
-  </Modal>
-)}
+          {isEditModalOpen && (
+          <Modal
+              isOpen={isEditModalOpen}
+              onCloseRequested={() => {
+                setIsEditModalOpen(false);
+                setEventToEdit(null);
+              }}
+              headerLabel="Edit Event"
+            >
+            <CreateTaskForm
+              initialEvent={eventToEdit}
+              onSubmit={handleUpdate}
+              onCancel={() => {
+                setIsEditModalOpen(false);
+                setEventToEdit(null);
+              }}
+            />
+          </Modal>
+        )}
         </div>
     );
-    
 };
-
-
 
 export default CurrentDayView;

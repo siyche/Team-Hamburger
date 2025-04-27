@@ -100,4 +100,28 @@ router.delete("/:id", authenticateUser, async(req, res) => {
   }
 });
 
+router.put('/:id', authenticateUser, async (req, res) => {
+  const { id } = req.params;
+  console.log("Updating event with ID:", id);
+  // follows same logic in POST event, but updates event by ID 
+  try {
+    const updatedEventData = req.body;
+
+    const updatedEvent = await Event.findOneAndUpdate(
+      { _id: id, owner: req.user._id },
+      updatedEventData,
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ error: "Event not found." });
+    }
+
+    res.status(200).json({message: "Event updated successfully.", event: updatedEvent});
+  } catch (error) {
+    console.error("Error updating event:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
 export default router;
