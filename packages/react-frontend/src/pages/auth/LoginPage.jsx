@@ -32,10 +32,10 @@ export default function LoginPage() {
         });
         setEmail("");
         setPassword("");
-        console.log("Login form submitted with:", {
-          email,
-          password,
-        });
+        //console.log("Login form submitted with:", {
+        //  email,
+        //  password,
+        //});
         navigate("/month"); // render by default the month view, but TODO: change to user's default view
       }
       // Invalid credentials, display appropriate error message
