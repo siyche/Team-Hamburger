@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
 
   // If token doesn't exist, redirect to login
   if (!token) {
-    localStorage.clear; // remove user data from local storage
+    localStorage.clear(); // remove user data from local storage
     return <Navigate to="/login" replace />;
   }
 
