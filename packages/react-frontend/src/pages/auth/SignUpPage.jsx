@@ -44,16 +44,16 @@ export default function SignupPage() {
       }
       // Invalid credentials, display appropriate error message
       else {
-        if (response.status === 400) {
+        if (response.status === 409) {
+          console.log(response.data);
+          setError("Email already exists. Try a different one.");
+        } else if (response.status === 401) {
           console.log(response.data);
           setError("Double check that your passwords match.");
-        } else if (response.status === 409) {
-          setError("Email already exists. Try a different one.");
         } else
-          console.log("Error: unknown issue creating account:", response.data);
-        setError(
-          "Password must be at least 8 characters long, and contain an uppercase letter, lowercase letter, number, and special character."
-        );
+          setError(
+            "Password must be at least 8 characters long, and contain an uppercase letter, lowercase letter, number, and special character."
+          );
       }
     });
   };

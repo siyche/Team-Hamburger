@@ -107,7 +107,7 @@ router.post("/register", async (req, res) => {
   // Password and confirmPassword differ
   if (password !== confirmPassword) {
     return res
-      .status(400)
+      .status(401)
       .json({ error: "Error: Password and confirmed password don't match." });
   }
 
