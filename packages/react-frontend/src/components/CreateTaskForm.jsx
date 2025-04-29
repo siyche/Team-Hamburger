@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/CreateTaskForm.css";
+import PropTypes from "prop-types";
 const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
   // State variables for form inputs
   const [date, setDate] = useState("");
@@ -255,6 +256,24 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       </div>
     </form>
   );
+};
+
+CreateTaskForm.propTypes = {
+  onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
+  initialEvent: PropTypes.shape({
+    id: PropTypes.string,
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    date: PropTypes.string,
+    deadline: PropTypes.string,
+    details: PropTypes.string,
+    in_progress: PropTypes.bool,
+    course_no: PropTypes.shape({
+      dept: PropTypes.string,
+      no: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    }),
+  }),
 };
 
 export default CreateTaskForm;
