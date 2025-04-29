@@ -53,6 +53,7 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
         <h3>{selectedDay.toDateString()}</h3>
         <div className="events">
           {events
+            // Filter events to show only those for the selected day
             .filter((event) => {
               const eventDate = new Date(event.date);
               return (
@@ -61,6 +62,9 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
                 eventDate.getDate() === selectedDay.getDate()
               );
             })
+            // Sort events by chronological order
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            // Map through the filtered and sorted events
             .map((event, index) => (
               <div key={index} className="event-item">
                 <div className="action-icons">
