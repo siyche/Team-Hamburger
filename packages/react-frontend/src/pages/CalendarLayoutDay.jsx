@@ -2,7 +2,7 @@
 // this is the parent component for the day calendar view -> holds sidebar & day calendar
 
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/SideBar";
 import DayCalendarView from "../components/DayCalendar"; // our dynamic calendar view component
 import "../styles/CalendarLayout.css"; // this file handles the overall two-panel flex layout
 
