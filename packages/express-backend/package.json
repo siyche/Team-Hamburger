@@ -6,6 +6,7 @@
     "scripts": {
         "test": "jest --config=./jest.config.cjs",
         "dev": "npx nodemon src/index.js",
+        "lint": "eslint .",
         "start": "node src/index.js"
     },
     "repository": {
@@ -30,6 +31,7 @@
         "bcrypt": "^5.1.1",
         "cors": "^2.8.5",
         "dotenv": "^16.4.7",
+        "eslint": "^9.25.1",
         "express": "^4.21.2",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.13.0",

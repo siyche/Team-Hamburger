@@ -19,23 +19,23 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       // Populate form with initial event data
       const dateObj = new Date(initialEvent.date);
       setDate(dateObj.toISOString().slice(0, 10));
-      const timeString = dateObj.toString().split(' ')[4].slice(0, 5);
+      const timeString = dateObj.toString().split(" ")[4].slice(0, 5);
       setTime(timeString);
-      
-      setTitle(initialEvent.title);
-      setDetails(initialEvent.details || '');
 
-      // logic for setting form data based on event type from initialEvent 
+      setTitle(initialEvent.title);
+      setDetails(initialEvent.details || "");
+
+      // logic for setting form data based on event type from initialEvent
       if (initialEvent.deadline) {
-        setEventType('Task');
+        setEventType("Task");
         setDeadline(new Date(initialEvent.deadline).toISOString().slice(0, 10));
         setInProgress(initialEvent.in_progress);
       } else if (initialEvent.course_no) {
-        setEventType('Academic');
+        setEventType("Academic");
         setCourseDept(initialEvent.course_no.dept);
         setCourseNo(initialEvent.course_no.no.toString());
       } else {
-        setEventType('Regular');
+        setEventType("Regular");
       }
     }
   }, [initialEvent]);
@@ -47,7 +47,7 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
     const dateTimeString = `${date}T${time}`;
     const eventDate = new Date(dateTimeString);
 
-    // create event object 
+    // create event object
     const newEvent = {
       date: eventDate,
       flags: [],
@@ -90,13 +90,13 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
     try {
       const token = localStorage.getItem("token");
       //TODO: clean up API URL
-      const method = initialEvent ? 'PUT' : 'POST';
+      const method = initialEvent ? "PUT" : "POST";
 
       console.log("Method chosen:", method, "for event");
 
       const url = initialEvent
         ? `http://localhost:8000/api/events/${initialEvent._id}`
-        : 'http://localhost:8000/api/events';
+        : "http://localhost:8000/api/events";
       const response = await fetch(url, {
         method,
         headers: {
@@ -104,17 +104,17 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newEvent),
-      })
+      });
 
       if (!response.ok) {
         const err = await response.json();
         alert(`❌ Failed to create event: ${err.error}`);
         return;
       }
-  
+
       const result = await response.json();
       console.log("Created event:", result);
-      
+
       if (onSubmit) onSubmit(result);
     } catch (error) {
       console.error("Error submitting event:", error);
@@ -226,14 +226,14 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       )}
       <div className="form-group">
         <label htmlFor="title">Title:</label>
-          <input
+        <input
           type="text"
           id="title"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          />
+        />
       </div>
       <div className="form-group">
         <label htmlFor="details">Details:</label>
@@ -246,7 +246,9 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
         />
       </div>
       <div className="form-actions">
-        <button type="submit" className="submit-btn">Create Event</button>
+        <button type="submit" className="submit-btn">
+          Create Event
+        </button>
         <button type="button" onClick={onCancel} className="cancel-btn">
           Cancel
         </button>
