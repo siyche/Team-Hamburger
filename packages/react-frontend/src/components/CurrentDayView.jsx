@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Modal from "./Modal";
 import CreateTaskForm from "./CreateTaskForm";
@@ -35,7 +35,7 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
         const error = await response.json();
         throw new Error(error.message || "Failed to delete event");
       }
-      await fetchEvents(); // re-fetch events after deletion
+      await refreshEvents(); // re-fetch events after deletion
     } catch (error) {
       console.error("Error deleting event:", error);
       alert(`❌ Failed to delete event: ${error.message}`);
