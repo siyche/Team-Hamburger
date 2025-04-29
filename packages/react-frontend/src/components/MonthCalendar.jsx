@@ -1,8 +1,9 @@
 // src/components/MonthCalendar.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/MonthCalendarView.css";
+import WelcomeMessage from "./WelcomeMessage";
 
-const MonthCalendarView = ({ onDaySelect }) => {
+const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
   // currentDate is used to determine which month/year to display.
   const [currentDate, setCurrentDate] = useState(new Date());
   // selectedDay is maintained locally so you can highlight the clicked day.
@@ -27,6 +28,11 @@ const MonthCalendarView = ({ onDaySelect }) => {
   const handleNextMonth = () => {
     const next = new Date(currentYear, currentMonth + 1, 1);
     setCurrentDate(next);
+  };
+
+  const handleCurrentMonth = () => {
+    const cur = new Date();
+    setCurrentDate(cur);
   };
 
   // Calculate the starting day for the grid
@@ -58,11 +64,13 @@ const MonthCalendarView = ({ onDaySelect }) => {
         <span>
           <img src="../hamburger.png" alt="Example Image" width="35" />
           &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
+          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentYear}
         </span>
+        <WelcomeMessage />
         <div className="month-nav-buttons">
           <button onClick={handlePrevMonth}>&lt;</button>
-          <button onClick={handlePrevMonth}>Today</button>
+          <button onClick={handleCurrentMonth}>Today</button>
           <button onClick={handleNextMonth}>&gt;</button>
         </div>
       </div>
@@ -94,8 +102,22 @@ const MonthCalendarView = ({ onDaySelect }) => {
               className={`${cellClass} ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
             >
-              <span>{day.getDate().toString().padStart(2, "0")}</span>
-              {/* Future: Render event info here */}
+          <span>{day.getDate().toString().padStart(2, "0")}</span>
+
+          {/* Display events for the selected day
+            Fetches events from props passed in from calendarlayoutmonth.jsx 
+            */}
+          <div className="month-event-list">
+            {events
+              .filter(event => new Date(event.date).toDateString() === day.toDateString())
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((eventItem, idx) => (
+                <div key={idx} className="month-event">
+                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {eventItem.title}
+                </div>
+              ))
+            }
+          </div>
             </div>
           );
         })}

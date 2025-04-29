@@ -2,6 +2,7 @@
 // this is the view for the day calendar
 import React, { useState, useEffect } from "react";
 import "../styles/DayCalendarView.css";
+import WelcomeMessage from "./WelcomeMessage";
 
 const DayCalendarView = ({ onDaySelect }) => {
   // State hooks: currentDate is the state variable, setCurrentDate is the function, and new Date() initializes currentDate
@@ -53,12 +54,12 @@ const DayCalendarView = ({ onDaySelect }) => {
           {currentDate.toLocaleString("default", { weekday: "long" })}
           {/* Day of the week */}
           {", "}
-          &nbsp;
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
           {currentDate.getDate()}
           {", "}
           {currentYear}
         </span>
+        <WelcomeMessage />
         <div className="nav-buttons">
           <button onClick={handlePrevDay}>&lt;</button>
           <button onClick={handleNextDay}>&gt;</button>

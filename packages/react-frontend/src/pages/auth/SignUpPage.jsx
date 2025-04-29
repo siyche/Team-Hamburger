@@ -33,6 +33,7 @@ export default function SignupPage() {
         setConfirmPassword("");
         localStorage.setItem("token", token);
         localStorage.setItem("email", email);
+        localStorage.setItem("name", name);
         console.log("Sign up form submitted with:", {
           name,
           email,
@@ -43,13 +44,16 @@ export default function SignupPage() {
       }
       // Invalid credentials, display appropriate error message
       else {
-        if (response.status === 400) {
+        if (response.status === 409) {
+          console.log(response.data);
+          setError("Email already exists. Try a different one.");
+        } else if (response.status === 401) {
           console.log(response.data);
           setError("Double check that your passwords match.");
-        } else if (response.status === 409) {
-          setError("Email already exists. Try a different one.");
         } else
-          console.log("Error: unknown issue creating account:", response.data);
+          setError(
+            "Password must be at least 8 characters long, and contain an uppercase letter, lowercase letter, number, and special character."
+          );
       }
     });
   };
@@ -130,7 +134,7 @@ export default function SignupPage() {
                 required
                 autoComplete="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>

@@ -9,14 +9,10 @@ import Login from "./pages/auth/LoginPage";
 import SignUp from "./pages/auth/SignUpPage";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import "./main.css"; // global styles if needed
-
-//TODO: WILL NEED TO BE REWORKED ONCE WE IMPLEMENT AUTHENTICATION TO INCLUDE PROTECTED ROUTING/LOGIN TOKEN
-// APP ROUTING BEGINS HERE TO ALL THE PAGES
-import Settings from "./components/Settings"; // ADD THIS IMPORT
+import Settings from "./components/Settings";
 import "./main.css";
 
 // Main App component with routing
-// TODO: PROTECTED ROUTING
 const App = () => (
   <Routes>
     <Route path="/login" element={<Login />} />

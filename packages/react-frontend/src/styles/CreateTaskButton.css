@@ -1,6 +1,5 @@
 #CreateTask {
-    background-color: #979797;
-    border: none;
+    background-color: #cccccc;
     color: black;
     padding: 15px 28px;
     text-align: center;
@@ -10,13 +9,11 @@
     transition-duration: 0.25s;
     transition-delay: .05s;
     font-weight: bold;
-    border: 2px solid black;
     border-radius: 40px;
 }
 
 #CreateTask:hover {
-    background-color: #cccccc;
-    border: none;
+    background-color: #979797;
     color: black;
     padding: 15px 28px;
     text-align: center;
@@ -25,6 +22,5 @@
     transition-duration: 0.25s;
     transition-delay: .05s;
     font-weight: bold;
-    border: 2px solid black;
     border-radius: 42px;
 }

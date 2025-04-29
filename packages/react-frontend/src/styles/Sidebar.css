@@ -37,7 +37,9 @@
 }
 
 .nav-button:hover {
-    background-color: #c0c0c0;
+    background-color: #979797;
+    transition-duration: 0.25s;
+    transition-delay: .05s;
 }
 
 
@@ -74,6 +76,7 @@
 
 
 /* View switcher button (button1) */
+
 .button1 {
     width: 100%;
     padding: 15px 21px;
@@ -81,16 +84,33 @@
     font-weight: bold;
     border: none;
     border-radius: 25px;
-    background-color: #d0d0d0;
+    background-color: #cccccc;
     cursor: pointer;
 }
 
 .button1:hover {
-    background-color: #c0c0c0;
+    background-color: #979797;
+    transition-duration: 0.25s;
+    transition-delay: .05s;
 }
 
+
 /* Dropdown for view switching */
+
 .view-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #9a9a9a;
+    border: 1px solid #acacac;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.view-dropdown:hover {
     position: absolute;
     top: 100%;
     left: 0;
@@ -120,6 +140,7 @@
 
 
 /* Filter section container */
+
 .filter-section {
     border: 1px solid #bdbdbd;
     padding: 10px;
@@ -128,6 +149,7 @@
 
 
 /* Filter section header */
+
 .filter-section h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
@@ -135,6 +157,7 @@
 
 
 /* Filter list */
+
 .filter-list {
     list-style: none;
     padding: 0;
@@ -143,6 +166,7 @@
 
 
 /* Individual filter items */
+
 .filter-item {
     padding: 5px;
     margin: 5px 0;
@@ -153,58 +177,74 @@
 
 /* Specific filter item color settings */
 
+
 /* Assignment */
+
 .assignment {
     background-color: #d53e4f;
     color: #000;
 }
 
+
 /* Study */
+
 .study {
     background-color: #f46d43;
     color: #000;
 }
 
+
 /* Midterm */
+
 .midterm {
     background-color: #fdae61;
     color: #000;
 }
 
+
 /* Final */
+
 .final {
     background-color: #fee08b;
     color: #000;
 }
 
+
 /* Quiz */
+
 .quiz {
     background-color: #e5e54d;
     color: #000;
 }
 
+
 /* Lecture */
+
 .lecture {
     background-color: #cde362;
     color: #000;
 }
 
+
 /* Lab */
+
 .lab {
     background-color: #abdda4;
     color: #000;
 }
 
+
 /* Homework*/
+
 .homework {
     background-color: #66c2a5;
     color: #000;
 }
 
+
 /* Presentation */
+
 .presentation {
     background-color: #3288bd;
     color: #000;
 }
-
-
