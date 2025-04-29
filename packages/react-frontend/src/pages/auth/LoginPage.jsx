@@ -1,4 +1,3 @@
-import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -24,14 +23,19 @@ export default function LoginPage() {
       if (response && response.status === 200) {
         // Valid credentials, sign user in
         const token = response.data;
-        setEmail("");
-        setPassword("");
         localStorage.setItem("token", token);
         localStorage.setItem("email", email);
-        console.log("Login form submitted with:", {
-          email,
-          password,
+        getUserData().then((response) => {
+          console.log("Got user data: ", response.name);
+          localStorage.setItem("name", response.name);
+          window.location.reload(); // refreshes page to load name data
         });
+        setEmail("");
+        setPassword("");
+        //console.log("Login form submitted with:", {
+        //  email,
+        //  password,
+        //});
         navigate("/month"); // render by default the month view, but TODO: change to user's default view
       }
       // Invalid credentials, display appropriate error message
@@ -77,6 +81,26 @@ export default function LoginPage() {
     }
   }
 
+  async function getUserData() {
+    try {
+      const response = await fetch(`${BACKEND_URL}/auth/${email}`, {
+        method: "GET",
+      });
+
+      const name = await response.text();
+
+      console.log("getUserData() response: ", name);
+
+      return {
+        status: response.status,
+        name,
+      };
+    } catch (error) {
+      console.log("Login error:", error);
+      return false;
+    }
+  }
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 font-serif">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -105,7 +129,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>

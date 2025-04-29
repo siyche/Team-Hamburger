@@ -1,6 +1,7 @@
 // src/components/MonthCalendar.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/MonthCalendarView.css";
+import WelcomeMessage from "./WelcomeMessage";
 
 const MonthCalendarView = ({ onDaySelect }) => {
   // currentDate is used to determine which month/year to display.
@@ -27,6 +28,11 @@ const MonthCalendarView = ({ onDaySelect }) => {
   const handleNextMonth = () => {
     const next = new Date(currentYear, currentMonth + 1, 1);
     setCurrentDate(next);
+  };
+
+  const handleCurrentMonth = () => {
+    const cur = new Date();
+    setCurrentDate(cur);
   };
 
   // Calculate the starting day for the grid
@@ -58,11 +64,13 @@ const MonthCalendarView = ({ onDaySelect }) => {
         <span>
           <img src="../hamburger.png" alt="Example Image" width="35" />
           &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
+          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentYear}
         </span>
+        <WelcomeMessage />
         <div className="month-nav-buttons">
           <button onClick={handlePrevMonth}>&lt;</button>
-          <button onClick={handlePrevMonth}>Today</button>
+          <button onClick={handleCurrentMonth}>Today</button>
           <button onClick={handleNextMonth}>&gt;</button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 // src/components/WeekCalendarView.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/WeekCalendarView.css";
+import WelcomeMessage from "./WelcomeMessage";
 
 const WeekCalendarView = ({ onDaySelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -53,8 +54,10 @@ const WeekCalendarView = ({ onDaySelect }) => {
         <span>
           <img src="../hamburger.png" alt="Example Image" width="35" />
           &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
+          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentYear}
         </span>
+        <WelcomeMessage />
         <div className="week-nav-buttons">
           <button onClick={handlePrevWeek}>&lt;</button>
           <button onClick={handleNextWeek}>&gt;</button>

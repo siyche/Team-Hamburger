@@ -12,162 +12,183 @@ const router = express.Router();
 router.use(cors());
 router.use(express.json());
 
-const fakeUser = { email: "", pwd: "" };
-
 // token generation function
 // double check that TOKEN_SECRET is set in .env file
 function generateAccessToken(email) {
-    return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-        expiresIn: "900s",
-    });
+  return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+    expiresIn: "18000s", // 5 hours
+  });
 }
 
-router.delete("/settings", async(req, res) => {
-    const email = req.body.userEmail;
-    console.log("test");
-    console.log("UserEmail:", email);
-    try {
-        const existingUser = await User.findOne({ email });
-        console.log("ExistingUser:", existingUser);
+// Return user's name
+router.get("/:email", async (req, res) => {
+  const email = req.params["email"];
+  try {
+    const existingUser = await User.findOne({ email });
+    console.log("ExistingUser:", existingUser);
 
-        // Account somehow does not exist
-        if (!existingUser) {
-            return res.status(409).json({ error: "Error: Account does not exist." });
-        }
-
-        // Proceed if everything is correct
-        try {
-            await User.deleteOne({ email: email });
-            // TODO: also delete associated calendar data
-            return res.status(204).end();
-        } catch (error) {
-            console.log("1");
-            res.status(500).json({ error: "Server error." });
-        }
-    } catch (error) {
-        console.log("2");
-        res.status(500).json({ error: "Server error." });
+    // Account somehow does not exist
+    if (!existingUser) {
+      return res.status(409).json({ error: "Error: Account does not exist." });
     }
+
+    // Proceed if everything is correct
+    console.log(existingUser.name);
+    res.status(200).send(existingUser.name);
+  } catch (error) {
+    res.status(500).json({ error: "Server error." });
+  }
 });
 
-router.post("/login", async(req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const retrievedUser = await User.findOne({ email });
+router.delete("/settings", async (req, res) => {
+  const email = req.body.userEmail;
+  console.log("test");
+  console.log("UserEmail:", email);
+  try {
+    const existingUser = await User.findOne({ email });
+    console.log("ExistingUser:", existingUser);
 
-    // Matching account found
-    if (retrievedUser) {
-        const isValid = await bcrypt.compare(password, retrievedUser.password);
-        console.log("User found: ", retrievedUser);
-        // Valid password, generate token
-        if (isValid) {
-            console.log({ "generaing token for": email });
-            const token = generateAccessToken(email);
-            res.status(200).send(token);
-        }
-
-        // Invalid password, unauthorized
-        else {
-            return res
-                .status(401)
-                .json({ error: "Error: Incorrect email or password." });
-        }
+    // Account somehow does not exist
+    if (!existingUser) {
+      return res.status(409).json({ error: "Error: Account does not exist." });
     }
 
-    // Invalid email, unauthoried
+    // Proceed if everything is correct
+    try {
+      await Calendar.deleteMany({ _ownerid: existingUser._id });
+      await User.deleteOne({ email: email });
+      return res.status(204).end();
+    } catch (error) {
+      res.status(500).json({ error: "Server error." });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Server error." });
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const retrievedUser = await User.findOne({ email });
+
+  // Matching account found
+  if (retrievedUser) {
+    const isValid = await bcrypt.compare(password, retrievedUser.password);
+    console.log("User found: ", retrievedUser);
+    // Valid password, generate token
+    if (isValid) {
+      console.log({ "generaing token for": email });
+      const token = generateAccessToken(email);
+      res.status(200).send(token);
+    }
+
+    // Invalid password, unauthorized
     else {
-        res.status(401).json({ error: "Error: Account not found." });
+      return res
+        .status(401)
+        .json({ error: "Error: Incorrect email or password." });
     }
+  }
+
+  // Invalid email, unauthoried
+  else {
+    res.status(401).json({ error: "Error: Account not found." });
+  }
 });
 
-router.post("/register", async(req, res) => {
-    const { name, email, password, confirmPassword } = req.body;
+router.post("/register", async (req, res) => {
+  const { name, email, password, confirmPassword } = req.body;
 
-    // Email and password are missing
-    if (!name || !email || !password || !confirmPassword) {
-        return res.status(400).json({ error: "Error: Invalid input data." });
+  // Email and password are missing
+  if (!name || !email || !password || !confirmPassword) {
+    return res.status(400).json({ error: "Error: Invalid input data." });
+  }
+
+  // Password and confirmPassword differ
+  if (password !== confirmPassword) {
+    return res
+      .status(400)
+      .json({ error: "Error: Password and confirmed password don't match." });
+  }
+
+  // Password doesn't meet security requirements/specificiations
+  if (
+    password.length < 8 ||
+    password.length > 32 ||
+    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/.test(password)
+  ) {
+    return res.status(400).json({
+      error:
+        "Password must be between 8 and 32 characters, contain an uppercase character, a lowercase character, a number, and a special character.",
+    });
+  }
+
+  // Email already in use
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: "Error: Email already taken." });
     }
 
-    // Password and confirmPassword differ
-    if (password !== confirmPassword) {
-        return res
-            .status(400)
-            .json({ error: "Error: Password and confirmed password don't match." });
-    }
+    // Proceed if everything is correct
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Password is too short
-    if (password.length < 8) {
-        return res
-            .status(400)
-            .json({ error: "Password must be at least 8 characters." });
-    }
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
 
-    // Email already in use
-    try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(409).json({ error: "Error: Email already taken." });
-        }
+    await newUser.save();
 
-        // Proceed if everything is correct
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+    // Create a default calendar for the new user
+    const newCalendar = new Calendar({
+      _ownerid: newUser._id,
+      name: `${name}'s Calendar`,
+      description: `Default calendar for ${name}`,
+    });
 
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-        });
+    // Save the new calendar to the database
+    await newCalendar.save();
 
-        await newUser.save();
+    // Add the new calendar to the user's calendars array
+    newUser.calendars.push(newCalendar._id);
+    await newUser.save();
 
-        // Create a default calendar for the new user
-        const newCalendar = new Calendar({
-            _ownerid: newUser._id,
-            name: `${name}'s Calendar`,
-            description: `Default calendar for ${name}`,
-        });
+    // Generate a JWT token for the new user
+    const token = generateAccessToken(email);
 
-        // Save the new calendar to the database
-        await newCalendar.save();
-
-        // Add the new calendar to the user's calendars array
-        newUser.calendars.push(newCalendar._id);
-        await newUser.save();
-
-        // Generate a JWT token for the new user
-        const token = generateAccessToken(email);
-
-        console.log("JWT: ", token);
-        res.status(201).send(token);
-    } catch (error) {
-        res.status(500).json({ error: "Server error." });
-    }
+    console.log("JWT: ", token);
+    res.status(201).send(token);
+  } catch (error) {
+    res.status(500).json({ error: "Server error." });
+  }
 });
 
 // Middleware function for all access-controlled endpoints
 export function authenticateUser(req, res, next) {
-    console.log("Authenticating user...");
-    // Get token
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+  console.log("Authenticating user...");
+  // Get token
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-    // No token recieved
-    if (!token) {
-        console.log("No token received");
-        return res.status(401).end();
-    }
+  // No token recieved
+  if (!token) {
+    console.log("No token received");
+    return res.status(401).end();
+  }
 
-    // Proceed if token is recieved
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log("Decoded token: ", decoded);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        console.log(error);
-        return res.status(401).end();
-    }
+  // Proceed if token is recieved
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log("Decoded token: ", decoded);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(401).end();
+  }
 }
 
 export default router;

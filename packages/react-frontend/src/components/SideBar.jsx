@@ -42,8 +42,7 @@ const SideBar = ({ onEventCreated }) => {
   // Handle logout
   const handleLogout = () => {
     // Clear user data from localStorage or context
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
+    localStorage.clear();
     // localStorage.removeItem("userData");
 
     // Redirect to login page
