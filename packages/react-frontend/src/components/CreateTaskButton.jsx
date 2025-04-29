@@ -10,7 +10,7 @@ function CreateTaskButton({ onClick }) {
   );
 }
 
-CreateTaskForm.propTypes = {
+CreateTaskButton.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   initialEvent: PropTypes.shape({
