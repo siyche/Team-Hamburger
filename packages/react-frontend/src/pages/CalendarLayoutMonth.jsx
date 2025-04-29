@@ -11,7 +11,10 @@ const CalendarLayoutMonth = () => {
   // Maintain the currently selected day. Default to today.
   const [selectedDay, setSelectedDay] = useState(new Date());
 
+  // State to hold events fetched from the API
   const [events, setEvents] = useState([]);
+
+  // Function to refresh events after creating or updating an event. Passed  as props to currentdayview and monthcalendar
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -43,7 +46,7 @@ const CalendarLayoutMonth = () => {
       {/* Left panel */}
       <Sidebar onEventCreated={fetchEvents}/>
       {/* Center panel: the calendar view */}
-      <MonthCalendarView onDaySelect={setSelectedDay} />
+      <MonthCalendarView onDaySelect={setSelectedDay} events={events} refreshEvents={fetchEvents} />
       {/* Right panel: shows events for the selected day */}
       <CurrentDayView selectedDay={selectedDay} events={events} refreshEvents={fetchEvents} />
     </div>

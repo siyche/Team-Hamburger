@@ -3,11 +3,11 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Modal from './Modal';
 import CreateTaskForm from './CreateTaskForm';
 import '../styles/CurrentDayView.css';
+
 const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [eventToEdit, setEventToEdit] = useState(null);
     
-  
     const handleEdit = (event) => {
       setEventToEdit(event);
       setIsEditModalOpen(true);
