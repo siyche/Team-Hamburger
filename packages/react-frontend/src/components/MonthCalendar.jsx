@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/MonthCalendarView.css";
 import WelcomeMessage from "./WelcomeMessage";
 
-const MonthCalendarView = ({ onDaySelect }) => {
+const MonthCalendarView = ({ events = [{date: new Date(new Date().setHours(10,0,0,0)).toISOString(), title: "Test Event"}], onDaySelect }) => {
   // currentDate is used to determine which month/year to display.
   const [currentDate, setCurrentDate] = useState(new Date());
   // selectedDay is maintained locally so you can highlight the clicked day.
@@ -102,8 +102,17 @@ const MonthCalendarView = ({ onDaySelect }) => {
               className={`${cellClass} ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
             >
-              <span>{day.getDate().toString().padStart(2, "0")}</span>
-              {/* Future: Render event info here */}
+          <span>{day.getDate().toString().padStart(2, "0")}</span>
+          <div className="month-event-list">
+            {events
+              .filter(event => new Date(event.date).toDateString() === day.toDateString())
+              .map((eventItem, idx) => (
+                <div key={idx} className="month-event">
+                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {eventItem.title}
+                </div>
+              ))
+            }
+          </div>
             </div>
           );
         })}
