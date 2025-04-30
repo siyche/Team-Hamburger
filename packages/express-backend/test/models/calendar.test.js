@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Calendar from "../../src/models/calendar.js";
+import Calendar from "../../src/models/calendar_new.js";
 import User from "../../src/models/user.js";
 
 describe("Calendar Model Tests", () => {
