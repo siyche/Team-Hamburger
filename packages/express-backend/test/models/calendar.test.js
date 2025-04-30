@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 //import Calendar from "../../src/models/Calendar.js";
-const Calendar = require("../../src/models/Calendar.js");
+const Calendar = require("../../src/models/calendar.js");
 import User from "../../src/models/user.js";
 
 describe("Calendar Model Tests", () => {

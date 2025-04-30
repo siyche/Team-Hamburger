@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
-import Calendar from "../models/Calendar.js";
+import Calendar from "../models/calendar.js";
 
 const router = express.Router();
 router.use(cors());
