@@ -4,7 +4,7 @@
 
 import mongoose from "mongoose";
 import mockingoose from "mockingoose";
-import UserSchema from "../../src/models/user";
+import UserSchema from "../models/user";
 
 let UserSchema;
 
