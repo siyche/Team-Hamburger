@@ -2,11 +2,11 @@
  * Based on provided example code from GitHub
  */
 import mongoose from "mongoose";
-import UserSchema from "../../src/models/user";
-import auth from "../../src/routes/Auth";
 import mockingoose from "mockingoose";
+import UserSchema from "../../src/models/user";
+import db from "../../src/config/db";
 
-let userModel;
+let db;
 
 beforeAll(async () => {
   // Fake user
