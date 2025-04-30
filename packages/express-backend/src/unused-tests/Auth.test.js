@@ -3,8 +3,8 @@
  */
 import mongoose from "mongoose";
 import mockingoose from "mockingoose";
-import UserSchema from "../../src/models/user";
-import db from "../../src/config/db";
+import UserSchema from "../models/user";
+import db from "../config/db";
 
 let db;
 
