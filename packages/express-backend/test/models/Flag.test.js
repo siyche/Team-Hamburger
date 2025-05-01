@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Flag from "../../src/models/flag.js";
+import mongoose from 'mongoose';
+import Flag from '../../src/models/flag.js';
 
 describe("Flag Model Tests", () => {
   test("should create a flag with a name", async () => {
