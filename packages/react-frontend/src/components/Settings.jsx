@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
-const BACKEND_URL = "http://localhost:8000";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -54,9 +53,10 @@ const Settings = () => {
     alert("Settings saved successfully!");
   };
 
+
   async function deleteAccount() {
     const email = localStorage.getItem("email");
-    const response = await fetch(`${BACKEND_URL}/auth/settings`, {
+    const response = await fetch(`/api/auth/settings`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -2,7 +2,6 @@ import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const BACKEND_URL = "http://localhost:8000";
 // import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
@@ -67,7 +66,7 @@ export default function SignupPage() {
         password: password,
         confirmPassword: confirmPassword,
       };
-      const response = await fetch(`${BACKEND_URL}/auth/register`, {
+      const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +93,7 @@ export default function SignupPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           alt="hamburger"
-          src="../../../public/hamburger.png"
+          src="../../../hamburger.png"
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl font-serif tracking-tight text-gray-900">

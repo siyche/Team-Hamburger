@@ -96,8 +96,8 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       console.log("Method chosen:", method, "for event");
 
       const url = initialEvent
-        ? `http://localhost:8000/api/events/${initialEvent._id}`
-        : "http://localhost:8000/api/events";
+        ? `/api/events/${initialEvent._id}`
+        : '/api/events';
       const response = await fetch(url, {
         method,
         headers: {

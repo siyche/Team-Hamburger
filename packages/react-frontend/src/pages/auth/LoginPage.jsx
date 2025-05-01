@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const BACKEND_URL = "http://localhost:8000";
 
 export default function LoginPage() {
   // hook to navigate between pages
@@ -26,7 +25,6 @@ export default function LoginPage() {
         localStorage.setItem("token", token);
         localStorage.setItem("email", email);
         getUserData().then((response) => {
-          console.log("Got user data: ", response.name);
           localStorage.setItem("name", response.name);
           window.location.reload(); // refreshes page to load name data
         });
@@ -59,7 +57,7 @@ export default function LoginPage() {
         password: password,
         confirmPassword: password, // irrelevant in this scenario; making it the same for simplicity
       };
-      const response = await fetch(`${BACKEND_URL}/auth/login`, {
+      const response = await fetch(`/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +81,7 @@ export default function LoginPage() {
 
   async function getUserData() {
     try {
-      const response = await fetch(`${BACKEND_URL}/auth/${email}`, {
+      const response = await fetch(`/auth/${email}`, {
         method: "GET",
       });
 
@@ -106,7 +104,7 @@ export default function LoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           alt="hamburger"
-          src="../../../public/hamburger.png"
+          src="../../../hamburger.png"
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl font-serif tracking-tight text-gray-900">

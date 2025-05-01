@@ -18,7 +18,7 @@ const CalendarLayoutMonth = () => {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8000/api/events", {
+      const response = await fetch('/api/events', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
