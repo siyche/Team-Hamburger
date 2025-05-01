@@ -2,7 +2,7 @@
 // this is the parent component for the week calendar view -> holds sidebar & week calendar
 
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/SideBar";
 import WeekCalendarView from "../components/WeekCalendar"; // our dynamic calendar view component
 import "../styles/CalendarLayout.css"; // this file handles the overall two-panel flex layout
 

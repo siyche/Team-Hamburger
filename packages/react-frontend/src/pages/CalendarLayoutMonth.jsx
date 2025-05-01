@@ -2,7 +2,7 @@
 // this is the parent component for the month calendar view -> holds sidebar, month calendar, and current day view
 
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/SideBar.jsx";
 import MonthCalendarView from "../components/MonthCalendar"; // our dynamic calendar view component
 import CurrentDayView from "../components/CurrentDayView";
 import "../styles/CalendarLayout.css"; // this file handles the overall three-panel flex layout
@@ -33,22 +33,29 @@ const CalendarLayoutMonth = () => {
     } catch (err) {
       console.error("Error fetching events:", err);
     }
-  }
+  };
 
   // useEffect to fetch events when the component mounts
   useEffect(() => {
     fetchEvents();
-  }
-  , []);
+  }, []);
 
   return (
     <div className="calendar-layout">
       {/* Left panel */}
-      <Sidebar onEventCreated={fetchEvents}/>
+      <Sidebar onEventCreated={fetchEvents} />
       {/* Center panel: the calendar view */}
-      <MonthCalendarView onDaySelect={setSelectedDay} events={events} refreshEvents={fetchEvents} />
+      <MonthCalendarView
+        onDaySelect={setSelectedDay}
+        events={events}
+        refreshEvents={fetchEvents}
+      />
       {/* Right panel: shows events for the selected day */}
-      <CurrentDayView selectedDay={selectedDay} events={events} refreshEvents={fetchEvents} />
+      <CurrentDayView
+        selectedDay={selectedDay}
+        events={events}
+        refreshEvents={fetchEvents}
+      />
     </div>
   );
 };
