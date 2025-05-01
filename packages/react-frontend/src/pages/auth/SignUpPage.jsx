@@ -2,7 +2,6 @@ import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const BACKEND_URL = "http://localhost:8000";
 // import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
@@ -67,7 +66,7 @@ export default function SignupPage() {
         password: password,
         confirmPassword: confirmPassword,
       };
-      const response = await fetch(`${BACKEND_URL}/auth/register`, {
+      const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

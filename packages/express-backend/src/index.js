@@ -25,7 +25,7 @@ try {
   await connectDB();
   
   // mount routes
-  app.use('/auth', authRoutes);
+  app.use('/api/auth', authRoutes);
   app.use('/api/events', eventRoutes);
 
   // Serve static files from the React frontend app
