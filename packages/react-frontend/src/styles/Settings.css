@@ -1,113 +1,494 @@
 /* src/styles/Settings.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;600&family=Open+Sans:wght@400;500;600&family=Lora:wght@400;500;600&display=swap');
 
-/* src/styles/Settings.css */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .settings-page {
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  font-family: var(--font-family, 'Inter'), sans-serif;
+  width: 90%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  color: #333; /* Fallback text color */
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.settings-header h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin: 0 auto;
+}
+
+.unsaved-changes {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.settings-content {
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.settings-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.setting-option {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+.setting-option label {
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 160px;
+}
+
+.setting-option select,
+.setting-option input[type="text"],
+.setting-option input[type="password"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  max-width: 400px;
+}
+
+.setting-option select:focus,
+.setting-option input[type="text"]:focus,
+.setting-option input[type="password"]:focus {
+  outline: none;
+}
+
+.setting-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.account-button {
+  border: 1px solid;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.account-button.danger {
+  border: none;
+}
+
+.save-button {
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.save-button:disabled {
+  cursor: not-allowed;
+}
+
+.reset-button {
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.delete-confirm,
+.password-change-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.delete-confirm span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.password-change-form h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Theme styles */
+[data-theme="light"] {
+  background: #f5f5f5;
+  color: #333;
+}
+
+[data-theme="light"] .settings-content {
+  background: #ffffff;
+  color: #333;
+}
+
+[data-theme="light"] .settings-header h1,
+[data-theme="light"] .settings-section h2,
+[data-theme="light"] .setting-option label,
+[data-theme="light"] .delete-confirm span,
+[data-theme="light"] .password-change-form h3 {
+  color: #333;
+}
+
+[data-theme="light"] .back-button:hover {
+  background-color: #e0e0e0;
+}
+
+[data-theme="light"] .unsaved-changes {
+  color: #e67e22;
+}
+
+[data-theme="light"] .setting-option select,
+[data-theme="light"] .setting-option input[type="text"],
+[data-theme="light"] .setting-option input[type="password"] {
+  background: #fafafa;
+  border-color: #ddd;
+  color: #333;
+}
+
+[data-theme="light"] .setting-option select:focus,
+[data-theme="light"] .setting-option input[type="text"]:focus,
+[data-theme="light"] .setting-option input[type="password"]:focus {
+  border-color: #4CAF50;
+}
+
+[data-theme="light"] .account-button {
+  background: #f5f5f5;
+  border-color: #ddd;
+  color: #333;
+}
+
+[data-theme="light"] .account-button:hover {
+  background: #e0e0e0;
+}
+
+[data-theme="light"] .account-button.danger {
+  background: #e74c3c;
+  color: white;
+}
+
+[data-theme="light"] .account-button.danger:hover {
+  background: #c0392b;
+}
+
+[data-theme="light"] .save-button {
+  background: #4CAF50;
+  color: white;
+}
+
+[data-theme="light"] .save-button:hover {
+  background: #45a049;
+}
+
+[data-theme="light"] .save-button:disabled {
+  background: #cccccc;
+  color: #666;
+}
+
+[data-theme="light"] .reset-button {
+  background: #f39c12;
+  color: white;
+}
+
+[data-theme="light"] .reset-button:hover {
+  background: #e08e0b;
+}
+
+[data-theme="light"] .delete-confirm,
+[data-theme="light"] .password-change-form {
+  background: #f9f9f9;
+  color: #333;
+}
+
+[data-theme="dark"] {
+  background: #1a1a1a;
+  color: #000000;
+}
+
+[data-theme="dark"] .settings-content {
+  background: #2c2c2c;
+  color: #f5f5f5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .settings-header h1,
+[data-theme="dark"] .settings-section h2,
+[data-theme="dark"] .setting-option label,
+[data-theme="dark"] .delete-confirm span,
+[data-theme="dark"] .password-change-form h3 {
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .back-button:hover {
+  background-color: #4a4a4a;
+}
+
+[data-theme="dark"] .unsaved-changes {
+  color: #ffa726;
+}
+
+[data-theme="dark"] .setting-option select,
+[data-theme="dark"] .setting-option input[type="text"],
+[data-theme="dark"] .setting-option input[type="password"] {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .setting-option select:focus,
+[data-theme="dark"] .setting-option input[type="text"]:focus,
+[data-theme="dark"] .setting-option input[type="password"]:focus {
+  border-color: #66bb6a;
+}
+
+[data-theme="dark"] .account-button {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .account-button:hover {
+  background: #4a4a4a;
+}
+
+[data-theme="dark"] .account-button.danger {
+  background: #e74c3c;
+  color: white;
+}
+
+[data-theme="dark"] .account-button.danger:hover {
+  background: #c0392b;
+}
+
+[data-theme="dark"] .save-button {
+  background: #66bb6a;
+  color: white;
+}
+
+[data-theme="dark"] .save-button:hover {
+  background: #4caf50;
+}
+
+[data-theme="dark"] .save-button:disabled {
+  background: #555;
+  color: #999;
+}
+
+[data-theme="dark"] .reset-button {
+  background: #ffa726;
+  color: white;
+}
+
+[data-theme="dark"] .reset-button:hover {
+  background: #f57c00;
+}
+
+[data-theme="dark"] .delete-confirm,
+[data-theme="dark"] .password-change-form {
+  background: #333;
+  color: #f5f5f5;
+}
+
+[data-theme="blue"] {
+  background: #e6f0fa;
+  color: #2c3e50;
+}
+
+[data-theme="blue"] .settings-content {
+  background: #ffffff;
+  color: #2c3e50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="blue"] .settings-header h1,
+[data-theme="blue"] .settings-section h2,
+[data-theme="blue"] .setting-option label,
+[data-theme="blue"] .delete-confirm span,
+[data-theme="blue"] .password-change-form h3 {
+  color: #2c3e50;
+}
+
+[data-theme="blue"] .back-button:hover {
+  background-color: #d4e6f1;
+}
+
+[data-theme="blue"] .unsaved-changes {
+  color: #d35400;
+}
+
+[data-theme="blue"] .setting-option select,
+[data-theme="blue"] .setting-option input[type="text"],
+[data-theme="blue"] .setting-option input[type="password"] {
+  background: #f0f8ff;
+  border-color: #b3cde0;
+  color: #2c3e50;
+}
+
+[data-theme="blue"] .setting-option select:focus,
+[data-theme="blue"] .setting-option input[type="text"]:focus,
+[data-theme="blue"] .setting-option input[type="password"]:focus {
+  border-color: #3498db;
+}
+
+[data-theme="blue"] .account-button {
+  background: #3498db;
+  border: none;
+  color: white;
+}
+
+[data-theme="blue"] .account-button:hover {
+  background: #2980b9;
+}
+
+[data-theme="blue"] .account-button.danger {
+  background: #e74c3c;
+  color: white;
+}
+
+[data-theme="blue"] .account-button.danger:hover {
+  background: #c0392b;
+}
+
+[data-theme="blue"] .save-button {
+  background: #3498db;
+  color: white;
+}
+
+[data-theme="blue"] .save-button:hover {
+  background: #2980b9;
+}
+
+[data-theme="blue"] .save-button:disabled {
+  background: #95a5a6;
+  color: #ececec;
+}
+
+[data-theme="blue"] .reset-button {
+  background: #e67e22;
+  color: white;
+}
+
+[data-theme="blue"] .reset-button:hover {
+  background: #d35400;
+}
+
+[data-theme="blue"] .delete-confirm,
+[data-theme="blue"] .password-change-form {
+  background: #f0f8ff;
+  color: #2c3e50;
+}
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 2rem 1rem;
+    width: 95%;
   }
-  
-  .settings-header {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .back-button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-right: 20px;
-    padding: 5px 10px;
-  }
-  
-  .back-button:hover {
-    background-color: #f0f0f0;
-    border-radius: 5px;
-  }
-  
+
   .settings-content {
-    background: rgb(246, 246, 246);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
   }
-  
-  .settings-section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+
+  .settings-header h1 {
+    font-size: 1.75rem;
   }
-  
-  .settings-section:last-child {
-    border-bottom: none;
+
+  .settings-section h2 {
+    font-size: 1.5rem;
   }
-  
+
   .setting-option {
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
-  
+
   .setting-option label {
-    margin-left: 10px;
-    flex-grow: 1;
+    min-width: auto;
   }
-  
-  .setting-option select {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+
+  .setting-option select,
+  .setting-option input[type="text"],
+  .setting-option input[type="password"] {
+    max-width: 100%;
   }
-  
-  .account-button {
-    background: none;
-    border: 1px solid #ddd;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
+}
+
+@media (max-width: 480px) {
+  .settings-page {
+    padding: 1.5rem 0.75rem;
   }
-  
-  .account-button:hover {
-    background-color: #f5f5f5;
+
+  .settings-content {
+    padding: 1rem;
   }
-  
-  .save-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+
+  .settings-header h1 {
+    font-size: 1.5rem;
   }
-  
-  .save-button:hover {
-    background-color: #45a049;
+
+  .settings-section h2 {
+    font-size: 1.25rem;
   }
-  
-  /* Dark theme styles */
-  .settings-page.dark {
-    background-color: #333;
-    color: white;
+
+  .account-button,
+  .save-button,
+  .reset-button {
+    width: 100%;
+    text-align: center;
   }
-  
-  .settings-page.dark .settings-content {
-    background-color: #444;
-    color: white;
-  }
-  
-  .settings-page.dark .back-button:hover {
-    background-color: #555;
-  }
-  
-  .settings-page.dark .account-button {
-    border-color: #666;
-    color: white;
-  }
-  
-  .settings-page.dark .account-button:hover {
-    background-color: #555;
-  }
+}
