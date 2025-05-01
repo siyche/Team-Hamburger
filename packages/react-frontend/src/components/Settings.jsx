@@ -1,10 +1,9 @@
-// src/components/Settings.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
 const BACKEND_URL = "http://localhost:8000";
 
-const Settings = () => {
+const Settings = ({ setDisplayName }) => {
   const navigate = useNavigate();
   const [settings, setSettings] = useState({
     theme: "light",
@@ -13,17 +12,43 @@ const Settings = () => {
     weekStartsOn: "sunday",
     timeFormat: "12",
     defaultView: "week",
+    font: "inter",
+    displayName: "",
   });
   const [isDirty, setIsDirty] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showPasswordChange, setShowPasswordChange] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
-  // Load saved settings on component mount
+  // Load saved settings and apply theme on component mount
   useEffect(() => {
     const savedSettings = localStorage.getItem("calendarSettings");
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
+      const parsedSettings = JSON.parse(savedSettings);
+      setSettings(parsedSettings);
+      if (setDisplayName && parsedSettings.displayName) {
+        setDisplayName(parsedSettings.displayName);
+        localStorage.setItem("name", parsedSettings.displayName); // Sync with WelcomeMessage
+      }
     }
+    applyTheme(settings.theme); // Apply initial theme
+    applyFont(settings.font);
   }, []);
+
+  // Apply theme whenever settings.theme changes
+  useEffect(() => {
+    applyTheme(settings.theme);
+    console.log("Applying theme:", settings.theme); // Debug log
+  }, [settings.theme]);
+
+  // Apply font whenever settings.font changes
+  useEffect(() => {
+    applyFont(settings.font);
+  }, [settings.font]);
 
   const handleBackClick = () => {
     if (
@@ -44,39 +69,111 @@ const Settings = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
     setIsDirty(true);
+    if (name === "theme") {
+      applyTheme(value);
+    }
+    if (name === "font") {
+      applyFont(value);
+    }
+    if (name === "displayName" && setDisplayName) {
+      setDisplayName(value);
+      localStorage.setItem("name", value); // Update localStorage for WelcomeMessage
+    }
+  };
+
+  const handlePasswordChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSaveSettings = () => {
     localStorage.setItem("calendarSettings", JSON.stringify(settings));
+    localStorage.setItem("name", settings.displayName); // Sync with WelcomeMessage
     applyTheme(settings.theme);
+    applyFont(settings.font);
     setIsDirty(false);
-    // In a real app, you would also send to your backend
     alert("Settings saved successfully!");
+  };
+
+  const handlePasswordChange = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert("New passwords do not match!");
+      return;
+    }
+    try {
+      const response = await fetch(`${BACKEND_URL}/auth/change-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem("email"),
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }),
+      });
+      if (response.ok) {
+        alert("Password changed successfully!");
+        setShowPasswordChange(false);
+        setPasswordData({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+      } else {
+        alert("Error changing password!");
+      }
+    } catch (error) {
+      alert("Error changing password!");
+    }
+  };
+
+  const exportToICS = () => {
+    const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MyCalendar//EN\nEND:VCALENDAR";
+    const blob = new Blob([icsContent], { type: "text/calendar" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "calendar.ics";
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   async function deleteAccount() {
     const email = localStorage.getItem("email");
-    const response = await fetch(`${BACKEND_URL}/auth/settings`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userEmail: email }),
-    });
+    try {
+      const response = await fetch(`${BACKEND_URL}/auth/settings`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail: email }),
+      });
 
-    const status = response.status;
-    if (status === 204) {
-      console.log("Account successfully deleted.");
-      localStorage.removeItem("email");
-      localStorage.removeItem("token");
-      navigate("/register");
-    } else {
-      console.log("Error deleting account: ", status);
+      if (response.status === 204) {
+        alert("Account successfully deleted.");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        navigate("/register");
+      } else {
+        alert("Error deleting account!");
+      }
+    } catch (error) {
+      alert("Error deleting account!");
     }
   }
 
   const applyTheme = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
+    document.body.setAttribute("data-theme", theme);
+    console.log("Theme applied:", theme); // Debug log
+  };
+
+  const applyFont = (font) => {
+    document.documentElement.style.setProperty("--font-family", font);
   };
 
   const resetToDefaults = () => {
@@ -90,26 +187,44 @@ const Settings = () => {
         weekStartsOn: "sunday",
         timeFormat: "12",
         defaultView: "week",
+        font: "inter",
+        displayName: "",
       };
       setSettings(defaults);
+      applyTheme(defaults.theme);
+      applyFont(defaults.font);
+      localStorage.setItem("name", ""); // Reset name
+      if (setDisplayName) setDisplayName("");
       setIsDirty(true);
     }
   };
 
   return (
-    <div
-      className={`settings-page ${settings.theme}`}
-      data-theme={settings.theme}
-    >
+    <div className="settings-page" style={{ fontFamily: settings.font }}>
       <div className="settings-header">
         <button className="back-button" onClick={handleBackClick}>
-          &larr; Back
+          ← Back
         </button>
         <h1>Settings</h1>
-        {isDirty && <span className="unsaved-changes"></span>}
+        {isDirty && <span className="unsaved-changes">Unsaved Changes</span>}
       </div>
 
       <div className="settings-content">
+        <div className="settings-section">
+          <h2>Profile</h2>
+          <div className="setting-option">
+            <label htmlFor="displayName">Display Name:</label>
+            <input
+              type="text"
+              id="displayName"
+              name="displayName"
+              value={settings.displayName}
+              onChange={handleSettingChange}
+              placeholder="Enter your display name"
+            />
+          </div>
+        </div>
+
         <div className="settings-section">
           <h2>Appearance</h2>
           <div className="setting-option">
@@ -122,10 +237,23 @@ const Settings = () => {
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
-              <option value="system">System Default</option>
+              <option value="blue">Blue</option>
             </select>
           </div>
-
+          <div className="setting-option">
+            <label htmlFor="font">Font:</label>
+            <select
+              id="font"
+              name="font"
+              value={settings.font}
+              onChange={handleSettingChange}
+            >
+              <option value="inter">Inter</option>
+              <option value="roboto">Roboto</option>
+              <option value="open-sans">Open Sans</option>
+              <option value="lora">Lora</option>
+            </select>
+          </div>
           <div className="setting-option">
             <label htmlFor="defaultView">Default View:</label>
             <select
@@ -198,9 +326,65 @@ const Settings = () => {
         <div className="settings-section">
           <h2>Account</h2>
           <div className="setting-option">
-            <button className="account-button">Change Password</button>
-            <button className="account-button">Export Data</button>
+            <button
+              className="account-button"
+              onClick={() => setShowPasswordChange(true)}
+            >
+              Change Password
+            </button>
+            <button className="account-button" onClick={exportToICS}>
+              Export Calendar
+            </button>
           </div>
+          {showPasswordChange && (
+            <div className="password-change-form">
+              <h3>Change Password</h3>
+              <div className="setting-option">
+                <label htmlFor="currentPassword">Current Password:</label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  name="currentPassword"
+                  value={passwordData.currentPassword}
+                  onChange={handlePasswordChangeInput}
+                />
+              </div>
+              <div className="setting-option">
+                <label htmlFor="newPassword">New Password:</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  value={passwordData.newPassword}
+                  onChange={handlePasswordChangeInput}
+                />
+              </div>
+              <div className="setting-option">
+                <label htmlFor="confirmPassword">Confirm New Password:</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={passwordData.confirmPassword}
+                  onChange={handlePasswordChangeInput}
+                />
+              </div>
+              <div className="setting-option">
+                <button
+                  className="account-button"
+                  onClick={handlePasswordChange}
+                >
+                  Save Password
+                </button>
+                <button
+                  className="account-button"
+                  onClick={() => setShowPasswordChange(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
           <div className="setting-option">
             {!showDeleteConfirm ? (
               <button
@@ -211,12 +395,12 @@ const Settings = () => {
               </button>
             ) : (
               <div className="delete-confirm">
-                <span>Are you sure?</span>
+                <span>Are you sure you want to delete your account?</span>
                 <button
                   className="account-button danger"
                   onClick={deleteAccount}
                 >
-                  Confirm
+                  Confirm Delete
                 </button>
                 <button
                   className="account-button"
@@ -230,6 +414,9 @@ const Settings = () => {
         </div>
 
         <div className="settings-actions">
+          <button className="reset-button" onClick={resetToDefaults}>
+            Reset to Defaults
+          </button>
           <button
             className="save-button"
             onClick={handleSaveSettings}
