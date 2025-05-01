@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
+const BACKEND_URL = "http://localhost:8000";
 
 const Settings = ({ setDisplayName }) => {
   const navigate = useNavigate();
@@ -97,15 +98,60 @@ const Settings = ({ setDisplayName }) => {
     alert("Settings saved successfully!");
   };
 
+  const handlePasswordChange = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert("New passwords do not match!");
+      return;
+    }
+    try {
+      const response = await fetch(`${BACKEND_URL}/auth/change-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem("email"),
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }),
+      });
+      if (response.ok) {
+        alert("Password changed successfully!");
+        setShowPasswordChange(false);
+        setPasswordData({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+      } else {
+        alert("Error changing password!");
+      }
+    } catch (error) {
+      alert("Error changing password!");
+    }
+  };
+
+  const exportToICS = () => {
+    const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MyCalendar//EN\nEND:VCALENDAR";
+    const blob = new Blob([icsContent], { type: "text/calendar" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "calendar.ics";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   async function deleteAccount() {
     const email = localStorage.getItem("email");
-    const response = await fetch(`${BACKEND_URL}/auth/settings`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userEmail: email }),
-    });
+    try {
+      const response = await fetch(`${BACKEND_URL}/auth/settings`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail: email }),
+      });
 
       if (response.status === 204) {
         alert("Account successfully deleted.");
