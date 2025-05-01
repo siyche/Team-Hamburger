@@ -197,3 +197,26 @@ test('should add a flag to an event', async () => {
   const populatedEvent = await Event.findById(event._id).populate('flags');
   expect(populatedEvent.flags[0].flagname).toBe('important');
 });
+
+test('should create an event with multiple flags and verify flag names', async () => {
+  const flag1 = await Flag.create({ flagname: 'urgent' });
+  const flag2 = await Flag.create({ flagname: 'important' });
+  
+  const event = await Event.create({
+    date: new Date('2023-12-05'),
+    title: 'Multi-Flag Event',
+    flags: [flag1._id, flag2._id]
+  });
+  
+  expect(event.flags.length).toBe(2);
+  
+  const populatedEvent = await Event.findById(event._id).populate('flags');
+  
+  expect(populatedEvent.flags).toHaveLength(2);
+  
+  const flagNames = populatedEvent.flags.map(flag => flag.flagname);
+  
+  expect(flagNames).toContain('urgent');
+  expect(flagNames).toContain('important');
+});
+
