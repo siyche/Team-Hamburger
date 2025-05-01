@@ -5,7 +5,7 @@ import React from "react";
 export default function WelcomeMessage() {
   return (
     <div className="welcome-message">
-      Welcome, {localStorage.getItem("name")}
+      Welcome, {localStorage.getItem("email")}
     </div>
   );
 }

@@ -25,7 +25,6 @@ export default function LoginPage() {
         localStorage.setItem("token", token);
         localStorage.setItem("email", email);
         getUserData().then((response) => {
-          console.log("Got user data: ", response.name);
           localStorage.setItem("name", response.name);
           window.location.reload(); // refreshes page to load name data
         });
