@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import Event from '../../src/models/Event.js';
+import Event from '../../src/models/event.js';
+import Flag from '../../src/models/flag.js';
 
 describe('Event Model Tests', () => {
   // Regular event
@@ -156,13 +157,33 @@ describe('Event Model Tests', () => {
 
   // Flags
   test('should create an event with flags', async () => {
+    // const flag0 = await Flag.create({ flagname: 'urgent' });
     const flag1 = new mongoose.Types.ObjectId();
-    const flag2 = new mongoose.Types.ObjectId();
+    const flag2 = new mongoose.Types.ObjectId()
     const event = await Event.create({
       date: new Date(),
-      flags: [flag1, flag2],
+      flags: [flag1, flag2], // flag0? getting an error
       title: 'Flag Event',
     });
-    expect(event.flags).toEqual([flag1, flag2]);
+    expect(event.flags).toEqual([flag1, flag2]); // flag0  not impl
+    // expect(event.flag.flagname).toBe('urgent');
   });
+});
+
+// event flag specific name, checking for the title of the flag in expect
+test('should add a flag to an event', async () => {
+  const flag = await Flag.create({ flagname: 'important' });
+  const event = await Event.create({
+    date: new Date('2023-12-01'),
+    title: 'Flag Event 2!',
+  });
+  expect(event.flags.length).toBe(0);
+  event.flags.push(flag._id);
+  await event.save();
+  
+  const updatedEvent = await Event.findById(event._id);
+  expect(updatedEvent.flags.length).toBe(1);
+  expect(updatedEvent.flags[0].toString()).toBe(flag._id.toString());
+  const populatedEvent = await Event.findById(event._id).populate('flags');
+  expect(populatedEvent.flags[0].flagname).toBe('important');
 });

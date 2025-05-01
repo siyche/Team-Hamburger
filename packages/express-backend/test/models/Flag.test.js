@@ -1,7 +1,5 @@
-
-
 import mongoose from 'mongoose';
-import Flag from '../../src/models/Flag.js';
+import Flag from '../../src/models/flag.js';
 
 describe('Flag Model Tests', () => {
   test('should create a flag with a name', async () => {
