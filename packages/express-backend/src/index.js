@@ -12,7 +12,7 @@ import authRoutes from './routes/Auth.js';
 import eventRoutes from './routes/Events.js';
 
 try {
-  const staticDir = path.join(__dirname, '../../react-frontend/dist');
+  const staticDir = path.join(__dirname, '../../react-frontend/build');
   console.log('Index.js will static files from:', staticDir);
   dotenv.config();
 
