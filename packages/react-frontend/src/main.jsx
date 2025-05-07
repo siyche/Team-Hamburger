@@ -14,6 +14,7 @@ import "./main.css";
 
 // Main App component with routing
 const App = () => (
+  dhjfldshjflsdjhflsd
   <Routes>
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<SignUp />} />
