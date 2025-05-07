@@ -17,7 +17,7 @@ router.use(express.json());
 // double check that TOKEN_SECRET is set in .env file
 function generateAccessToken(email) {
   return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-    expiresIn: "10s", // 5 hours
+    expiresIn: "18000s", // 5 hours
   });
 }
 
