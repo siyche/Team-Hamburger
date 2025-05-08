@@ -11,14 +11,14 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/Auth.js';
 import eventRoutes from './routes/Events.js';
 
+dotenv.config();
+const app = express();
+
 try {
   // TODO: needs to be changed to the build folder
   //const staticDir = path.join(__dirname, '../../react-frontend/build');
   const staticDir = path.join(__dirname, '../react-frontend/build');
-  console.log('Index.js will static files from:', staticDir);
-  dotenv.config();
-
-  const app = express();
+  console.log('Index.js will serve static files from:', staticDir);
 
   app.use(cors());
   app.use(express.json());
