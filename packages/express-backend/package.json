@@ -7,7 +7,8 @@
         "test": "jest --config=./jest.config.cjs",
         "dev": "npx nodemon src/index.js",
         "lint": "eslint .",
-        "start": "node src/index.js"
+        "start": "node src/index.js",
+        "build": "npm --workspace ../react-frontend run build && cp -r ../react-frontend/build ./src/build"
     },
     "repository": {
         "type": "git",
