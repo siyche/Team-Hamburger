@@ -4,7 +4,6 @@ import express from "express";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { jwtDecode } from "jwt-decode";
 
 import User from "../models/user.js";
 import Calendar from "../models/calendar_new.js";
@@ -20,16 +19,6 @@ function generateAccessToken(email) {
     expiresIn: "18000s", // 5 hours
   });
 }
-
-// Return true if token is expired, invalid, or missing; false otherwise
-export const checkTokenExpiration = (token) => {
-  try {
-    const { exp } = jwtDecode(token);
-    return Date.now() >= exp * 1000;
-  } catch {
-    return true;
-  }
-};
 
 // Return user's name
 router.get("/:email", async (req, res) => {
