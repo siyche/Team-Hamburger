@@ -13,7 +13,7 @@ import eventRoutes from './routes/Events.js';
 
 try {
   // TODO: needs to be changed to the build folder
-  const staticDir = path.join(__dirname, '../../react-frontend/build');
+  const staticDir = path.join(__dirname, '../packages/react-frontend/build');
   console.log('Index.js will static files from:', staticDir);
   dotenv.config();
 
