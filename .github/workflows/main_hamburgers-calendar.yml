@@ -29,7 +29,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install --workspaces=false
+          npm install
           npm --workspace packages/react-frontend run build
           cp -r packages/react-frontend/build packages/express-backend/build
           npm --workspace packages/express-backend run test --if-present
