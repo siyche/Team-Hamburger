@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"No tests in root\"",
+        "test": "npm run test --prefix packages/express-backend",
         "dev": "concurrently \"npm run build --prefix packages/react-frontend\" \"npm run dev --prefix packages/express-backend\""
     },
     "repository": {
