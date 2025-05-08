@@ -1,6 +1,6 @@
 # Team-Hamburger
 
-**Deployment URL:***
+**Deployment URL:**
 https://hamburgers-calendar-h0cpb6f7bbczfyae.westus2-01.azurewebsites.net/
 
 **UI Prototyping:** 
