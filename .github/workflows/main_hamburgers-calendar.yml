@@ -31,7 +31,6 @@ jobs:
         run: |
           npm install
           npm --workspace packages/react-frontend run build
-          cp -r packages/react-frontend/build packages/express-backend/src/build
           npm --workspace packages/express-backend run test --if-present
 
       - name: Zip artifact for deployment
