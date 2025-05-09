@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"No tests in root\"",
-        "dev": "concurrently \"npm run build --prefix packages/react-frontend\" \"npm run dev --prefix packages/express-backend\""
+        "test": "npm run test --prefix packages/express-backend",
+        "dev": "concurrently \"npm --workspace packages/react-frontend run dev\" \"npm --workspace packages/express-backend run dev\""
     },
     "repository": {
         "type": "git",
