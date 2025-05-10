@@ -16,14 +16,13 @@ const CalendarLayoutWeek = () => {
   // to create easier to read code and make it reusable for other components
   const { events, fetchEvents } = useEvents();
 
-
   return (
     <div className="calendar-layout">
       {/* Left panel */}
       <Sidebar onEventCreated={fetchEvents}/>
       {/* Center panel: the calendar view */}
       <WeekCalendarView
-        onDaySelect={selectedDay}
+        onDaySelect={setSelectedDay}
         events={events}
         refreshEvents={fetchEvents}/>
     </div>

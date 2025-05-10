@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import "../styles/WeekCalendarView.css";
 import WelcomeMessage from "./WelcomeMessage";
 
-const WeekCalendarView = ({ onDaySelect, events, refreshEvents}) => {
+const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(initialSelectedDay || new Date());
 
   // Update parent when selected day changes
   useEffect(() => {
@@ -66,28 +66,52 @@ const WeekCalendarView = ({ onDaySelect, events, refreshEvents}) => {
 
       {/* Day-of-week headers */}
       <div className="week-day-headers">
-        <div>Sunday</div>
-        <div>Monday</div>
-        <div>Tuesday</div>
-        <div>Wednesday</div>
-        <div>Thursday</div>
-        <div>Friday</div>
-        <div>Saturday</div>
+        {daysArray.map((day, index) => (
+          <div key={index}>
+            {day.toLocaleDateString("default", { weekday: "short", day: "numeric" })}
+          </div>
+        ))}
       </div>
 
-      {/* Calendar grid for week view */}
-      <div className="week-calendar-grid">
+      {/* Scrollable calendar grid */}
+      <div className="week-calendar-grid" style={{ overflowX: "auto", overflowY: "scroll", height: "600px", position: "relative" }}>
         {daysArray.map((day, index) => {
-          const cellClass = "week-calendar-cell";
-          const isSelected = day.toDateString() === selectedDay.toDateString();
+          const isSelected = day.toDateString() === new Date().toDateString();
           return (
             <div
               key={index}
-              className={`${cellClass} ${isSelected ? "selected" : ""}`}
+              className={`week-calendar-cell ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
+              style={{ display: "flex", flexDirection: "column" }}
             >
-              <span>{day.getDate().toString().padStart(2, "0")}</span>
-              {/* Future: Render event info if needed */}
+              {/* All day events slot */}
+              <div className="all-day-events" style={{ minHeight: "40px", borderBottom: "1px solid #ccc", textAlign: "center" }}>
+                {/* Insert all-day events logic here */}
+                <strong>All Day</strong>
+              </div>
+
+              {/* 12 AM to 11 PM timeline */}
+              <div className="hourly-events" style={{ flexGrow: 1 }}>
+                {Array.from({ length: 24 }, (_, hour) => (
+                  <div
+                    key={hour}
+                    className="hour-slot"
+                    style={{
+                      borderBottom: "1px solid #e0e0e0",
+                      height: "40px",
+                      padding: "2px",
+                      backgroundColor:
+                        isSelected && hour === new Date().getHours() ? "#fff0f0" : "transparent",
+                    }}
+                  >
+                    <span
+                      style={{ fontSize: "10px", color: "#999" }}
+                      data-hour-label={`${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}`}
+                    />
+                    {/* Insert timed events display here */}
+                  </div>
+                ))}
+              </div>
             </div>
           );
         })}

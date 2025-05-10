@@ -5,7 +5,7 @@
 
 .week-calendar-view {
     flex-grow: 1;
-    padding: 20px;
+    height: 100;
     display: flex;
     flex-direction: column;
 }
@@ -77,6 +77,9 @@
     gap: 1px;
     border: 1px solid transparent;
     width: 100%;
+    min-height: 960px; /* 40px per hour * 24 */
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 
@@ -123,10 +126,23 @@
 
 
 /* Day number styling for week view */
-
 .week-calendar-cell span {
     position: absolute;
     top: 5px;
     right: 5px;
     font-size: 1em;
+}
+
+.hour-slot {
+  position: relative;
+}
+
+.hour-slot span::after {
+    content: attr(data-hour-label);
+}
+
+.all-day-events {
+  background-color: #f9f9f9;
+  font-size: 12px;
+  padding: 4px;
 }
