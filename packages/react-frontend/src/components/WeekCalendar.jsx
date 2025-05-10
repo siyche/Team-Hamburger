@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/WeekCalendarView.css";
 import WelcomeMessage from "./WelcomeMessage";
 
-const WeekCalendarView = ({ onDaySelect }) => {
+const WeekCalendarView = ({ onDaySelect, events, refreshEvents}) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
 
