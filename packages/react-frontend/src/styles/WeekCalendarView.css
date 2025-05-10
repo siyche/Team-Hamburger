@@ -99,6 +99,12 @@
     aspect-ratio: 1/4;
 }
 
+.week-calendar-day {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 
 /* Hover state for week view cells */
 
@@ -135,10 +141,39 @@
 
 .hour-slot {
   position: relative;
+  height: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  padding-left: 4px;
 }
 
-.hour-slot span::after {
-    content: attr(data-hour-label);
+.hour-slot.labelled {
+  padding-left: 30px;
+}
+
+.hour-slot.highlight {
+  background-color: #fff0f0;
+}
+
+.hour-label {
+  font-size: 9px;
+  color: #999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  user-select: none;
+}
+
+.event-block {
+  background-color: #3182ce;
+  color: white;
+  font-size: 10px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .all-day-events {

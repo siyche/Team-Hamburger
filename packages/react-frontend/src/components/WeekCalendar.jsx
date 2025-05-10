@@ -47,6 +47,8 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
     setSelectedDay(day);
   };
 
+  // Ensure allEvents is defined before use
+  const allEvents = [...events];
   return (
     <div className="week-calendar-view">
       {/* Header with week info and navigation */}
@@ -74,43 +76,73 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
       </div>
 
       {/* Scrollable calendar grid */}
-      <div className="week-calendar-grid" style={{ overflowX: "auto", overflowY: "scroll", height: "600px", position: "relative" }}>
+      <div className="week-calendar-grid">
         {daysArray.map((day, index) => {
           const isSelected = day.toDateString() === new Date().toDateString();
           return (
             <div
               key={index}
-              className={`week-calendar-cell ${isSelected ? "selected" : ""}`}
+              className={`week-calendar-day ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
-              style={{ display: "flex", flexDirection: "column" }}
             >
               {/* All day events slot */}
-              <div className="all-day-events" style={{ minHeight: "40px", borderBottom: "1px solid #ccc", textAlign: "center" }}>
+              <div className="all-day-events">
                 {/* Insert all-day events logic here */}
                 <strong>All Day</strong>
               </div>
 
-              {/* 12 AM to 11 PM timeline */}
-              <div className="hourly-events" style={{ flexGrow: 1 }}>
-                {Array.from({ length: 24 }, (_, hour) => (
-                  <div
-                    key={hour}
-                    className="hour-slot"
-                    style={{
-                      borderBottom: "1px solid #e0e0e0",
-                      height: "40px",
-                      padding: "2px",
-                      backgroundColor:
-                        isSelected && hour === new Date().getHours() ? "#fff0f0" : "transparent",
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: "10px", color: "#999" }}
-                      data-hour-label={`${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}`}
-                    />
-                    {/* Insert timed events display here */}
-                  </div>
-                ))}
+              {/* 12 AM to 11 PM timeline with 5-minute increments */}
+              <div className="hourly-events">
+                {Array.from({ length: 24 }, (_, hour) =>
+                  Array.from({ length: 12 }, (_, i) => {
+                    const minutes = i * 5;
+                    const label = minutes === 0 ? `${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}` : "";
+                    const showLabel = index === 0 && minutes === 0;
+
+                    const slotTime = new Date(day);
+                    slotTime.setHours(hour);
+                    slotTime.setMinutes(minutes);
+                    slotTime.setSeconds(0);
+                    slotTime.setMilliseconds(0);
+
+                    const matchingEvents = allEvents.filter((event) => {
+                      const eventStart = new Date(event.start);
+                      return (
+                        eventStart.getFullYear() === day.getFullYear() &&
+                        eventStart.getMonth() === day.getMonth() &&
+                        eventStart.getDate() === day.getDate() &&
+                        eventStart.getHours() === hour &&
+                        Math.floor(eventStart.getMinutes() / 5) === i
+                      );
+                    });
+
+                    const highlighted =
+                      isSelected &&
+                      hour === new Date().getHours() &&
+                      i === Math.floor(new Date().getMinutes() / 5);
+
+                    return (
+                      <div
+                        key={`${hour}-${minutes}`}
+                        className={`hour-slot${showLabel ? " labelled" : ""}${highlighted ? " highlight" : ""}`}
+                      >
+                        {showLabel && (
+                          <span className="hour-label">
+                            {label}
+                          </span>
+                        )}
+                        {matchingEvents.map((event, idx) => (
+                          <div
+                            key={idx}
+                            className="event-block"
+                          >
+                            {event.title}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })
+                )}
               </div>
             </div>
           );
