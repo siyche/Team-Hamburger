@@ -2,7 +2,6 @@
 
 
 /* Container for the week calendar view */
-
 .week-calendar-view {
     flex-grow: 1;
     height: 100;
@@ -12,65 +11,61 @@
 
 
 /* Header displaying current week (or month/year) with navigation buttons */
-
 .week-year-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
 }
 
 .week-year-header span {
     display: inline-flex;
     align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
 }
 
 .week-nav-buttons {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .week-nav-buttons button {
     background-color: transparent;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     transition-duration: 0.75s;
 }
 
 .week-nav-buttons button:hover {
     background-color: #cccccc;
-    border-radius: 10px;
+    border-radius: 0.625rem;
 }
 
 
 /* Day-of-week headers for week view */
-
 .week-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border-radius: 10px;
+    gap: 0.0625rem;
+    border-radius: 0.625rem;
     border: 1px solid #ccc;
     background-color: #f0f0f0;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 1px;
-    padding: 5px 0;
+    margin-bottom: 0.0625rem;
+    padding: 0.3125rem 0;
 }
 
 .week-day-headers div {
-    padding: 4px 0;
+    padding: 0.25rem 0;
 }
 
-
 /* Calendar grid for week view */
-
 .week-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -84,7 +79,6 @@
 
 
 /* Each calendar cell (day) in week view */
-
 .week-calendar-cell {
     box-sizing: border-box;
     position: relative;
@@ -107,7 +101,6 @@
 
 
 /* Hover state for week view cells */
-
 .week-calendar-cell:hover {
     background-color: #cccccc;
     transition: 0.75s;
@@ -115,7 +108,6 @@
 
 
 /* For days not in the current week (if applicable) */
-
 .week-calendar-cell.grayed-out {
     background-color: #979797;
     transition: 0.75s;
@@ -123,7 +115,6 @@
 
 
 /* Highlight the selected day */
-
 .week-calendar-cell.selected {
     background-color: #c1e0fb;
     border-color: black;
@@ -160,7 +151,7 @@
 
 /* Hour labels for each hour slot */
 .hour-label {
-    font-size: 9px;
+    font-size: 0.5625rem;
     color: #999;
     position: absolute;
     left: 0;
@@ -172,10 +163,10 @@
 .event-block {
   background-color: #73946B;
   color: white;
-  font-size: 10px;
-  padding: 1px 3px;
-  border-radius: 3px;
-  margin-top: 1px;
+  font-size: 0.625rem;
+  padding: 0.0625rem 0.1875rem;
+  border-radius: 0.1875rem;
+  margin-top: 0.0625rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
