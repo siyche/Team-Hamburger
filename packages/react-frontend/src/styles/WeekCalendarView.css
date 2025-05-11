@@ -139,33 +139,38 @@
     font-size: 1em;
 }
 
+/* Hour slots for each day in week view */
 .hour-slot {
-  position: relative;
-  height: 8px;
-  border-bottom: 1px solid #e0e0e0;
-  box-sizing: border-box;
-  padding-left: 4px;
+    position: relative;
+    height: 1em;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    padding-left: 4px;
 }
 
+/* Hour slots for each day in week view */
 .hour-slot.labelled {
-  padding-left: 30px;
+    padding-left: 30px;
 }
 
+/* Highlighted hour slots for current time */
 .hour-slot.highlight {
-  background-color: #fff0f0;
+    background-color: #D2665A;
 }
 
+/* Hour labels for each hour slot */
 .hour-label {
-  font-size: 9px;
-  color: #999;
-  position: absolute;
-  left: 0;
-  top: 0;
-  user-select: none;
+    font-size: 9px;
+    color: #999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    user-select: none;
 }
 
+/* Event blocks within the calendar cells */
 .event-block {
-  background-color: #3182ce;
+  background-color: #73946B;
   color: white;
   font-size: 10px;
   padding: 1px 3px;
@@ -176,6 +181,7 @@
   text-overflow: ellipsis;
 }
 
+/* Event blocks for all-day events */
 .all-day-events {
   background-color: #f9f9f9;
   font-size: 12px;

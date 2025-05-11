@@ -94,33 +94,40 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
               {/* 12 AM to 11 PM timeline with 5-minute increments */}
               <div className="hourly-events">
                 {Array.from({ length: 24 }, (_, hour) =>
-                  Array.from({ length: 12 }, (_, i) => {
-                    const minutes = i * 5;
+                  Array.from({ length: 6 }, (_, i) => {
+                    const minutes = i * 15;
                     const label = minutes === 0 ? `${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}` : "";
                     const showLabel = index === 0 && minutes === 0;
 
+                    // Create a date object for the current hour and minute
                     const slotTime = new Date(day);
                     slotTime.setHours(hour);
                     slotTime.setMinutes(minutes);
                     slotTime.setSeconds(0);
                     slotTime.setMilliseconds(0);
 
+                    
                     const matchingEvents = allEvents.filter((event) => {
-                      const eventStart = new Date(event.start);
+
+                      const eventStart = new Date(event.date);
                       return (
                         eventStart.getFullYear() === day.getFullYear() &&
                         eventStart.getMonth() === day.getMonth() &&
                         eventStart.getDate() === day.getDate() &&
                         eventStart.getHours() === hour &&
-                        Math.floor(eventStart.getMinutes() / 5) === i
+                        Math.floor(eventStart.getMinutes() / 15) === i
                       );
                     });
 
+                    const now = new Date();
                     const highlighted =
-                      isSelected &&
-                      hour === new Date().getHours() &&
-                      i === Math.floor(new Date().getMinutes() / 5);
+                      now.getFullYear() === day.getFullYear() &&
+                      now.getMonth() === day.getMonth() &&
+                      now.getDate() === day.getDate() &&
+                      now.getHours() === hour &&
+                      Math.floor(now.getMinutes() / 15) === i;
 
+                    // Render the hour slot with events
                     return (
                       <div
                         key={`${hour}-${minutes}`}
@@ -131,12 +138,19 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                             {label}
                           </span>
                         )}
+
+                        
                         {matchingEvents.map((event, idx) => (
                           <div
                             key={idx}
                             className="event-block"
                           >
-                            {event.title}
+                          {/* Render event details here */}
+                          {new Date(event.date).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}                            
+                          {event.title}
                           </div>
                         ))}
                       </div>
