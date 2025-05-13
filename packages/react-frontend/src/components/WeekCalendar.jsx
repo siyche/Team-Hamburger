@@ -113,8 +113,8 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                     .map((event, idx) => {
                       const start = new Date(event.date);
                       const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
-                      const startHour = start.getHours() + start.getMinutes() / 60;
-                      const duration = (end - start) / 60000 / 60;
+                      const startHour = Math.round((start.getHours() + start.getMinutes() / 60) * 100) / 100;
+                      const duration = Math.round(((end - start) / 60000 / 60) * 100) / 100;
 
                       return (
                         <div

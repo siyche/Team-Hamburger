@@ -86,6 +86,8 @@
   position: relative;
   border-left: 1px solid #eee;
   background: white;
+  height: calc(var(--slot-height) * 25);
+  overflow: hidden;
 }
 
 .week-calendar-day.today {
@@ -102,6 +104,10 @@
   height: var(--slot-height);
   border-top: 1px solid #e0e0e0;
   box-sizing: border-box;
+}
+
+.hour-slot:last-child {
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .all-day-events {
