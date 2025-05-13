@@ -1,3 +1,4 @@
+
 /* src/styles/WeekCalendarView.css */
 
 
@@ -45,7 +46,6 @@
     background-color: #cccccc;
     border-radius: 0.625rem;
 }
-
 
 /* Day-of-week headers for week view */
 .week-day-headers {
@@ -97,8 +97,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  border: 1px solid #e0e0e0;
 }
-
 
 /* Hover state for week view cells */
 .week-calendar-cell:hover {
@@ -133,8 +133,7 @@
 /* Hour slots for each day in week view */
 .hour-slot {
     position: relative;
-    height: 1em;
-    border-bottom: 1px solid #e0e0e0;
+    height: em;
     box-sizing: border-box;
     padding-left: 4px;
 }
@@ -142,11 +141,19 @@
 /* Hour slots for each day in week view */
 .hour-slot.labelled {
     padding-left: 30px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-/* Highlighted hour slots for current time */
-.hour-slot.highlight {
-    background-color: #D2665A;
+/* Highlighted hour slot: show a horizontal "now" line overlay */
+.hour-slot.highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #E55050;
+  z-index: 10;
 }
 
 /* Hour labels for each hour slot */
@@ -177,4 +184,27 @@
   background-color: #f9f9f9;
   font-size: 12px;
   padding: 4px;
+}
+
+/* ========== Time column for week view ========== */
+.week-grid-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.time-column {
+  width: 3rem;
+  margin-top: 2.25rem; /* offset to align with headers */
+}
+
+.time-label {
+  height: 6em; /* 15 min * 4 = 1 hour worth of slots */
+  font-size: 0.5625rem;
+  color: #666;
+  text-align: right;
+  padding-right: 0.25rem;
+}
+
+.time-label-spacer {
+    height: 0rem;
 }

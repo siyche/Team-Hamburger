@@ -75,92 +75,93 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
         ))}
       </div>
 
-      {/* Scrollable calendar grid */}
-      <div className="week-calendar-grid">
-        {daysArray.map((day, index) => {
-          const isSelected = day.toDateString() === new Date().toDateString();
-          return (
-            <div
-              key={index}
-              className={`week-calendar-day ${isSelected ? "selected" : ""}`}
-              onClick={() => handleDayClick(day)}
-            >
-              {/* All day events slot */}
-              <div className="all-day-events">
-                {/* Insert all-day events logic here */}
-                <strong>All Day</strong>
-              </div>
-
-              {/* 12 AM to 11 PM timeline with 5-minute increments */}
-              <div className="hourly-events">
-                {Array.from({ length: 24 }, (_, hour) =>
-                  Array.from({ length: 6 }, (_, i) => {
-                    const minutes = i * 15;
-                    const label = minutes === 0 ? `${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}` : "";
-                    const showLabel = index === 0 && minutes === 0;
-
-                    // Create a date object for the current hour and minute
-                    const slotTime = new Date(day);
-                    slotTime.setHours(hour);
-                    slotTime.setMinutes(minutes);
-                    slotTime.setSeconds(0);
-                    slotTime.setMilliseconds(0);
-
-                    
-                    const matchingEvents = allEvents.filter((event) => {
-
-                      const eventStart = new Date(event.date);
-                      return (
-                        eventStart.getFullYear() === day.getFullYear() &&
-                        eventStart.getMonth() === day.getMonth() &&
-                        eventStart.getDate() === day.getDate() &&
-                        eventStart.getHours() === hour &&
-                        Math.floor(eventStart.getMinutes() / 15) === i
-                      );
-                    });
-
-                    const now = new Date();
-                    const highlighted =
-                      now.getFullYear() === day.getFullYear() &&
-                      now.getMonth() === day.getMonth() &&
-                      now.getDate() === day.getDate() &&
-                      now.getHours() === hour &&
-                      Math.floor(now.getMinutes() / 15) === i;
-
-                    // Render the hour slot with events
-                    return (
-                      <div
-                        key={`${hour}-${minutes}`}
-                        className={`hour-slot${showLabel ? " labelled" : ""}${highlighted ? " highlight" : ""}`}
-                      >
-                        {showLabel && (
-                          <span className="hour-label">
-                            {label}
-                          </span>
-                        )}
-
-                        
-                        {matchingEvents.map((event, idx) => (
-                          <div
-                            key={idx}
-                            className="event-block"
-                          >
-                          {/* Render event details here */}
-                          {new Date(event.date).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}                            
-                          {event.title}
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
+      {/* Week grid wrapper: time column + calendar grid */}
+      <div className="week-grid-wrapper">
+        <div className="time-column">
+          <div className="time-label-spacer" />
+          {Array.from({ length: 24 }, (_, hour) => (
+            <div key={hour} className="time-label">
+              {(hour % 12 || 12)} {hour < 12 ? "AM" : "PM"}
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <div className="week-calendar-grid">
+          {daysArray.map((day, index) => {
+            const isSelected = day.toDateString() === new Date().toDateString();
+            return (
+              <div
+                key={index}
+                className={`week-calendar-day ${isSelected ? "selected" : ""}`}
+                onClick={() => handleDayClick(day)}
+              >
+                {/* All day events slot */}
+                <div className="all-day-events">
+                  {/* Insert all-day events logic here */}
+                  <strong>All Day</strong>
+                </div>
+
+                {/* 12 AM to 11 PM timeline with 15-minute increments */}
+                <div className="hourly-events">
+                  {Array.from({ length: 24 }, (_, hour) =>
+                    Array.from({ length: 6 }, (_, i) => {
+                      const minutes = i * 15;
+                      // const label = minutes === 0 ? `${(hour % 12 || 12)} ${hour < 12 ? "AM" : "PM"}` : "";
+                      // const showLabel = minutes === 0;
+
+                      // Create a date object for the current hour and minute
+                      const slotTime = new Date(day);
+                      slotTime.setHours(hour);
+                      slotTime.setMinutes(minutes);
+                      slotTime.setSeconds(0);
+                      slotTime.setMilliseconds(0);
+
+                      const matchingEvents = allEvents.filter((event) => {
+                        const eventStart = new Date(event.date);
+                        return (
+                          eventStart.getFullYear() === day.getFullYear() &&
+                          eventStart.getMonth() === day.getMonth() &&
+                          eventStart.getDate() === day.getDate() &&
+                          eventStart.getHours() === hour &&
+                          Math.floor(eventStart.getMinutes() / 15) === i
+                        );
+                      });
+
+                      const now = new Date();
+                      const highlighted =
+                        now.getFullYear() === day.getFullYear() &&
+                        now.getMonth() === day.getMonth() &&
+                        now.getDate() === day.getDate() &&
+                        now.getHours() === hour &&
+                        Math.floor(now.getMinutes() / 15) === i;
+
+                      // Render the hour slot with events
+                      return (
+                        <div
+                          key={`${hour}-${minutes}`}
+                          className={`hour-slot${minutes === 0 ? " labelled" : ""}${highlighted ? " highlight" : ""}`}
+                        >
+                          {matchingEvents.map((event, idx) => (
+                            <div
+                              key={idx}
+                              className="event-block"
+                            >
+                              {/* Render event details here */}
+                              {new Date(event.date).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                              {event.title}
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
