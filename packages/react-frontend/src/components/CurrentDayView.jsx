@@ -85,7 +85,17 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
                   minute: "2-digit",
                 })}
               </div>
-              <div className="event-type">
+              
+              {/* Displaying the event type based on its properties */}
+              <div
+                className={`event-type ${
+                  event.course_no
+                    ? "academic"
+                    : event.deadline
+                    ? "task"
+                    : "regular"
+                }`}
+              >
                 {event.course_no
                   ? "Academic"
                   : event.deadline
@@ -94,6 +104,19 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
               </div>
               <div className="event-title">{event.title}</div>
               <div className="event-details">{event.details}</div>
+              {/* TODO: Displaying the event flags if applicable  */}
+              <div className="event-flags">
+                {event.flag && event.flag.length > 0 ? (
+                  event.flag.map((flag, idx) => (
+                    <span key={idx} className="flag-chip">
+                      {flag}
+                    </span>
+                  ))
+                ) : (
+                  // TODO: Placeholder for when no flags are present
+                  <span className="flag-chip placeholder">Placeholder Flag</span>
+                )}
+              </div>
             </div>
           ))}
       </div>
