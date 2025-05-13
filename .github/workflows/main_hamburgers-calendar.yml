@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+       - '**' 
   workflow_dispatch:
 
 jobs:
@@ -25,20 +28,23 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install --workspaces=false
-          npm run -w express-backend build --if-present 
-          npm run -w express-backend test --if-present 
-        working-directory: packages/express-backend
+          npm install
+          npm --workspace packages/react-frontend run build
+          npm --workspace packages/express-backend run test --if-present
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
         working-directory: packages/express-backend
+        
+      #debug
+      - name: Check contents before upload
+        run: ls -lh packages/express-backend/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: packages/express-backend/release.zip #changed from release.zip to packages/express-backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
