@@ -86,21 +86,22 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
                 })}
               </div>
               
-              {/* Displaying the event type based on its properties */}
-              <div
-                className={`event-type ${
-                  event.course_no
-                    ? "academic"
-                    : event.deadline
-                    ? "task"
-                    : "regular"
-                }`}
-              >
-                {event.course_no
-                  ? "Academic"
-                  : event.deadline
-                  ? "Task"
-                  : "Regular"}
+              {/* Displaying the event type and course chip inline, with title on its own line */}
+              <div className="event-type-line">
+                <span
+                  className={`event-type ${
+                    event.course_no
+                      ? "academic"
+                      : event.deadline
+                      ? "task"
+                      : "regular"
+                  }`}
+                >
+                  {event.course_no ? "Academic" : event.deadline ? "Task" : "Regular"}
+                </span>
+                {event.course_no && (
+                  <span className="course-chip inline">{`${event.course_no.dept} ${event.course_no.no}`}</span>
+                )}
               </div>
               <div className="event-title">{event.title}</div>
               <div className="event-details">{event.details}</div>
