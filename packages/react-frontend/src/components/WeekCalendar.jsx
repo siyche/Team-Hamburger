@@ -64,6 +64,20 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
       <div className="week-grid-wrapper">
         <div className="time-column">
           <div className="time-label-spacer" />
+          {
+            (() => {
+              const now = new Date();
+              const top = `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`;
+              return (
+                <div
+                  className="now-line-label"
+                  style={{ top }}
+                >
+                  {now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                </div>
+              );
+            })()
+          }
           {Array.from({ length: 24 }, (_, hour) => (
             <div key={hour} className="time-label">
               {(hour % 12 || 12)} {hour < 12 ? "AM" : "PM"}
@@ -131,12 +145,14 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                       );
                     })}
                   {showNowLine && (
-                    <div
-                      className="now-line"
-                      style={{
-                        top: `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`,
-                      }}
-                    />
+                    <>
+                      <div
+                        className="now-line"
+                        style={{
+                          top: `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`,
+                        }}
+                      />
+                    </>
                   )}
                 </div>
               </div>

@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcryptjs"; // bcrypt is broken rn - use bcryptjs
+import bcrypt from "bcrypt"; // bcrypt is broken rn - use bcryptjs
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";

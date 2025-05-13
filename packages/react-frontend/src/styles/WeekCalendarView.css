@@ -59,10 +59,11 @@
   width: 3.5rem;
   flex-shrink: 0;
   flex-direction: column;
+  position: relative;
 }
 
 .time-label-spacer {
-  height: 2rem;
+  height: 1.5rem;
 }
 
 .time-label {
@@ -79,6 +80,7 @@
   display: flex;
   flex-grow: 1;
   width: 100%;
+  position: relative;
 }
 
 .week-calendar-day {
@@ -131,7 +133,7 @@
   position: absolute;
   left: 2px;
   right: 2px;
-  background-color: #73946b;
+  background-color: #F7374F;
   color: white;
   font-size: 0.625rem;
   border-radius: 4px;
@@ -150,4 +152,17 @@
   height: 2px;
   background-color: #e55050;
   z-index: 10;
+}
+
+.now-line-label {
+  position: absolute;
+  left: 0; /* match time column width */
+  width: 3.5rem;
+  font-size: 0.7rem;
+  color: #e55050;
+  background-color: white;
+  padding-right: 0.25rem;
+  text-align: right;
+  pointer-events: none;
+  z-index: 11;
 }
