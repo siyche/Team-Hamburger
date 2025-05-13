@@ -13,6 +13,7 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
   const [courseNo, setCourseNo] = useState("");
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
+  const [flag, setFlag] = useState("");
 
   // Effect to populate form with initial event data if user is editing form
   useEffect(() => {
@@ -38,6 +39,8 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       } else {
         setEventType("Regular");
       }
+
+      setFlag(initialEvent.flags?.[0] || "");
     }
   }, [initialEvent]);
 
@@ -51,7 +54,7 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
     // create event object
     const newEvent = {
       date: eventDate,
-      flags: [],
+      flags: flag ? [flag] : [],
       visible: true,
       priority: {
         amount: 0,
@@ -226,6 +229,17 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
         </>
       )}
       <div className="form-group">
+        <label htmlFor="flag">Flag:</label>
+        <input
+          type="text"
+          id="flag"
+          name="flag"
+          value={flag}
+          onChange={(e) => setFlag(e.target.value)}
+          placeholder="Enter a flag (optional)"
+        />
+      </div>
+      <div className="form-group">
         <label htmlFor="title">Title:</label>
         <input
           type="text"
@@ -269,6 +283,7 @@ CreateTaskForm.propTypes = {
     deadline: PropTypes.string,
     details: PropTypes.string,
     in_progress: PropTypes.bool,
+    flags: PropTypes.arrayOf(PropTypes.string),
     course_no: PropTypes.shape({
       dept: PropTypes.string,
       no: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

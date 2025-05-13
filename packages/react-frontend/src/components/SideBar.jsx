@@ -2,12 +2,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
+import PropTypes from "prop-types";
 
 import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
 
-const SideBar = ({ onEventCreated }) => {
+const SideBar = ({ onEventCreated, events, onFilterChange }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -25,6 +26,48 @@ const SideBar = ({ onEventCreated }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // Add new state for filters
+  const [availableFlags, setAvailableFlags] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  // Fetch all unique flags from events
+  useEffect(() => {
+    const fetchFlags = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch('/api/events/flags', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch flags');
+        }
+        
+        const data = await response.json();
+        setAvailableFlags(data.flags);
+      } catch (error) {
+        console.error('Error fetching flags:', error);
+      }
+    };
+
+    fetchFlags();
+  }, [events]); // Re-fetch when events change
+
+  // Handle filter selection
+  const handleFilterClick = (flag) => {
+    setSelectedFilters(prev => {
+      const newFilters = prev.includes(flag)
+        ? prev.filter(f => f !== flag)
+        : [...prev, flag];
+      
+      // Notify parent component about filter change
+      onFilterChange(newFilters);
+      return newFilters;
+    });
+  };
 
   // Handle task submission from the form
   const handleTaskSubmit = (newTask) => {
@@ -155,19 +198,27 @@ const SideBar = ({ onEventCreated }) => {
       <div className="filter-section">
         <h3>Filter By Type</h3>
         <ul className="filter-list">
-          <li className="filter-item assignment">Assignment</li>
-          <li className="filter-item study">Study</li>
-          <li className="filter-item midterm">Midterm</li>
-          <li className="filter-item final">Final</li>
-          <li className="filter-item quiz">Quiz</li>
-          <li className="filter-item lecture">Lecture</li>
-          <li className="filter-item lab">Lab</li>
-          <li className="filter-item homework">Homework</li>
-          <li className="filter-item presentation">Presentation</li>
+          {availableFlags.map((flag, index) => (
+            <li
+              key={index}
+              className={`filter-item ${flag.toLowerCase()} ${
+                selectedFilters.includes(flag) ? 'selected' : ''
+              }`}
+              onClick={() => handleFilterClick(flag)}
+            >
+              {flag}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   );
+};
+
+SideBar.propTypes = {
+  onEventCreated: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default SideBar;
