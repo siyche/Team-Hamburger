@@ -113,7 +113,8 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .map((eventItem, idx) => (
                 <div key={idx} className="month-event">
-                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {eventItem.title}
+                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} 
+                  {eventItem.title}
                 </div>
               ))
             }
