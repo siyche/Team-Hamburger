@@ -81,6 +81,7 @@
   flex-grow: 1;
   width: 100%;
   position: relative;
+  margin-top: 1rem;
 }
 
 .week-calendar-day {
@@ -122,7 +123,7 @@
 
 .day-events-container {
   position: absolute;
-  top: 2rem;
+  top: 0rem;
   left: 0;
   right: 0;
   bottom: 0;

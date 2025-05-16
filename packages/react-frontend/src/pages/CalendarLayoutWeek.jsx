@@ -18,8 +18,9 @@ const CalendarLayoutWeek = () => {
 
   return (
     <div className="calendar-layout">
-      {/* Left panel */}
-      <Sidebar onEventCreated={fetchEvents}/>
+      {/* COMMENTTED OUT: Left panel */}
+
+      <Sidebar onEventCreated={fetchEvents} />
       {/* Center panel: the calendar view */}
       <WeekCalendarView
         onDaySelect={setSelectedDay}
