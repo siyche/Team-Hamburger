@@ -7,6 +7,7 @@ import CalendarLayoutWeek from "./pages/CalendarLayoutWeek";
 import CalendarLayoutDay from "./pages/CalendarLayoutDay";
 import Login from "./pages/auth/LoginPage";
 import SignUp from "./pages/auth/SignUpPage";
+import HomePage from "./pages/Homepage";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import "./main.css"; // global styles if needed
 import Settings from "./components/Settings";
@@ -28,7 +29,9 @@ const App = () => {
   }, [navigate]);
 
   return (
+
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<SignUp />} />
 
