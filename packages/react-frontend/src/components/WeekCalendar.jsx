@@ -102,6 +102,41 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
             };
             const dayEvents = [...events, testEvent];
 
+            const positionedEvents = [];
+
+            const filteredEvents = dayEvents
+              .filter((event) => {
+                const eventDate = new Date(event.date);
+                return (
+                  eventDate.getFullYear() === day.getFullYear() &&
+                  eventDate.getMonth() === day.getMonth() &&
+                  eventDate.getDate() === day.getDate()
+                );
+              })
+              .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            let i = 0;
+            while (i < filteredEvents.length) {
+              const group = [filteredEvents[i]];
+              const groupEnd = new Date(filteredEvents[i].end || new Date(new Date(filteredEvents[i].date).getTime() + 30 * 60000));
+              let j = i + 1;
+              while (j < filteredEvents.length) {
+                const nextStart = new Date(filteredEvents[j].date);
+                if (nextStart < groupEnd) {
+                  group.push(filteredEvents[j]);
+                  j++;
+                } else {
+                  break;
+                }
+              }
+
+              group.forEach((event, index) => {
+                positionedEvents.push({ event, index, total: group.length });
+              });
+
+              i = j;
+            }
+
             return (
               <div
                 key={dayIndex}
@@ -109,42 +144,39 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                 onClick={() => handleDayClick(day)}
               >
                 <div className="hour-grid">
-                  {Array.from({ length: 25 }, (_, hour) => (
+                  {Array.from({ length: 24 }, (_, hour) => (
                     <div key={hour} className="hour-slot" />
                   ))}
                 </div>
 
                 <div className="day-events-container">
-                  {dayEvents
-                    .filter((event) => {
-                      const eventDate = new Date(event.date);
-                      return (
-                        eventDate.getFullYear() === day.getFullYear() &&
-                        eventDate.getMonth() === day.getMonth() &&
-                        eventDate.getDate() === day.getDate()
-                      );
-                    })
-                    .map((event, idx) => {
-                      const start = new Date(event.date);
-                      const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
-                      const startHour = Math.round((start.getHours() + start.getMinutes() / 60) * 100) / 100;
-                      const duration = Math.round(((end - start) / 60000 / 60) * 100) / 100;
+                  {positionedEvents.map(({ event, index, total }, idx) => {
+                    const start = new Date(event.date);
+                    const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
+                    let startHour = (start.getHours() + start.getMinutes() / 60);
+                    startHour = Math.min(startHour, 23.49);
+                    startHour = Math.round(startHour * 100) / 100;
+                    const duration = Math.round(((end - start) / 60000 / 60) * 100) / 100;
+                    const widthPercent = 100 / total;
+                    const leftPercent = index * widthPercent;
 
-                      return (
-                        <div
-                          key={idx}
-                          className="event-block"
-                          style={{
-                            top: `calc(${startHour} * var(--slot-height))`,
-                            height: `calc(${duration} * var(--slot-height))`,
-                          }}
-                        >
-                          {event.title}
-                          <br />
-                          {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} 
-                        </div>
-                      );
-                    })}
+                    return (
+                      <div
+                        key={idx}
+                        className="event-block"
+                        style={{
+                          top: `calc(${startHour} * var(--slot-height))`,
+                          height: `calc(${duration} * var(--slot-height))`,
+                          width: `${widthPercent}%`,
+                          left: `${leftPercent}%`
+                        }}
+                      >
+                        {event.title}
+                        <br />
+                        {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    );
+                  })}
                   {showNowLine && (
                     <>
                       <div
