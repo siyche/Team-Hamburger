@@ -92,11 +92,15 @@
   position: relative;
   border-left: 1px solid #eee;
   background: white;
-  height: calc(var(--slot-height) * 24 + 8px);
+  height: calc(var(--slot-height) * 24);
   }
 
 .week-calendar-day.today {
   background-color: #fcfcfc;
+}
+
+.week-calendar-day:last-child {
+  border-right: 1px solid #eee;
 }
 
 .hour-grid {
