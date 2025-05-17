@@ -7,7 +7,7 @@ import CalendarLayoutWeek from "./pages/CalendarLayoutWeek";
 import CalendarLayoutDay from "./pages/CalendarLayoutDay";
 import Login from "./pages/auth/LoginPage";
 import SignUp from "./pages/auth/SignUpPage";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import "./main.css"; // global styles if needed
 import Settings from "./components/Settings";
