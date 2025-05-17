@@ -119,7 +119,7 @@ export default function HomePage() {
             </div>
 
             
-            <footer className="mt-10 py-6 text-left text-sm text-gray-600 border-t border-gray-300">
+            <footer className="mt-10 py-6 text-center text-sm text-gray-600 border-t border-gray-300">
                 Created by Alex Sahli, Matthew Suban, Darryl James Cruz, and Stephen Chen for Software Engineering I/II at California Polytechnic State University – San Luis Obispo
             </footer>
         </div>
