@@ -94,16 +94,10 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
               now.getMonth() === day.getMonth() &&
               now.getDate() === day.getDate();
 
-            // Insert sample 3-hour event for testing
-            const testEvent = {
-              date: new Date(day.getFullYear(), day.getMonth(), day.getDate(), 9, 0).toISOString(),
-              end: new Date(day.getFullYear(), day.getMonth(), day.getDate(), 12, 0).toISOString(),
-              title: "Sample 3-Hour Bloc 9AM-12PM",
-            };
-            const dayEvents = [...events, testEvent];
+            // Removed sample 3-hour event for testing
+            const dayEvents = [...events];
 
-            const positionedEvents = [];
-
+            // Group and assign column positions for overlapping events
             const filteredEvents = dayEvents
               .filter((event) => {
                 const eventDate = new Date(event.date);
@@ -115,27 +109,52 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
               })
               .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            let i = 0;
-            while (i < filteredEvents.length) {
-              const group = [filteredEvents[i]];
-              const groupEnd = new Date(filteredEvents[i].end || new Date(new Date(filteredEvents[i].date).getTime() + 30 * 60000));
-              let j = i + 1;
-              while (j < filteredEvents.length) {
-                const nextStart = new Date(filteredEvents[j].date);
-                if (nextStart < groupEnd) {
-                  group.push(filteredEvents[j]);
-                  j++;
-                } else {
-                  break;
+            const positionedEvents = [];
+            let overlapGroups = [];
+
+            filteredEvents.forEach((event) => {
+              const start = new Date(event.date);
+              const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
+              let overlapping = false;
+              for (const group of overlapGroups) {
+                for (const e of group) {
+                  const eStart = new Date(e.date);
+                  const eEnd = e.end ? new Date(e.end) : new Date(eStart.getTime() + 30 * 60000);
+                  if (start < eEnd && end > eStart) {
+                    group.push(event);
+                    overlapping = true;
+                    break;
+                  }
                 }
+                if (overlapping) break;
               }
+              if (!overlapping) overlapGroups.push([event]);
+            });
 
-              group.forEach((event, index) => {
-                positionedEvents.push({ event, index, total: group.length });
+            // Within each group, assign columns
+            overlapGroups.forEach((group) => {
+              const columns = [];
+
+              group.forEach((event) => {
+                const start = new Date(event.date);
+                const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
+
+                let colIndex = 0;
+                while (true) {
+                  const conflict = columns[colIndex]?.some((e) => {
+                    const eStart = new Date(e.date);
+                    const eEnd = e.end ? new Date(e.end) : new Date(eStart.getTime() + 30 * 60000);
+                    return start < eEnd && end > eStart;
+                  });
+                  if (!conflict) break;
+                  colIndex++;
+                }
+
+                if (!columns[colIndex]) columns[colIndex] = [];
+                columns[colIndex].push(event);
+                positionedEvents.push({ event, index: colIndex, total: columns.length });
               });
-
-              i = j;
-            }
+            });
 
             return (
               <div
@@ -154,8 +173,8 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                     const start = new Date(event.date);
                     const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
                     let startHour = (start.getHours() + start.getMinutes() / 60);
-                    startHour = Math.min(startHour, 23.49);
-                    startHour = Math.round(startHour * 100) / 100;
+                    startHour = Math.min(startHour, 23.45);
+                    // Removed rounding of startHour for precise top placement
                     const duration = Math.round(((end - start) / 60000 / 60) * 100) / 100;
                     const widthPercent = 100 / total;
                     const leftPercent = index * widthPercent;
@@ -164,11 +183,17 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                       <div
                         key={idx}
                         className="event-block"
+                        data-tooltip={`${event.title} (${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`}
                         style={{
                           top: `calc(${startHour} * var(--slot-height))`,
                           height: `calc(${duration} * var(--slot-height))`,
-                          width: `${widthPercent}%`,
+                          width: `calc(${widthPercent}% - 2px)`,
                           left: `${leftPercent}%`
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // TODO: Replace with modal for viewing, editing, and deleting event details
+                          alert(`Event: ${event.title}\nTime: ${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
                         }}
                       >
                         {event.title}
