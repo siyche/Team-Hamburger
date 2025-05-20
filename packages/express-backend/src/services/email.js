@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import schedule from "node-schedule";
 
 // Called 1 hour before an event to send a reminder
 export default function sendEmail(recipientEmail, emailBody) {
