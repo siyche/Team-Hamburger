@@ -94,7 +94,6 @@
   border-left: 1px solid #eee;
   background: white;
   height: calc(var(--slot-height) * 24);
-  padding-bottom: 6px;
   }
 
 .week-calendar-day.today {
@@ -136,7 +135,6 @@
   right: 0;
   height: calc(var(--slot-height) * 24);
   pointer-events: none;
-  overflow: visible;
 }
 
 .event-block {
@@ -144,37 +142,18 @@
   position: absolute;
   left: 2px;
   right: 2px;
-  background-color: #615fff;
+  background-color: #F7374F;
   color: white;
-  font-size: 0.7rem;
-  border: 1px solid;
+  font-size: 0.625rem;
   border-radius: 4px;
-  overflow: visible;
+  overflow: hidden;
   white-space: normal;
   word-break: break-word;
   line-height: 1.1;
   text-overflow: ellipsis;
   pointer-events: auto;
   box-sizing: border-box;
-  padding: 2px 4px;
-  margin-right: 2px;
-  z-index: 2;
-}
-
-.event-block:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #333;
-  color: white;
-  padding: 4px 6px;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  border-radius: 4px;
-  margin-top: 4px;
-  z-index: 10000; /* Increased z-index to ensure tooltip is always on top */
-  pointer-events: none;
+  padding: 0 4px;
 }
 
 .now-line {
