@@ -3,12 +3,15 @@ import { authenticateUser } from "./Auth.js";
 import express from "express";
 import cors from "cors";
 import User from "../models/user.js";
-import Event from "../models/Event.js";
+import Event from "../models/event.js";
+import Reminder from "../models/reminder.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 router.use(cors());
 router.use(express.json());
 
+// Add event data
 router.post("/", authenticateUser, async (req, res) => {
   try {
     const email = req.user.email; // get user email
@@ -19,7 +22,7 @@ router.post("/", authenticateUser, async (req, res) => {
       return res.status(404).json({ error: "User or calendars not found." });
     }
 
-    const calendar = user.calendars[0]; // get first calendaer by default (in future, change)
+    const calendar = user.calendars[0]; // get first calendar by default (in future, change)
     const eventData = req.body; // get event data from request body
 
     const newEvent = new Event(eventData);
@@ -28,6 +31,29 @@ router.post("/", authenticateUser, async (req, res) => {
     calendar.events.push(newEvent._id);
     await calendar.save();
 
+    // Determine event details to send with reminder
+    let details = "";
+    if (newEvent.details) {
+      details = `: ${newEvent.details}`;
+    } else {
+      details = ": No details provided";
+    }
+
+    // Determine when to send reminder (1 hour before start time of event)
+    const reminderTime = new Date(newEvent.start_date);
+    reminderTime.setHours(reminderTime.getHours() - 1);
+
+    const reminder = new Reminder({
+      recipient_email: email,
+      email_body: `${newEvent.title} at ${newEvent.start_date}${details}`,
+      send_at: reminderTime,
+      event_id: newEvent._id, // save ID of associated event
+    });
+
+    await reminder.save();
+    console.log(`[Reminder] Event reminder scheduled for ${reminder.send_at}`);
+    console.log(reminder);
+
     res.status(201).json(newEvent);
   } catch (error) {
     console.error("Event creation error:", error);
@@ -35,6 +61,7 @@ router.post("/", authenticateUser, async (req, res) => {
   }
 });
 
+// Get event data
 router.get("/", authenticateUser, async (req, res) => {
   try {
     const email = req.user.email;
@@ -64,6 +91,7 @@ router.get("/", authenticateUser, async (req, res) => {
   }
 });
 
+// Delete event data
 router.delete("/:id", authenticateUser, async (req, res) => {
   // TODO: the event needs to be deleted from the calendar array as well
   const { id } = req.params;
@@ -91,6 +119,14 @@ router.delete("/:id", authenticateUser, async (req, res) => {
       await calendar.save();
     }
 
+    // Now remove this event's reminder from the database
+    const deleteReminder = await Reminder.findOneAndDelete({
+      event_id: new mongoose.Types.ObjectId(id),
+    });
+    if (!deleteReminder) {
+      return res.status(404).json({ error: "Reminder not found." });
+    }
+
     res.status(200).json({ message: "Event deleted successfully." });
   } catch (error) {
     console.error("Error deleting event:", error);
@@ -98,6 +134,7 @@ router.delete("/:id", authenticateUser, async (req, res) => {
   }
 });
 
+// Update event data
 router.put("/:id", authenticateUser, async (req, res) => {
   const { id } = req.params;
   console.log("Updating event with ID:", id);
@@ -114,6 +151,31 @@ router.put("/:id", authenticateUser, async (req, res) => {
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found." });
     }
+
+    // Determine event details to send with updated reminder
+    let details = "";
+    if (updatedEvent.details) {
+      details = `: ${updatedEvent.details}`;
+    } else {
+      details = ": No details provided";
+    }
+
+    // Determine when to send reminder (1 hour before start time of event)
+    const reminderTime = new Date(updatedEvent.start_date);
+    reminderTime.setHours(reminderTime.getHours() - 1);
+
+    // Update reminder data
+    const updatedReminder = await Reminder.findOneAndUpdate(
+      { event_id: id },
+      {
+        $set: {
+          send_at: reminderTime,
+          email_body: `${updatedEvent.title} at ${updatedEvent.start_date}${details}`,
+          sent: false,
+        },
+      },
+      { new: true }
+    );
 
     res
       .status(200)
