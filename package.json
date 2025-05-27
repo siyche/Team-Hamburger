@@ -21,6 +21,8 @@
         "packages/*"
     ],
     "dependencies": {
+        "@headlessui/react": "^2.2.3",
+        "@heroicons/react": "^2.2.0",
         "dotenv": "^16.4.7",
         "jwt-decode": "^4.0.0",
         "mongoose": "^8.13.1"
