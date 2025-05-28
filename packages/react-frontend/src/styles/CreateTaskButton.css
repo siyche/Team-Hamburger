@@ -1,26 +1,46 @@
+/* CreateTaskButton.css */
 #CreateTask {
-    background-color: #cccccc;
-    color: black;
+    background-color: var(--secondary-color, #cccccc);
+    color: var(--button-text-color, #000000);
     padding: 15px 28px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
-    transition-duration: 0.25s;
-    transition-delay: .05s;
+    transition: all 0.25s ease 0.05s;
     font-weight: bold;
     border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-family, inherit);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #CreateTask:hover {
-    background-color: #979797;
-    color: black;
+    background-color: var(--secondary-hover-color, #979797);
+    color: var(--button-text-color, #000000);
     padding: 15px 28px;
-    text-align: center;
-    display: inline-block;
     font-size: 16px;
-    transition-duration: 0.25s;
-    transition-delay: .05s;
-    font-weight: bold;
     border-radius: 42px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Theme-specific button styles */
+[data-theme="light"] #CreateTask {
+    --button-text-color: #333333;
+    --secondary-color: #01b40d;
+    --secondary-hover-color: #00dd21;
+}
+
+[data-theme="dark"] #CreateTask {
+    --button-text-color: #ffffff;
+    --secondary-color: #139801;
+    --secondary-hover-color: #00c500;
+}
+
+[data-theme="blue"] #CreateTask {
+    --button-text-color: #ffffff;
+    --secondary-color: #3498db;
+    --secondary-hover-color: #2980b9;
 }
