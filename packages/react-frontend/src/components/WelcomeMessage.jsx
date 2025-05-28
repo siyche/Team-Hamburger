@@ -13,7 +13,6 @@ export default function WelcomeMessage({ displayName }) {
   return (
     <div className="welcome-message">
       Welcome, {localStorage.getItem("name")}
-
     </div>
   );
 }

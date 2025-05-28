@@ -1,132 +1,180 @@
-/* src/styles/WeekCalendarView.css */
-
-
-/* Container for the week calendar view */
+:root {
+  --slot-height: 45px;
+}
 
 .week-calendar-view {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  padding-bottom: 8px;
 }
-
-
-/* Header displaying current week (or month/year) with navigation buttons */
 
 .week-year-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.week-year-header span {
-    display: inline-flex;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0 1rem;
 }
 
 .week-nav-buttons {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .week-nav-buttons button {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition-duration: 0.75s;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
 }
-
-.week-nav-buttons button:hover {
-    background-color: #cccccc;
-    border-radius: 10px;
-}
-
-
-/* Day-of-week headers for week view */
 
 .week-day-headers {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1px;
-    padding: 5px 0;
+  display: grid;
+  grid-template-columns: 3.5rem repeat(7, 1fr);
+  background-color: #f0f0f0; /* Light gray background for headers */
+  font-weight: bold;
+  text-align: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #ccc;
+  border-radius: 7px;
 }
 
 .week-day-headers div {
-    padding: 4px 0;
+  padding: 0.25rem;
 }
 
+.week-grid-wrapper {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  min-height: 0;
+  height: auto;
+}
 
-/* Calendar grid for week view */
+.time-column {
+  display: flex;
+  width: 3.5rem;
+  flex-shrink: 0;
+  flex-direction: column;
+  position: relative;
+}
+
+.time-label-spacer {
+  height: 1em;
+}
+
+.time-label {
+  height: var(--slot-height);
+  font-size: 0.75rem;
+  color: #666;
+  text-align: right;
+  padding-right: 0.5rem;
+  line-height: normal;
+  display: flex;
+  align-items: flex-start;
+  user-select: none;
+}
 
 .week-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border: 1px solid transparent;
-    width: 100%;
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  position: relative;
+  margin-top: 1rem;
 }
 
+.week-calendar-day {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid #eee;
+  background: white;
+  height: calc(var(--slot-height) * 24);
+  }
 
-/* Each calendar cell (day) in week view */
-
-.week-calendar-cell {
-    box-sizing: border-box;
-    position: relative;
-    background-color: #e0e0e0;
-    border: 1px solid #fff;
-    cursor: pointer;
-    transition-duration: 0.75s;
-    overflow: hidden;
-    padding: 5px;
-    border-radius: 10px;
-    /* Using aspect-ratio from original week view */
-    aspect-ratio: 1/4;
+.week-calendar-day.today {
+  background-color: #fcfcfc;
 }
 
-
-/* Hover state for week view cells */
-
-.week-calendar-cell:hover {
-    background-color: #cccccc;
-    transition: 0.75s;
+.week-calendar-day:last-child {
+  border-right: 1px solid #eee;
 }
 
-
-/* For days not in the current week (if applicable) */
-
-.week-calendar-cell.grayed-out {
-    background-color: #979797;
-    transition: 0.75s;
+.hour-grid {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-
-/* Highlight the selected day */
-
-.week-calendar-cell.selected {
-    background-color: #c1e0fb;
-    border-color: black;
-    transition: 0.75s;
+.hour-slot {
+  height: var(--slot-height);
+  border-top: 1px solid #e0e0e0;
+  box-sizing: border-box;
 }
 
+.hour-slot:last-child {
+  border-bottom: 1px solid #e0e0e0;
+}
 
-/* Day number styling for week view */
+.all-day-events {
+  height: 2rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
 
-.week-calendar-cell span {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 1em;
+.day-events-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--slot-height) * 24);
+  pointer-events: none;
+}
+
+.event-block {
+  min-height: 1.5rem;
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  background-color: #F7374F;
+  color: white;
+  font-size: 0.625rem;
+  border-radius: 4px;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  pointer-events: auto;
+  box-sizing: border-box;
+  padding: 0 4px;
+}
+
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e55050;
+  z-index: 10;
+}
+
+.now-line-label {
+  position: absolute;
+  left: 0;
+  width: 3.5rem;
+  font-size: 0.7rem;
+  color: #e55050;
+  background-color: white;
+  padding-right: 0.25rem;
+  text-align: right;
+  pointer-events: none;
+  z-index: 11;
+  transform: translateY(0);
 }
