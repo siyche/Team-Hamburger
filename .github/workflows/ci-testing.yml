@@ -19,3 +19,12 @@ jobs:
       - run: npm run -w react-frontend lint
       - run: npm run -w react-frontend build
       - run: npm run -w express-backend test
+
+      #new debug for issues with deploying 
+      - name: Check node_modules in express-backend
+        run: ls -lh packages/express-backend/node_modules
+
+      - name: Check for cors and express modules
+        run: |
+          test -d packages/express-backend/node_modules/cors && echo "cors ✅" || echo "cors ❌"
+          test -d packages/express-backend/node_modules/express && echo "express ✅" || echo "express ❌"
