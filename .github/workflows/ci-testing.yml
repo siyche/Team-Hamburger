@@ -26,15 +26,34 @@ jobs:
     needs: build-and-test
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22.15.0
+
       - name: Install backend dependencies
         working-directory: packages/express-backend
         run: npm ci
-      - name: Check node_modules in express-backend
-        run: ls -lh packages/express-backend/node_modules
-      - name: Check for cors and express modules
+
+      - name: verify installation of cors and express in backend
         run: |
-          test -d packages/express-backend/node_modules/cors && echo "cors ✅" || echo "cors ❌"
-          test -d packages/express-backend/node_modules/express && echo "express ✅" || echo "express ❌"
+          echo "checking for cors and express in backend after dependency installation"
+          npm --workspace packages/express-backend list cors
+          npm --workspace packages/express-backend list express
+
+      - name: Zip backend for simulated deployment
+        run: zip -r release.zip ./
+        working-directory: packages/express-backend
+
+      - name: Unzip simulated artifact
+        run: |
+          mkdir unpacked
+          unzip packages/express-backend/release.zip -d unpacked
+
+      - name: Check node_modules in simulated deployment
+        run: ls -lh unpacked/node_modules
+
+      - name: Check for cors and express modules in artifact
+        run: |
+          test -d unpacked/node_modules/cors && echo "cors ✅" || echo "cors ❌"
+          test -d unpacked/node_modules/express && echo "express ✅" || echo "express ❌"
