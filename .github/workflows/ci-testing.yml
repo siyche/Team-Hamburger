@@ -56,7 +56,7 @@ jobs:
           node-version: 22
       - run: |
           mkdir express-backend
-          cp -r packages/express-backend/* express-backend/
+          rsync -a packages/express-backend/ express-backend/ 
           cd express-backend
           npm install --omit=dev
           test -d node_modules/cors && echo "cors ✅" || echo "cors ❌"
