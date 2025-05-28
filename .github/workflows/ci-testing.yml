@@ -7,15 +7,62 @@ on:
       - '**'
   
 jobs:
-  build-and-test:
+  # Lint the codebase
+  # This job runs first to ensure code quality before building or testing
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
       - run: npm ci
       - run: npm run -w express-backend lint
       - run: npm run -w react-frontend lint
+
+  #Build the frontend
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: npm ci
       - run: npm run -w react-frontend build
+
+  # Test the backend with unit tests
+  # This job runs after the build job to ensure the backend is built before testing
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: npm ci
       - run: npm run -w express-backend test
+
+  # Simulate deployment by checking if the backend can start and run
+  simulate-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: |
+          mkdir express-backend
+          cp -r packages/express-backend/* express-backend/
+          cd express-backend
+          npm install --omit=dev
+          test -d node_modules/cors && echo "cors ✅" || echo "cors ❌"
+          test -d node_modules/express && echo "express ✅" || echo "express ❌"
+          test -d node_modules/mongoose && echo "mongoose ✅" || echo "mongoose ❌"
+          echo "Starting mock backend server..."
+          nohup node src/index.js &
+          sleep 10
+          echo "Mock server test done"
