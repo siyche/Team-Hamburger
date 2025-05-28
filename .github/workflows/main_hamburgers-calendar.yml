@@ -26,10 +26,8 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Upgrade npm and install, build, and test
+      - name: npm install, build, and test
         run: |
-          npm install -g npm@11.4.1
-          npm -version
           npm install
           npm --workspace packages/react-frontend run build
           npm --workspace packages/express-backend run test --if-present
