@@ -45,7 +45,7 @@ jobs:
           ls -lh packages/express-backend/node_modules || echo "node_modules not found"
           echo "Checking for cors module..."
           test -d packages/express-backend/node_modules/cors && echo "cors is installed ✅" || echo "cors is missing ❌"
-          test -d packages/express-backend/node_modules/express && echo "express is installed ✅" || express "cors is missing ❌"
+          test -d packages/express-backend/node_modules/express && echo "express is installed ✅" || echo "express is missing ❌"
 
         
       #debug
