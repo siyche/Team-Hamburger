@@ -7,7 +7,7 @@ on:
       - '**'
   
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,10 +20,20 @@ jobs:
       - run: npm run -w react-frontend build
       - run: npm run -w express-backend test
 
-      #new debug for issues with deploying 
+  #DEBUGGING DEPLOYMENT ISSUES
+  simulate-deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install backend dependencies
+        working-directory: packages/express-backend
+        run: npm ci
       - name: Check node_modules in express-backend
         run: ls -lh packages/express-backend/node_modules
-
       - name: Check for cors and express modules
         run: |
           test -d packages/express-backend/node_modules/cors && echo "cors ✅" || echo "cors ❌"
