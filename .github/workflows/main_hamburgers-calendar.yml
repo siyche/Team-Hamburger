@@ -52,8 +52,8 @@ jobs:
         run: |
           cd packages/express-backend
           npm install cors
-          test -d packages/express-backend/node_modules/cors && echo "cors is installed ✅" || echo "cors is missing ❌"
-
+          test -d node_modules/cors && echo "cors is installed ✅" || echo "cors is missing ❌"
+          
       #debug
       - name: Check contents before upload
         run: ls -lh packages/express-backend/
