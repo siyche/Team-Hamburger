@@ -51,10 +51,10 @@ jobs:
           mkdir unpacked
           unzip packages/express-backend/release.zip -d unpacked
 
-      - name: Simulate npm ci in deployment environment
+      - name: Simulate npm install in deployment environment (no lockfile)
         run: |
           cd unpacked
-          npm ci
+          npm install
 
       - name: Check for cors and express modules after simulated install
         run: |
