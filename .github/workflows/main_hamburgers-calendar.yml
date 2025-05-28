@@ -26,10 +26,11 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: npm install, build, and test
+    #new
+      - name: Install backend dependencies and build frontend
         run: |
-          npm install
           npm --workspace packages/react-frontend run build
+          npm --workspace packages/express-backend ci
           npm --workspace packages/express-backend run test --if-present
 
       - name: Zip artifact for deployment
