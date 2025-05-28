@@ -41,8 +41,9 @@ jobs:
           npm --workspace packages/express-backend list cors
           npm --workspace packages/express-backend list express
 
-      - name: Zip backend for simulated deployment
-        run: zip -r release.zip ./
+      - name: Zip backend for simulated deployment (excluding node_modules)
+        run: |
+          zip -r release.zip . -x "node_modules/**"
         working-directory: packages/express-backend
 
       - name: Unzip simulated artifact
@@ -50,10 +51,12 @@ jobs:
           mkdir unpacked
           unzip packages/express-backend/release.zip -d unpacked
 
-      - name: Check node_modules in simulated deployment
-        run: ls -lh unpacked/node_modules
+      - name: Simulate npm ci in deployment environment
+        run: |
+          cd unpacked
+          npm ci
 
-      - name: Check for cors and express modules in artifact
+      - name: Check for cors and express modules after simulated install
         run: |
           test -d unpacked/node_modules/cors && echo "cors ✅" || echo "cors ❌"
           test -d unpacked/node_modules/express && echo "express ✅" || echo "express ❌"
