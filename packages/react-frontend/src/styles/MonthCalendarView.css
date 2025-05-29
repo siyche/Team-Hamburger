@@ -140,3 +140,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+ 
+.month-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.month-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
