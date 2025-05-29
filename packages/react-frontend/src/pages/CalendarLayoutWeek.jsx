@@ -14,13 +14,17 @@ const CalendarLayoutWeek = () => {
 
   // events are fetched from backend using hook in the utils folder
   // to create easier to read code and make it reusable for other components
-  const { events, fetchEvents } = useEvents();
+  const { events, fetchEvents, handleFilterChange, filteredEvents} = useEvents();
 
   return (
     <div className="calendar-layout">
       {/* COMMENTED OUT: Left panel */}
-
-      <Sidebar onEventCreated={fetchEvents} />
+      {/* Left panel */}
+      <Sidebar 
+        onEventCreated={fetchEvents}
+        events={events}
+        onFilterChange={handleFilterChange}
+      />
       {/* Center panel: the calendar view */}
       <WeekCalendarView
         onDaySelect={setSelectedDay}
