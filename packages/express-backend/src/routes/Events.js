@@ -36,7 +36,7 @@ router.post("/", authenticateUser, async (req, res) => {
     if (newEvent.details) {
       details = `: ${newEvent.details}`;
     } else {
-      details = ": No details provided";
+      details = ": No additional details provided";
     }
 
     // Determine when to send reminder (1 hour before start time of event)
@@ -45,7 +45,7 @@ router.post("/", authenticateUser, async (req, res) => {
 
     const reminder = new Reminder({
       recipient_email: email,
-      email_body: `${newEvent.title} at ${newEvent.start_date}${details}`,
+      email_body: `Upcoming Event: ${newEvent.title} on ${newEvent.start_date}${details}`,
       send_at: reminderTime,
       event_id: newEvent._id, // save ID of associated event
     });
