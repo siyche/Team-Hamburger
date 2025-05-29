@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcrypt"; // bcrypt is broken rn - use bcryptjs
+import bcrypt from "bcrypt"; // Using bcrypt for password hashing
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";

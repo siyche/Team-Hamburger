@@ -1,5 +1,5 @@
 // hooks/useEvents.js
-// reusbale function to fetch events from the backend
+// reusable function to fetch events from the backend
 // allows all the month, week, and day views to use the same function
 // and have the same data
 

@@ -18,7 +18,7 @@ const CalendarLayoutWeek = () => {
 
   return (
     <div className="calendar-layout">
-      {/* COMMENTTED OUT: Left panel */}
+      {/* COMMENTED OUT: Left panel */}
 
       <Sidebar onEventCreated={fetchEvents} />
       {/* Center panel: the calendar view */}

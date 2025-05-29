@@ -1,5 +1,5 @@
 // src/components/EventInfoModal.jsx
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/EventInfoModal.css";
 
 const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
