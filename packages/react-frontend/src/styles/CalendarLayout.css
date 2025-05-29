@@ -4,9 +4,9 @@
   display: flex;
   height: 100vh;
   font-family: var(--font-family, 'Noto Sans');
-  background-color: var(--bg-color);
+  background: transparent; /* let the gradient show through */
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  transition: color 0.3s;
 }
 
 /* Sidebar & Current Day panels */
@@ -18,12 +18,8 @@
   border: 1px solid var(--gloss-border);
   box-shadow: var(--gloss-shadow);
   border-radius: var(--gloss-radius);
-  transition: background 0.4s ease,
-              box-shadow 0.4s ease,
-              transform 0.2s ease,
-              border-color 0.3s;
   padding: 20px;
-  color: var(--text-color);
+  transition: background 0.4s, box-shadow 0.4s, transform 0.2s;
 }
 
 .sidebar {
@@ -42,7 +38,7 @@
   transform: translateY(-4px);
 }
 
-/* Main calendar area */
+/* Main calendar fill area */
 .calendar-view,
 .month-calendar-view,
 .week-calendar-view,
@@ -50,12 +46,16 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  background: transparent; /* transparent so gradient is visible */
+  transition: background-color 0.3s;
 }
 
-/* Responsive tweaks */
+/* Modal trigger */
+button.create-task {
+  z-index: 1; /* so it sits above the gradient */
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
   .current-day-view { flex: 0 0 250px; }
 }
@@ -63,13 +63,11 @@
   .calendar-layout { flex-direction: column; }
   .sidebar {
     width: 100%;
-    flex: 0 0 auto;
     border-right: none;
     border-bottom: 1px solid var(--border-color);
   }
   .current-day-view {
     width: 100%;
-    flex: 0 0 auto;
     border-left: none;
     border-top: 1px solid var(--border-color);
   }
