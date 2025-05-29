@@ -3,7 +3,7 @@
 .calendar-layout {
   display: flex;
   height: 100vh;
-  font-family: var(--font-family, 'Noto Sans');
+  font-family: var(--font-family, 'Georgia');
   background: transparent; /* let the gradient show through */
   color: var(--text-color);
   transition: color 0.3s;

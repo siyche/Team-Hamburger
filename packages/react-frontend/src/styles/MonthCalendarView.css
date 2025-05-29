@@ -1,36 +1,127 @@
 /* src/styles/MonthCalendarView.css */
 
+/* container panel */
 .month-calendar-view {
     flex-grow: 1;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background: transparent;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
   }
   
+  /* header & nav */
+  .month-year-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+  }
+  .month-nav-buttons {
+      display: flex;
+      gap: 10px;
+  }
+  .month-nav-buttons button {
+      background: transparent;
+      border: 0px solid var(--border-color);
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .month-nav-buttons button:hover {
+      background: var(--hover-color);
+      transform: translateY(-2px);
+  }
+  
+  /* days of week row */
+  .month-day-headers {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1px;
+      padding: 5px 0;
+      background-color: var(--hover-color);
+      border-radius: 7px;
+      opacity: 0.85;
+  }
+  .month-day-headers div {
+      padding: 4px 0;
+  }
+  
+  /* the actual 7×6 grid */
+  .month-calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(6, 150px);
+      gap: 1px;
+      width: 100%;
+  }
+  
+  /* each day cell */
   .month-calendar-cell {
-    position: relative;
-    padding: 5px;
-    border-radius: 10px;
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-    border: 1px solid var(--gloss-border);
-    box-shadow: var(--gloss-shadow);
-    transition: background 0.5s, box-shadow 0.5s;
+      box-sizing: border-box;
+      position: relative;
+      padding: 5px;
+      border-radius: 10px;
+      background-color: #e0e0e0;
+      border: 1px solid #fff;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.3s ease;
+      opacity: 0.7;
   }
   
-  /* darker for days outside current month */
-  .month-calendar-cell.other-month {
-    background: rgba(255,255,255,0.05);
+  /* days outside of current month */
+  .month-calendar-cell.grayed-out {
+      /* darker via opacity */
+      opacity: 0.4;
   }
   
-  /* hover and selected states */
+  /* hover highlight */
   .month-calendar-cell:hover {
-    background: rgba(255,255,255,0.35);
+      background-color: #cccccc;
   }
+  
+  /* selected day: blue tint + glow */
   .month-calendar-cell.selected {
-    background: rgba(0,123,255,0.3);
-    box-shadow: 0 0 8px rgba(0,123,255,0.6);
+      background-color: #c1e0fb;
+      border-color: #c1e0fb;
+      box-shadow: 0 0 8px #c1e0fb;
+  }
+  
+  /* day number */
+  .month-calendar-cell span {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 1.25em;
+      color: var(--text-color);
+      transition: color 0.3s;
+  }
+  
+  /* events listing (if you use it) */
+  .month-event-list {
+      margin-top: 1.75em;
+      width: 100%;
+      max-height: calc(100% - 2.5em);
+      overflow-y: auto;
+      padding: 0 0.25em;
+  }
+  .month-event {
+      background-color: #F7374F;
+      color: #fff;
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
   }
   
