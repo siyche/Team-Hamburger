@@ -61,17 +61,19 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
     <div className="month-calendar-view">
       {/* Header with month/year and navigation */}
       <div className="month-year-header">
-        <span>
+        <div className="month-header-left">
           <img src="../hamburger.png" alt="Example Image" width="35" />
-          &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentYear}
-        </span>
-        <WelcomeMessage />
-        <div className="month-nav-buttons">
-          <button onClick={handlePrevMonth}>&lt;</button>
-          <button onClick={handleCurrentMonth}>Today</button>
-          <button onClick={handleNextMonth}>&gt;</button>
+          <span>
+            {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
+          </span>
+        </div>
+        <div className="month-header-right">
+          <WelcomeMessage />
+          <div className="month-nav-buttons">
+            <button onClick={handlePrevMonth}>&lt;</button>
+            <button onClick={handleCurrentMonth}>Today</button>
+            <button onClick={handleNextMonth}>&gt;</button>
+          </div>
         </div>
       </div>
 
@@ -102,7 +104,7 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
               className={`${cellClass} ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
             >
-          <span>{day.getDate().toString().padStart(2, "0")}</span>
+          <span>{day.getDate().toString().padStart(2, "")}</span>
 
           {/* Display events for the selected day
             Fetches events from props passed in from calendarlayoutmonth.jsx 
@@ -113,7 +115,7 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .map((eventItem, idx) => (
                 <div key={idx} className="month-event">
-                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {eventItem.title}
+                  {new Date(eventItem.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} {eventItem.title}
                 </div>
               ))
             }

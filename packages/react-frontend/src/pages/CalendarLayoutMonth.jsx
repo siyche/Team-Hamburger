@@ -1,8 +1,9 @@
 // src/components/CalendarLayoutMonth.jsx
 // this is the parent component for the month calendar view -> holds sidebar, month calendar, and current day view
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/SideBar.jsx";
+import useEvents from "../utils/useEvents"; // custom hook to fetch events -- this is a reusable function that can be used in other components
 import MonthCalendarView from "../components/MonthCalendar"; // our dynamic calendar view component
 import CurrentDayView from "../components/CurrentDayView";
 import "../styles/CalendarLayout.css"; // this file handles the overall three-panel flex layout
@@ -12,30 +13,30 @@ const CalendarLayoutMonth = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
 
   // State to hold events fetched from the API
-  const [events, setEvents] = useState([]);
+  // const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   // Function to refresh events after creating or updating an event. Passed as props to currentdayview and monthcalendar
-  const fetchEvents = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch('/api/events', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  // const fetchEvents = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await fetch('/api/events', {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        setEvents(data);
-      } else {
-        console.error("Failed to fetch events");
-      }
-    } catch (err) {
-      console.error("Error fetching events:", err);
-    }
-  };
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setEvents(data);
+  //     } else {
+  //       console.error("Failed to fetch events");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching events:", err);
+  //   }
+  // };
 
   // Function to apply current filters to events
   const applyFilters = (eventsToFilter, filters) => {
@@ -63,10 +64,13 @@ const CalendarLayoutMonth = () => {
     setFilteredEvents(filtered);
   };
 
-  // Fetch events on component mount
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  // // Fetch events on component mount
+  // useEffect(() => {
+  //   fetchEvents();
+  // }, []);
+  // events are fetched from backend using hook in the utils folder
+  // to create easier to read code and make it reusable for other components
+  const { events, fetchEvents } = useEvents();
 
   // Apply current filters whenever events change (e.g., after creating/updating/deleting events)
   useEffect(() => {
