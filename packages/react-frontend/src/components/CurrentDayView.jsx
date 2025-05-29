@@ -81,7 +81,7 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
               </div>
               <div className="event-time">
                 {new Date(event.date).toLocaleTimeString([], {
-                  hour: "2-digit",
+                  hour: "numeric",
                   minute: "2-digit",
                 })}
               </div>

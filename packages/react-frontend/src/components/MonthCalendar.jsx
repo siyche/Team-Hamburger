@@ -104,7 +104,7 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
               className={`${cellClass} ${isSelected ? "selected" : ""}`}
               onClick={() => handleDayClick(day)}
             >
-          <span>{day.getDate().toString().padStart(2, "0")}</span>
+          <span>{day.getDate().toString().padStart(2, "")}</span>
 
           {/* Display events for the selected day
             Fetches events from props passed in from calendarlayoutmonth.jsx 
@@ -115,8 +115,7 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .map((eventItem, idx) => (
                 <div key={idx} className="month-event">
-                  {new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} 
-                  {eventItem.title}
+                  {new Date(eventItem.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} {eventItem.title}
                 </div>
               ))
             }
