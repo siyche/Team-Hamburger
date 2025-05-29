@@ -5,62 +5,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-    border: 1px solid var(--gloss-border);
-    box-shadow: var(--gloss-shadow);
-    border-radius: var(--gloss-radius);
-  }
-  
-  .week-year-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .week-nav-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  .week-nav-buttons button {
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-    border: 1px solid var(--gloss-border);
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  .week-nav-buttons button:hover {
-    background: var(--gloss-hover-bg);
-    transform: translateY(-2px);
-  }
-  
-  .week-day-headers {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    border-radius: 10px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1px;
-    padding: 5px 0;
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-  }
-  .week-day-headers div {
-    padding: 4px 0;
-  }
-  
-  .week-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
+    background: transparent;
   }
   
   .week-calendar-cell {
@@ -73,17 +18,16 @@
     -webkit-backdrop-filter: var(--gloss-blur);
     border: 1px solid var(--gloss-border);
     box-shadow: var(--gloss-shadow);
-    transition: background 0.5s ease, transform 0.2s ease;
+    transition: background 0.5s, box-shadow 0.5s, transform 0.2s;
+  }
+  .week-calendar-cell.other-month {
+    background: rgba(255,255,255,0.05);
   }
   .week-calendar-cell:hover {
-    background: var(--gloss-hover-bg);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.35);
   }
-  
-  .week-calendar-cell span {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 1em;
+  .week-calendar-cell.selected {
+    background: rgba(0,123,255,0.3);
+    box-shadow: 0 0 8px rgba(0,123,255,0.6);
   }
   

@@ -5,7 +5,6 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    position: relative;
     padding: 20px;
     background: var(--gloss-bg);
     backdrop-filter: var(--gloss-blur);
@@ -13,103 +12,27 @@
     border: 1px solid var(--gloss-border);
     box-shadow: var(--gloss-shadow);
     border-radius: var(--gloss-radius);
-    color: var(--text-color);
   }
   
-  /* Nav buttons & dropdowns */
   .nav-button,
   .button1 {
     padding: 13px 16px;
     font-size: 0.75em;
     font-weight: bold;
-    border: none;
-    border-radius: 25px;
     background: var(--gloss-bg);
     backdrop-filter: var(--gloss-blur);
     -webkit-backdrop-filter: var(--gloss-blur);
     border: 1px solid var(--gloss-border);
+    border-radius: 25px;
     box-shadow: var(--gloss-shadow);
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.3s, transform 0.2s;
   }
   .nav-button:hover,
   .button1:hover {
-    background: var(--gloss-hover-bg);
-    box-shadow: var(--gloss-hover-shadow);
+    background: rgba(255,255,255,0.35);
     transform: translateY(-2px);
   }
   
-  .nav-dropdown,
-  .view-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-    border: 1px solid var(--gloss-border);
-    border-radius: 10px;
-    box-shadow: var(--gloss-shadow);
-    z-index: 1000;
-  }
-  
-  .nav-dropdown-item,
-  .view-dropdown-item {
-    padding: 10px;
-    background: transparent;
-    border: none;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-  }
-  .nav-dropdown-item:hover,
-  .view-dropdown-item:hover {
-    background: var(--gloss-hover-bg);
-  }
-  
-  /* Filter section */
-  .filter-section {
-    margin-top: 20px;
-    padding: 15px;
-    border-top: 1px solid var(--border-color);
-  }
-  .filter-section h3 {
-    margin: 0 0 12px;
-    font-size: 16px;
-  }
-  
-  /* Filter items */
-  .filter-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .filter-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    background: var(--gloss-bg);
-    backdrop-filter: var(--gloss-blur);
-    -webkit-backdrop-filter: var(--gloss-blur);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .filter-item:hover {
-    border-color: #ccc;
-  }
-  .filter-item.selected {
-    background: var(--gloss-hover-bg);
-    border-color: var(--primary-color);
-    color: white;
-  }
-  
-  /* Example flag color-coding (keep or remove) */
-  .filter-item[data-flag="urgent"] { border-left: 4px solid var(--danger-color); }
-  .filter-item[data-flag="work"]   { border-left: 4px solid #ff9800; }
-  .filter-item[data-flag="personal"] { border-left: 4px solid #4caf50; }
-  /* …etc. */
+  /* full-screen modal is in GlobalTheme.css */
   

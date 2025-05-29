@@ -1,13 +1,10 @@
 /* src/styles/CurrentDayView.css */
 
 .current-day-view {
-  width: 250px;
-  height: 100vh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  transition: all 0.3s ease;
+  height: 100%;
   background: var(--gloss-bg);
   backdrop-filter: var(--gloss-blur);
   -webkit-backdrop-filter: var(--gloss-blur);
@@ -15,21 +12,6 @@
   box-shadow: var(--gloss-shadow);
   border-radius: var(--gloss-radius);
   padding: 20px;
-  color: var(--text-color);
-}
-
-.current-day-view h3 {
-  font-size: 1.25rem;
-  margin: 0 0 10px;
-  color: var(--text-color);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
-}
-
-.events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
 .event-item {
@@ -40,75 +22,10 @@
   box-shadow: var(--gloss-shadow);
   border-radius: 8px;
   padding: 12px;
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
 }
-
 .event-item:hover {
-  background: var(--gloss-hover-bg);
+  background: rgba(255,255,255,0.35); /* darker hover */
   box-shadow: var(--gloss-hover-shadow);
   transform: translateY(-2px);
-}
-
-.event-type {
-  font-size: 0.7rem;
-  color: var(--secondary-color);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.event-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: var(--text-color);
-}
-
-.event-details {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.event-time {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.75rem;
-}
-
-.action-icons {
-  display: none;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  gap: 8px;
-  background: var(--gloss-bg);
-  backdrop-filter: var(--gloss-blur);
-  -webkit-backdrop-filter: var(--gloss-blur);
-  border: 1px solid var(--gloss-border);
-  border-radius: 4px;
-  box-shadow: var(--gloss-shadow);
-  padding: 4px;
-}
-
-.event-item:hover .action-icons {
-  display: flex;
-  align-items: center;
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  color: var(--icon-color);
-  transition: transform 0.2s ease;
-}
-
-.icon:hover {
-  transform: scale(1.1);
 }
