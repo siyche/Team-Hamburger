@@ -2,32 +2,86 @@
 
 /* Overall container uses flex layout */
 .calendar-layout {
-    display: flex;
-    height: 100vh; /* Full viewport height */
-    font-family: Noto Sans;
-  }
-  
-  /* Sidebar gets a fixed width */
-  .sidebar {
-    flex: 0 0 250px; /* fixed 250px width */
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
-  
-  /* Current day view gets a fixed width (if it exists) */
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  font-family: var(--font-family, 'Noto Sans');
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Sidebar styling with theme support */
+.sidebar {
+  flex: 0 0 250px; /* fixed 250px width */
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-right: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Current day view with theme support */
+.current-day-view {
+  flex: 0 0 300px; /* fixed 300px width */
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-left: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Calendar view (the main calendar component) with theme support */
+.calendar-view,
+.month-calendar-view,
+.week-calendar-view,
+.day-calendar-view {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Theme-specific adjustments */
+[data-theme="light"] .sidebar,
+[data-theme="light"] .current-day-view {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .sidebar,
+[data-theme="dark"] .current-day-view {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="blue"] .sidebar,
+[data-theme="blue"] .current-day-view {
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
   .current-day-view {
-    flex: 0 0 300px; /* fixed 250px width */
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-left: 1px solid #ccc;
+      flex: 0 0 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-layout {
+      flex-direction: column;
   }
   
-  /* Calendar view (the main calendar component) takes the remaining space */
-  .calendar-view,
-  .month-calendar-view,
-  .week-calendar-view,
-  .day-calendar-view {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+  .sidebar {
+      flex: 0 0 auto;
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
   }
+  
+  .current-day-view {
+      flex: 0 0 auto;
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+  }
+}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 import "../styles/Settings.css";
 const BACKEND_URL = "http://localhost:8000";
 
 const Settings = ({ setDisplayName }) => {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [settings, setSettings] = useState({
-    theme: "light",
     notifications: false,
     emailUpdates: false,
     weekStartsOn: "sunday",
@@ -24,26 +25,23 @@ const Settings = ({ setDisplayName }) => {
     confirmPassword: "",
   });
 
-  // Load saved settings and apply theme on component mount
+  // Load saved settings on component mount
   useEffect(() => {
     const savedSettings = localStorage.getItem("calendarSettings");
     if (savedSettings) {
       const parsedSettings = JSON.parse(savedSettings);
-      setSettings(parsedSettings);
+      setSettings(prev => ({
+        ...prev,
+        ...parsedSettings,
+        theme: undefined // Don't override theme from context
+      }));
       if (setDisplayName && parsedSettings.displayName) {
         setDisplayName(parsedSettings.displayName);
-        localStorage.setItem("name", parsedSettings.displayName); // Sync with WelcomeMessage
+        localStorage.setItem("name", parsedSettings.displayName);
       }
     }
-    applyTheme(settings.theme); // Apply initial theme
     applyFont(settings.font);
   }, []);
-
-  // Apply theme whenever settings.theme changes
-  useEffect(() => {
-    applyTheme(settings.theme);
-    console.log("Applying theme:", settings.theme); // Debug log
-  }, [settings.theme]);
 
   // Apply font whenever settings.font changes
   useEffect(() => {
@@ -51,12 +49,7 @@ const Settings = ({ setDisplayName }) => {
   }, [settings.font]);
 
   const handleBackClick = () => {
-    if (
-      isDirty &&
-      !window.confirm(
-        "You have unsaved changes. Are you sure you want to leave?"
-      )
-    ) {
+    if (isDirty && !window.confirm("You have unsaved changes. Are you sure you want to leave?")) {
       return;
     }
     navigate(-1);
@@ -69,15 +62,16 @@ const Settings = ({ setDisplayName }) => {
       [name]: type === "checkbox" ? checked : value,
     }));
     setIsDirty(true);
+    
     if (name === "theme") {
-      applyTheme(value);
+      toggleTheme(value);
     }
     if (name === "font") {
       applyFont(value);
     }
     if (name === "displayName" && setDisplayName) {
       setDisplayName(value);
-      localStorage.setItem("name", value); // Update localStorage for WelcomeMessage
+      localStorage.setItem("name", value);
     }
   };
 
@@ -90,9 +84,12 @@ const Settings = ({ setDisplayName }) => {
   };
 
   const handleSaveSettings = () => {
-    localStorage.setItem("calendarSettings", JSON.stringify(settings));
-    localStorage.setItem("name", settings.displayName); // Sync with WelcomeMessage
-    applyTheme(settings.theme);
+    const settingsToSave = {
+      ...settings,
+      theme // Include current theme from context
+    };
+    localStorage.setItem("calendarSettings", JSON.stringify(settingsToSave));
+    localStorage.setItem("name", settings.displayName);
     applyFont(settings.font);
     setIsDirty(false);
     alert("Settings saved successfully!");
@@ -166,22 +163,13 @@ const Settings = ({ setDisplayName }) => {
     }
   }
 
-  const applyTheme = (theme) => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.body.setAttribute("data-theme", theme);
-    console.log("Theme applied:", theme); // Debug log
-  };
-
   const applyFont = (font) => {
     document.documentElement.style.setProperty("--font-family", font);
   };
 
   const resetToDefaults = () => {
-    if (
-      window.confirm("Are you sure you want to reset all settings to default?")
-    ) {
+    if (window.confirm("Are you sure you want to reset all settings to default?")) {
       const defaults = {
-        theme: "light",
         notifications: false,
         emailUpdates: false,
         weekStartsOn: "sunday",
@@ -191,9 +179,9 @@ const Settings = ({ setDisplayName }) => {
         displayName: "",
       };
       setSettings(defaults);
-      applyTheme(defaults.theme);
+      toggleTheme("light");
       applyFont(defaults.font);
-      localStorage.setItem("name", ""); // Reset name
+      localStorage.setItem("name", "");
       if (setDisplayName) setDisplayName("");
       setIsDirty(true);
     }
@@ -232,7 +220,7 @@ const Settings = ({ setDisplayName }) => {
             <select
               id="theme"
               name="theme"
-              value={settings.theme}
+              value={theme}
               onChange={handleSettingChange}
             >
               <option value="light">Light</option>

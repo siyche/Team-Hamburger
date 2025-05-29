@@ -7,11 +7,14 @@ import CalendarLayoutWeek from "./pages/CalendarLayoutWeek";
 import CalendarLayoutDay from "./pages/CalendarLayoutDay";
 import Login from "./pages/auth/LoginPage";
 import SignUp from "./pages/auth/SignUpPage";
+import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import "./main.css"; // global styles if needed
 import Settings from "./components/Settings";
 import "./main.css";
 import { checkTokenExpiration } from "./pages/auth/tokenExpiration.jsx";
+import { ThemeProvider } from "./contexts/ThemeContext.jsx";
+import "./styles/GlobalTheme.css";
 
 // Main App component with routing
 const App = () => {
@@ -28,55 +31,58 @@ const App = () => {
   }, [navigate]);
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<SignUp />} />
+    <ThemeProvider> {/* Wrap your Routes with ThemeProvider */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
 
-      <Route
-        path="/month"
-        element={
-          <ProtectedRoute>
-            <CalendarLayoutMonth />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/month"
+          element={
+            <ProtectedRoute>
+              <CalendarLayoutMonth />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/week"
-        element={
-          <ProtectedRoute>
-            <CalendarLayoutWeek />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/week"
+          element={
+            <ProtectedRoute>
+              <CalendarLayoutWeek />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/day"
-        element={
-          <ProtectedRoute>
-            <CalendarLayoutDay />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/day"
+          element={
+            <ProtectedRoute>
+              <CalendarLayoutDay />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/settings"
-        element={
-          <ProtectedRoute>
-            <Settings />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="*"
-        element={
-          <ProtectedRoute>
-            <CalendarLayoutMonth />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <CalendarLayoutMonth />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </ThemeProvider>
   );
 };
 

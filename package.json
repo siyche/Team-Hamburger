@@ -20,13 +20,7 @@
     "workspaces": [
         "packages/*"
     ],
-    "dependencies": {
-        "dotenv": "^16.4.7",
-        "mongoose": "^8.13.1"
-    },
     "devDependencies": {
-        "concurrently": "^9.1.2",
-        "jest": "^29.7.0",
-        "mongodb-memory-server": "^10.1.4"
+        "concurrently": "^9.1.2"
     }
 }

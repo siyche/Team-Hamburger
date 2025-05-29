@@ -1,90 +1,131 @@
 /* src/styles/CreateTaskForm.css */
-
 .create-task-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: #fdfdfd;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  /* Input fields and text areas styling*/
-  .form-group input[type="date"],
-  .form-group input[type="time"],
-  .form-group input[type="text"],
-  .form-group select,
-  .form-group textarea {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  
-  .form-group input[type="date"]:focus,
-  .form-group input[type="time"]:focus,
-  .form-group input[type="text"],
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: #888;
-  }
-  
-  .checkbox-group {
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  .checkbox-group label {
-    margin-right: 10px;
-    margin-bottom: 0;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .submit-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .submit-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .cancel-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #e53935;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+/* Input fields and text areas styling */
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.form-group input[type="date"]:focus,
+.form-group input[type="time"]:focus,
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-weight: 500;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.cancel-btn {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: var(--danger-hover);
+  transform: translateY(-1px);
+}
+
+/* Theme-specific variables */
+[data-theme="light"] {
+  --input-bg: #ffffff;
+  --primary-hover: #45a049;
+  --danger-hover: #e53935;
+}
+
+[data-theme="dark"] {
+  --input-bg: #3a3a3a;
+  --primary-hover: #5cb860;
+  --danger-hover: #d32f2f;
+}
+
+[data-theme="blue"] {
+  --input-bg: #f0f8ff;
+  --primary-hover: #2980b9;
+  --danger-hover: #c62828;
+}

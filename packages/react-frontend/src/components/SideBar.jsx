@@ -147,7 +147,7 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
             <button className="nav-dropdown-item" onClick={handleSettingsClick}>
               Settings
             </button>
-            <button className="nav-dropdown-item" onClick={handleSettingsClick}>
+            <button className="nav-dropdown-item">
               Share
             </button>
             <button className="nav-dropdown-item" onClick={handleLogout}>

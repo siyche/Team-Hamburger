@@ -342,12 +342,12 @@ body {
 
 [data-theme="blue"] {
   background: #e6f0fa;
-  color: #2c3e50;
+  color: #5d82a8;
 }
 
 [data-theme="blue"] .settings-content {
   background: #ffffff;
-  color: #2c3e50;
+  color: #3777b6;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -360,7 +360,7 @@ body {
 }
 
 [data-theme="blue"] .back-button:hover {
-  background-color: #d4e6f1;
+  background-color: #b6def9;
 }
 
 [data-theme="blue"] .unsaved-changes {
