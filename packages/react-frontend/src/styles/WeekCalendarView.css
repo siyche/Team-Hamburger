@@ -178,3 +178,19 @@
   z-index: 11;
   transform: translateY(0);
 }
+
+.week-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.week-header-left img {
+  margin-right: 0.5rem;
+}
+
+.week-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

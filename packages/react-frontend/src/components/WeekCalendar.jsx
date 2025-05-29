@@ -1,5 +1,6 @@
 // src/components/WeekCalendarView.jsx
 import React, { useState, useEffect } from "react";
+import WelcomeMessage from "./WelcomeMessage";
 import "../styles/WeekCalendarView.css";
 
 const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySelect }) => {
@@ -41,14 +42,16 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
   return (
     <div className="week-calendar-view">
       <div className="week-year-header">
-        <span>
+        <div className="week-header-left">
           <img src="../hamburger.png" alt="Example" width="35" />
-          &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
-        </span>
-        <div className="week-nav-buttons">
-          <button onClick={handlePrevWeek}>&lt;</button>
-          <button onClick={handleNextWeek}>&gt;</button>
+          <span>{currentDate.toLocaleString("default", { month: "long" })} {currentYear}</span>
+        </div>
+        <div className="week-header-right">
+          <WelcomeMessage displayName={localStorage.getItem("name")} />
+          <div className="week-nav-buttons">
+            <button onClick={handlePrevWeek}>&lt;</button>
+            <button onClick={handleNextWeek}>&gt;</button>
+          </div>
         </div>
       </div>
 
@@ -94,13 +97,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
               now.getMonth() === day.getMonth() &&
               now.getDate() === day.getDate();
 
-            // Insert sample 3-hour event for testing
-            const testEvent = {
-              date: new Date(day.getFullYear(), day.getMonth(), day.getDate(), 9, 0).toISOString(),
-              end: new Date(day.getFullYear(), day.getMonth(), day.getDate(), 12, 0).toISOString(),
-              title: "Sample 3-Hour Bloc 9AM-12PM",
-            };
-            const dayEvents = [...events, testEvent];
+            const dayEvents = events;
 
             const positionedEvents = [];
 
