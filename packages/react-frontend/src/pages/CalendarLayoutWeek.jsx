@@ -28,7 +28,7 @@ const CalendarLayoutWeek = () => {
       {/* Center panel: the calendar view */}
       <WeekCalendarView
         onDaySelect={setSelectedDay}
-        events={events}
+        events={filteredEvents}
         refreshEvents={fetchEvents}/>
     </div>
   );
