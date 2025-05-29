@@ -157,7 +157,7 @@ router.put("/:id", authenticateUser, async (req, res) => {
     if (updatedEvent.details) {
       details = `: ${updatedEvent.details}`;
     } else {
-      details = ": No details provided";
+      details = ": No additional details provided";
     }
 
     // Determine when to send reminder (1 hour before start time of event)
@@ -170,7 +170,7 @@ router.put("/:id", authenticateUser, async (req, res) => {
       {
         $set: {
           send_at: reminderTime,
-          email_body: `${updatedEvent.title} at ${updatedEvent.start_date}${details}`,
+          email_body: `Upcoming event: ${updatedEvent.title} on ${updatedEvent.start_date}${details}`,
           sent: false,
         },
       },
