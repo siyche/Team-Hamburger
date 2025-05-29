@@ -7,8 +7,6 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
   const modalRef = useRef(null);
   const [adjustedTop, setAdjustedTop] = useState(position?.top ?? 100);
 
-  
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {

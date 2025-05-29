@@ -14,9 +14,36 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
   const [showEditModal, setShowEditModal] = useState(false); // NEW
   const [modalPosition, setModalPosition] = useState({ top: 100, left: 100 });
 
+  // duplicateds from currentdayview.jsx... needs to be extracted to utility function file
+  const handleDelete = async (id) => {
+    console.log("Delete event", id);
 
+    // TODO: temporary delete confirmation - ideally, this should be a modal with styles
+    const deleteConfirm = window.confirm(
+      "Are you sure you want to delete this event?"
+    );
+    if (!deleteConfirm) return;
 
-  
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/events/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to delete event");
+      }
+      await refreshEvents(); // re-fetch events after deletion
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      alert(`❌ Failed to delete event: ${error.message}`);
+    }
+  };
+
   useEffect(() => {
     if (onDaySelect) onDaySelect(selectedDay);
   }, [selectedDay, onDaySelect]);
@@ -202,9 +229,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
             setShowInfoModal(false);
             setShowEditModal(true);
           }}
-          onDelete={() => {
-            setShowInfoModal(false);
-          }}
+          onDelete={handleDelete}
         />
       )}
 
