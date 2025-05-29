@@ -7,6 +7,8 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
   const modalRef = useRef(null);
   const [adjustedTop, setAdjustedTop] = useState(position?.top ?? 100);
 
+  
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -24,7 +26,7 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
   if (!event) return null;
 
   const start = new Date(event.date);
-  const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
+  const end = event.end_date ? new Date(event.end_date) : start;
 
   const formatTime = (time) => {
     const options = { hour: "numeric", minute: "2-digit" };
@@ -64,8 +66,38 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
             day: 'numeric'
           })} &nbsp; {formatTime(start)} - {formatTime(end)}
         </p>
-        <p><strong>Type:</strong> {eventType}</p>
-        {event.details && <p><strong>Details:</strong> {event.details}</p>}
+        <span className={`event-type-badge ${eventType.replace(" ", "-").toLowerCase()}`}>
+          {eventType}
+        </span>
+
+        {eventType === "Academic Event" && event.course_no && (
+          <span className="event-badge secondary">
+            {event.course_no.dept} {event.course_no.no}
+          </span>
+        )}
+
+        {event.priority?.level && (
+          <div className="event-info-block">
+            Priority: {event.priority.level}
+          </div>
+        )}
+
+        {event.details && (
+          <p className="event-details-text">
+            {event.details}
+          </p>
+        )}
+
+        {eventType === "Task" && (
+          <>
+            <p><strong>Deadline:</strong> {event.deadline && new Date(event.deadline).toLocaleDateString()}</p>
+            <p><strong>Status:</strong> {event.completed ? "Completed" : event.in_progress ? "In Progress" : "Not Started"}</p>
+          </>
+        )}
+
+        {eventType === "Regular Event" && event.all_day && (
+          <p><strong>All Day:</strong> Yes</p>
+        )}
       </div>
     </div>
   );

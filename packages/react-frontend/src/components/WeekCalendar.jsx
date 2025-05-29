@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import WelcomeMessage from "./WelcomeMessage";
 import EventInfoModal from "./EventInfoModal";
+import Modal from "./Modal";
+import CreateTaskForm from "./CreateTaskForm";
 import "../styles/WeekCalendarView.css";
 
 const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySelect }) => {
@@ -9,8 +11,12 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
   const [selectedDay, setSelectedDay] = useState(initialSelectedDay || new Date());
   const [eventToEdit, setEventToEdit] = useState(null);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false); // NEW
   const [modalPosition, setModalPosition] = useState({ top: 100, left: 100 });
 
+
+
+  
   useEffect(() => {
     if (onDaySelect) onDaySelect(selectedDay);
   }, [selectedDay, onDaySelect]);
@@ -194,11 +200,36 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
           }}
           onEdit={() => {
             setShowInfoModal(false);
+            setShowEditModal(true);
           }}
           onDelete={() => {
             setShowInfoModal(false);
           }}
         />
+      )}
+
+      {showEditModal && eventToEdit && (
+        <Modal
+          isOpen={showEditModal}
+          onCloseRequested={() => {
+            setShowEditModal(false);
+            setEventToEdit(null);
+          }}
+          headerLabel="Edit Event"
+        >
+          <CreateTaskForm
+            initialEvent={eventToEdit}
+            onSubmit={() => {
+              setShowEditModal(false);
+              setEventToEdit(null);
+              refreshEvents();
+            }}
+            onCancel={() => {
+              setShowEditModal(false);
+              setEventToEdit(null);
+            }}
+          />
+        </Modal>
       )}
     </div>
   );
