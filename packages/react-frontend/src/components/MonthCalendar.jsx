@@ -61,17 +61,19 @@ const MonthCalendarView = ({ onDaySelect, events, refreshEvents }) => {
     <div className="month-calendar-view">
       {/* Header with month/year and navigation */}
       <div className="month-year-header">
-        <span>
+        <div className="month-header-left">
           <img src="../hamburger.png" alt="Example Image" width="35" />
-          &nbsp;
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentYear}
-        </span>
-        <WelcomeMessage />
-        <div className="month-nav-buttons">
-          <button onClick={handlePrevMonth}>&lt;</button>
-          <button onClick={handleCurrentMonth}>Today</button>
-          <button onClick={handleNextMonth}>&gt;</button>
+          <span>
+            {currentDate.toLocaleString("default", { month: "long" })} {currentYear}
+          </span>
+        </div>
+        <div className="month-header-right">
+          <WelcomeMessage />
+          <div className="month-nav-buttons">
+            <button onClick={handlePrevMonth}>&lt;</button>
+            <button onClick={handleCurrentMonth}>Today</button>
+            <button onClick={handleNextMonth}>&gt;</button>
+          </div>
         </div>
       </div>
 

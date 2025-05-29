@@ -129,7 +129,7 @@
 
 /* Individual event pill */
 .month-event {
-    background-color: #F7374F; /* blue background */
+    background-color: #F7374F; 
     color: #ffffff;
     border-radius: 4px;
     padding: 2px 4px;
@@ -139,4 +139,16 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+ 
+.month-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.month-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
