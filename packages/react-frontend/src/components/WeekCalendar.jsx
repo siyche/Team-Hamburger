@@ -1,11 +1,15 @@
-// src/components/WeekCalendarView.jsx
+// src/components/WeekCalendar.jsx
 import React, { useState, useEffect } from "react";
 import WelcomeMessage from "./WelcomeMessage";
+import EventInfoModal from "./EventInfoModal";
 import "../styles/WeekCalendarView.css";
 
 const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(initialSelectedDay || new Date());
+  const [eventToEdit, setEventToEdit] = useState(null);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 100, left: 100 });
 
   useEffect(() => {
     if (onDaySelect) onDaySelect(selectedDay);
@@ -13,7 +17,6 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
 
   const currentYear = currentDate.getFullYear();
 
-  // Calculate Sunday of the current week
   const firstDayOfWeek = new Date(currentDate);
   while (firstDayOfWeek.getDay() !== 0) {
     firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 1);
@@ -67,20 +70,6 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
       <div className="week-grid-wrapper">
         <div className="time-column">
           <div className="time-label-spacer" />
-          {
-            (() => {
-              const now = new Date();
-              const top = `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`;
-              return (
-                <div
-                  className="now-line-label"
-                  style={{ top }}
-                >
-                  {now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
-                </div>
-              );
-            })()
-          }
           {Array.from({ length: 24 }, (_, hour) => (
             <div key={hour} className="time-label">
               {(hour % 12 || 12)} {hour < 12 ? "AM" : "PM"}
@@ -100,7 +89,6 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
             const dayEvents = events;
 
             const positionedEvents = [];
-
             const filteredEvents = dayEvents
               .filter((event) => {
                 const eventDate = new Date(event.date);
@@ -167,6 +155,13 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                           width: `${widthPercent}%`,
                           left: `${leftPercent}%`
                         }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          setModalPosition({ top: rect.top + window.scrollY + 10, left: rect.left + window.scrollX + 10 });
+                          setEventToEdit(event);
+                          setShowInfoModal(true);
+                        }}
                       >
                         {event.title}
                         <br />
@@ -175,14 +170,12 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                     );
                   })}
                   {showNowLine && (
-                    <>
-                      <div
-                        className="now-line"
-                        style={{
-                          top: `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`,
-                        }}
-                      />
-                    </>
+                    <div
+                      className="now-line"
+                      style={{
+                        top: `calc(${now.getHours() + now.getMinutes() / 60} * var(--slot-height))`,
+                      }}
+                    />
                   )}
                 </div>
               </div>
@@ -190,6 +183,23 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
           })}
         </div>
       </div>
+
+      {showInfoModal && eventToEdit && (
+        <EventInfoModal
+          event={eventToEdit}
+          position={modalPosition}
+          onClose={() => {
+            setEventToEdit(null);
+            setShowInfoModal(false);
+          }}
+          onEdit={() => {
+            setShowInfoModal(false);
+          }}
+          onDelete={() => {
+            setShowInfoModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };
