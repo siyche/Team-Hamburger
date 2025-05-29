@@ -1,5 +1,6 @@
 // src/components/EventInfoModal.jsx
 import { useEffect, useRef, useState } from "react";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import "../styles/EventInfoModal.css";
 
 const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
@@ -25,8 +26,10 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
   const start = new Date(event.date);
   const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
 
-  const formatTime = (time) =>
-    time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const formatTime = (time) => {
+    const options = { hour: "numeric", minute: "2-digit" };
+    return time.toLocaleTimeString([], options);
+  };
 
   const eventType = event.course_no
     ? "Academic Event"
@@ -46,18 +49,23 @@ const EventInfoModal = ({ event, position, onClose, onEdit, onDelete }) => {
       style={{ top: `${adjustedTop}px`, left: `${left}px` }}
     >
       <div className="event-info-header">
-        <span>Event Details</span>
-        <button className="event-info-close" onClick={onClose}>✕</button>
+        <h2 className="event-title">{event.title}</h2>
+        <div className="event-info-actions-header">
+          <PencilIcon className="icon-button" onClick={onEdit} />
+          <TrashIcon className="icon-button" onClick={() => onDelete(event._id)} />
+          <button className="event-info-close" onClick={onClose}>✕</button>
+        </div>
       </div>
       <div className="event-info-body">
-        <p><strong>Title:</strong> {event.title}</p>
-        <p><strong>Time:</strong> {formatTime(start)} - {formatTime(end)}</p>
+        <p className="event-time">
+          {start.toLocaleDateString(undefined, {
+            weekday: 'long',
+            month: 'short',
+            day: 'numeric'
+          })} &nbsp; {formatTime(start)} - {formatTime(end)}
+        </p>
         <p><strong>Type:</strong> {eventType}</p>
         {event.details && <p><strong>Details:</strong> {event.details}</p>}
-      </div>
-      <div className="event-info-actions">
-        <button className="event-info-button edit" onClick={onEdit}>Edit</button>
-        <button className="event-info-button delete" onClick={() => onDelete(event._id)}>Delete</button>
       </div>
     </div>
   );

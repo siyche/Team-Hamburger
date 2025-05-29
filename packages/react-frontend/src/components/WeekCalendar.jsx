@@ -165,7 +165,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                       >
                         {event.title}
                         <br />
-                        {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                       </div>
                     );
                   })}
