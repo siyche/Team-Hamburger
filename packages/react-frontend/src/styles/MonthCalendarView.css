@@ -1,142 +1,88 @@
 /* src/styles/MonthCalendarView.css */
 
-
-/* Container for the month calendar view */
 .month-calendar-view {
     flex-grow: 1;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-}
-
-/* Header displaying current month and year with navigation buttons */
-.month-year-header {
-    width: auto !important;
+    padding: 20px;
+    background: var(--gloss-bg);
+    backdrop-filter: var(--gloss-blur);
+    -webkit-backdrop-filter: var(--gloss-blur);
+    border: 1px solid var(--gloss-border);
+    box-shadow: var(--gloss-shadow);
+    border-radius: var(--gloss-radius);
+  }
+  
+  .month-year-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 24px;
     margin-bottom: 10px;
-}
-
-.month-year-header span {
-    display: inline-flex;
-    align-items: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.month-nav-buttons {
+  }
+  .month-nav-buttons {
     display: flex;
     gap: 10px;
-}
-
-.month-nav-buttons button {
-    background-color: transparent;
-    border: 1px solid #ccc;
+  }
+  .month-nav-buttons button {
+    background: var(--gloss-bg);
+    backdrop-filter: var(--gloss-blur);
+    -webkit-backdrop-filter: var(--gloss-blur);
+    border: 1px solid var(--gloss-border);
     border-radius: 4px;
     padding: 4px 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
-}
-
-.month-nav-buttons button:hover {
-    background-color: #f0f0f0;
-    transition: 0.75s;
-}
-
-/* Day-of-week headers for month view */
-.month-day-headers {
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .month-nav-buttons button:hover {
+    background: var(--gloss-hover-bg);
+    transform: translateY(-2px);
+  }
+  
+  .month-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1px;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    border-radius: 7px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 1px;
     padding: 5px 0;
-    border-radius: 7px;
-
-}
-
-.month-day-headers div {
+    background: var(--gloss-bg);
+    backdrop-filter: var(--gloss-blur);
+    -webkit-backdrop-filter: var(--gloss-blur);
+  }
+  .month-day-headers div {
     padding: 4px 0;
-}
-
-/* Calendar grid for month view */
-.month-calendar-grid {
+  }
+  
+  .month-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 150px);
-    /* 6 rows for 6 weeks */
     gap: 1px;
-    width: 100%;
-    border: 1px solid transparent;
-}
-
-/* Each calendar cell (day) in month view */
-.month-calendar-cell {
-    box-sizing: border-box;
+  }
+  
+  .month-calendar-cell {
     position: relative;
-    background-color: #e0e0e0;
-    border: 1px solid #fff;
-    cursor: pointer;
-    transition: 0.75s;
-    overflow: hidden;
+    box-sizing: border-box;
     padding: 5px;
     border-radius: 10px;
-}
-
-/* Hover state for month view cells */
-.month-calendar-cell:hover {
-    background-color: #cccccc;
-}
-
-/* For days not in the current month */
-.month-calendar-cell.grayed-out {
-    background-color: #979797;
-    transition: 0.75s;
-}
-
-/* Highlight the selected day */
-.month-calendar-cell.selected {
-    background-color: #c1e0fb;
-    border-color: black;
-    transition: 0.75s;
-}
-
-/* Day number styling for month view */
-.month-calendar-cell span {
+    background: var(--gloss-bg);
+    backdrop-filter: var(--gloss-blur);
+    -webkit-backdrop-filter: var(--gloss-blur);
+    border: 1px solid var(--gloss-border);
+    box-shadow: var(--gloss-shadow);
+    transition: background 0.5s ease;
+  }
+  .month-calendar-cell:hover {
+    background: var(--gloss-hover-bg);
+  }
+  
+  .month-calendar-cell span {
     position: absolute;
     top: 5px;
     right: 5px;
     font-size: 1.25em;
-    color: #333;
-    transition: color 0.3s;
-}
-
-/* Container for events inside a day cell */
-.month-event-list {
-    margin-top: 1.75em; /* push below the day number */
-    width: 100%;
-    max-height: calc(100% - 1.5em - 0.5em);
-    overflow-y: auto;
-    padding: 0 0.25em;
-}
-
-/* Individual event pill */
-.month-event {
-    background-color: #F7374F; /* blue background */
-    color: #ffffff;
-    border-radius: 4px;
-    padding: 2px 4px;
-    font-size: 0.8rem;
-    line-height: 1;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+  }
+  

@@ -1,36 +1,48 @@
-/* CalendarLayout.css */
+/* src/styles/CalendarLayout.css */
 
-/* Overall container uses flex layout */
 .calendar-layout {
   display: flex;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   font-family: var(--font-family, 'Noto Sans');
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Sidebar styling with theme support */
-.sidebar {
-  flex: 0 0 250px; /* fixed 250px width */
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-right: 1px solid var(--border-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-/* Current day view with theme support */
+/* Sidebar & Current Day panels */
+.sidebar,
 .current-day-view {
-  flex: 0 0 300px; /* fixed 300px width */
-  background-color: var(--card-bg);
+  background: var(--gloss-bg);
+  backdrop-filter: var(--gloss-blur);
+  -webkit-backdrop-filter: var(--gloss-blur);
+  border: 1px solid var(--gloss-border);
+  box-shadow: var(--gloss-shadow);
+  border-radius: var(--gloss-radius);
+  transition: background 0.4s ease,
+              box-shadow 0.4s ease,
+              transform 0.2s ease,
+              border-color 0.3s;
   padding: 20px;
-  border-left: 1px solid var(--border-color);
   color: var(--text-color);
-  transition: background-color 0.3s, border-color 0.3s;
 }
 
-/* Calendar view (the main calendar component) with theme support */
+.sidebar {
+  flex: 0 0 250px;
+  border-right: 1px solid var(--border-color);
+}
+.current-day-view {
+  flex: 0 0 300px;
+  border-left: 1px solid var(--border-color);
+}
+
+.sidebar:hover,
+.current-day-view:hover {
+  background: var(--gloss-hover-bg);
+  box-shadow: var(--gloss-hover-shadow);
+  transform: translateY(-4px);
+}
+
+/* Main calendar area */
 .calendar-view,
 .month-calendar-view,
 .week-calendar-view,
@@ -43,45 +55,22 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Theme-specific adjustments */
-[data-theme="light"] .sidebar,
-[data-theme="light"] .current-day-view {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme="dark"] .sidebar,
-[data-theme="dark"] .current-day-view {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="blue"] .sidebar,
-[data-theme="blue"] .current-day-view {
-  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
-}
-
-/* Responsive adjustments */
+/* Responsive tweaks */
 @media (max-width: 1024px) {
-  .current-day-view {
-      flex: 0 0 250px;
-  }
+  .current-day-view { flex: 0 0 250px; }
 }
-
 @media (max-width: 768px) {
-  .calendar-layout {
-      flex-direction: column;
-  }
-  
+  .calendar-layout { flex-direction: column; }
   .sidebar {
-      flex: 0 0 auto;
-      width: 100%;
-      border-right: none;
-      border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    flex: 0 0 auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
   }
-  
   .current-day-view {
-      flex: 0 0 auto;
-      width: 100%;
-      border-left: none;
-      border-top: 1px solid var(--border-color);
+    width: 100%;
+    flex: 0 0 auto;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
   }
 }
