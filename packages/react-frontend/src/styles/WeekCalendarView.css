@@ -57,7 +57,7 @@
 }
 
 .time-column {
-  display: flex;
+  /* display: flex; */
   width: 3.5rem;
   flex-shrink: 0;
   flex-direction: column;
