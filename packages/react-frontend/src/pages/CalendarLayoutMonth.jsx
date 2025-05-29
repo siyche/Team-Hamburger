@@ -9,74 +9,8 @@ import CurrentDayView from "../components/CurrentDayView";
 import "../styles/CalendarLayout.css"; // this file handles the overall three-panel flex layout
 
 const CalendarLayoutMonth = () => {
-  // Maintain the currently selected day. Default to today.
   const [selectedDay, setSelectedDay] = useState(new Date());
-
-  // State to hold events fetched from the API
-  // const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [selectedFilters, setSelectedFilters] = useState([]);
-
-  // Function to refresh events after creating or updating an event. Passed as props to currentdayview and monthcalendar
-  // const fetchEvents = async () => {
-  //   try {
-  //     const token = localStorage.getItem("token");
-  //     const response = await fetch('/api/events', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setEvents(data);
-  //     } else {
-  //       console.error("Failed to fetch events");
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching events:", err);
-  //   }
-  // };
-
-  // Function to apply current filters to events
-  const applyFilters = (eventsToFilter, filters) => {
-    // If no filters are selected, show ALL events (including those without flags)
-    if (filters.length === 0) {
-      return eventsToFilter;
-    }
-    
-    // If filters are selected, only show events that have at least one matching flag
-    return eventsToFilter.filter(event => {
-      // If event has no flags, don't show it when filters are active
-      if (!event.flags || !Array.isArray(event.flags) || event.flags.length === 0) {
-        return false;
-      }
-      
-      // Check if event has at least one of the selected flags
-      return event.flags.some(flag => filters.includes(flag));
-    });
-  };
-
-  // Handle filter changes from sidebar
-  const handleFilterChange = (filters) => {
-    setSelectedFilters(filters);
-    const filtered = applyFilters(events, filters);
-    setFilteredEvents(filtered);
-  };
-
-  // // Fetch events on component mount
-  // useEffect(() => {
-  //   fetchEvents();
-  // }, []);
-  // events are fetched from backend using hook in the utils folder
-  // to create easier to read code and make it reusable for other components
-  const { events, fetchEvents } = useEvents();
-
-  // Apply current filters whenever events change (e.g., after creating/updating/deleting events)
-  useEffect(() => {
-    const filtered = applyFilters(events, selectedFilters);
-    setFilteredEvents(filtered);
-  }, [events, selectedFilters]);
+  const { events, fetchEvents, handleFilterChange, filteredEvents} = useEvents();
 
   return (
     <div className="calendar-layout">
