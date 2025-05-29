@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import Event from '../../src/models/event.js';
-import Flag from '../../src/models/flag.js';
 
 describe("Event Model Tests", () => {
   // Regular event
@@ -168,8 +167,8 @@ describe("Event Model Tests", () => {
   // Flags
   test('should create an event with flags', async () => {
     // const flag0 = await Flag.create({ flagname: 'urgent' });
-    const flag1 = new mongoose.Types.ObjectId();
-    const flag2 = new mongoose.Types.ObjectId()
+    const flag1 = "hi"
+    const flag2 = "meow"
     const event = await Event.create({
       date: new Date(),
       flags: [flag1, flag2], // flag0? getting an error
@@ -179,44 +178,3 @@ describe("Event Model Tests", () => {
     // expect(event.flag.flagname).toBe('urgent');
   });
 });
-
-// event flag specific name, checking for the title of the flag in expect
-test('should add a flag to an event', async () => {
-  const flag = await Flag.create({ flagname: 'important' });
-  const event = await Event.create({
-    date: new Date('2023-12-01'),
-    title: 'Flag Event 2!',
-  });
-  expect(event.flags.length).toBe(0);
-  event.flags.push(flag._id);
-  await event.save();
-  
-  const updatedEvent = await Event.findById(event._id);
-  expect(updatedEvent.flags.length).toBe(1);
-  expect(updatedEvent.flags[0].toString()).toBe(flag._id.toString());
-  const populatedEvent = await Event.findById(event._id).populate('flags');
-  expect(populatedEvent.flags[0].flagname).toBe('important');
-});
-
-test('should create an event with multiple flags and verify flag names', async () => {
-  const flag1 = await Flag.create({ flagname: 'urgent' });
-  const flag2 = await Flag.create({ flagname: 'important' });
-  
-  const event = await Event.create({
-    date: new Date('2023-12-05'),
-    title: 'Multi-Flag Event',
-    flags: [flag1._id, flag2._id]
-  });
-  
-  expect(event.flags.length).toBe(2);
-  
-  const populatedEvent = await Event.findById(event._id).populate('flags');
-  
-  expect(populatedEvent.flags).toHaveLength(2);
-  
-  const flagNames = populatedEvent.flags.map(flag => flag.flagname);
-  
-  expect(flagNames).toContain('urgent');
-  expect(flagNames).toContain('important');
-});
-

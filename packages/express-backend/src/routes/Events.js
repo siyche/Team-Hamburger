@@ -3,7 +3,7 @@ import { authenticateUser } from "./Auth.js";
 import express from "express";
 import cors from "cors";
 import User from "../models/user.js";
-import Event from "../models/Event.js";
+import Event from "../models/event.js";
 
 const router = express.Router();
 router.use(cors());
@@ -64,6 +64,45 @@ router.get("/", authenticateUser, async (req, res) => {
   }
 });
 
+// Add this route to your events routes file (probably in routes/events.js or similar)
+
+// // GET /api/events/flags - Get all unique flags for the authenticated user
+// router.get('/flags', authenticateUser, async (req, res) => {
+//   try {
+//     const userId = req.user.userId;
+    
+//     // Get all events for the user and extract unique flags
+//     const events = await Event.find({ userId: userId });
+    
+//     const flagSet = new Set();
+    
+//     events.forEach(event => {
+//       if (event.flags && Array.isArray(event.flags)) {
+//         event.flags.forEach(flag => {
+//           if (flag && typeof flag === 'string' && flag.trim()) {
+//             flagSet.add(flag.trim());
+//           }
+//         });
+//       }
+//     });
+    
+//     const uniqueFlags = Array.from(flagSet).sort();
+    
+//     res.json({
+//       success: true,
+//       flags: uniqueFlags,
+//       count: uniqueFlags.length
+//     });
+    
+//   } catch (error) {
+//     console.error('Error fetching flags:', error);
+//     res.status(500).json({
+//       success: false,
+//       error: 'Failed to fetch flags'
+//     });
+//   }
+// });
+
 router.delete("/:id", authenticateUser, async (req, res) => {
   // TODO: the event needs to be deleted from the calendar array as well
   const { id } = req.params;
@@ -123,5 +162,7 @@ router.put("/:id", authenticateUser, async (req, res) => {
     res.status(500).json({ error: "Internal server error." });
   }
 });
+
+
 
 export default router;

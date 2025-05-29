@@ -2,12 +2,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
+import PropTypes from "prop-types";
 
 import Modal from "./Modal.jsx";
 import CreateTaskButton from "./CreateTaskButton.jsx";
 import CreateTaskForm from "./CreateTaskForm.jsx";
 
-const SideBar = ({ onEventCreated }) => {
+const SideBar = ({ onEventCreated, events, onFilterChange }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -25,6 +26,74 @@ const SideBar = ({ onEventCreated }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // State for filters
+  const [availableFlags, setAvailableFlags] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  // Extract unique flags from events - fallback if API endpoint doesn't exist
+  const extractFlagsFromEvents = (events) => {
+    const flagSet = new Set();
+    events.forEach(event => {
+      if (event.flags && Array.isArray(event.flags)) {
+        event.flags.forEach(flag => {
+          if (flag && flag.trim()) {
+            flagSet.add(flag.trim());
+          }
+        });
+      }
+    });
+    return Array.from(flagSet).sort();
+  };
+
+  // Fetch all unique flags from events
+  useEffect(() => {
+    const fetchFlags = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch('/api/events/flags', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setAvailableFlags(data.flags || []);
+        } else {
+          // Fallback: extract flags from events if API endpoint doesn't exist
+          const extractedFlags = extractFlagsFromEvents(events);
+          setAvailableFlags(extractedFlags);
+        }
+      } catch (error) {
+        console.error('Error fetching flags:', error);
+        // Fallback: extract flags from events
+        const extractedFlags = extractFlagsFromEvents(events);
+        setAvailableFlags(extractedFlags);
+      }
+    };
+
+    fetchFlags();
+  }, [events]); // Re-fetch when events change
+
+  // Handle filter selection
+  const handleFilterClick = (flag) => {
+    setSelectedFilters(prev => {
+      const newFilters = prev.includes(flag)
+        ? prev.filter(f => f !== flag)
+        : [...prev, flag];
+      
+      // Notify parent component about filter change
+      onFilterChange(newFilters);
+      return newFilters;
+    });
+  };
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setSelectedFilters([]);
+    onFilterChange([]);
+  };
 
   // Handle task submission from the form
   const handleTaskSubmit = (newTask) => {
@@ -153,21 +222,59 @@ const SideBar = ({ onEventCreated }) => {
       </Modal>
 
       <div className="filter-section">
-        <h3>Filter By Type</h3>
-        <ul className="filter-list">
-          <li className="filter-item assignment">Assignment</li>
-          <li className="filter-item study">Study</li>
-          <li className="filter-item midterm">Midterm</li>
-          <li className="filter-item final">Final</li>
-          <li className="filter-item quiz">Quiz</li>
-          <li className="filter-item lecture">Lecture</li>
-          <li className="filter-item lab">Lab</li>
-          <li className="filter-item homework">Homework</li>
-          <li className="filter-item presentation">Presentation</li>
-        </ul>
+        <div className="filter-header">
+          <h3>Filter By Flag</h3>
+          {selectedFilters.length > 0 && (
+            <button 
+              className="clear-filters-btn" 
+              onClick={clearAllFilters}
+              title="Clear all filters"
+            >
+              Clear All
+            </button>
+          )}
+        </div>
+        
+        {availableFlags.length > 0 ? (
+          <div className="filter-list">
+            {availableFlags.map((flag, index) => (
+              <button
+                key={index}
+                className={`filter-item ${
+                  selectedFilters.includes(flag) ? 'selected' : ''
+                }`}
+                onClick={() => handleFilterClick(flag)}
+                title={`Filter by ${flag}`}
+              >
+                <span className="filter-flag-name">{flag}</span>
+                {selectedFilters.includes(flag) && (
+                  <span className="filter-checkmark">✓</span>
+                )}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="no-flags-message">
+            No flags found. Create events with flags to filter by them.
+          </p>
+        )}
+        
+        {selectedFilters.length > 0 && (
+          <div className="active-filters">
+            <p className="active-filters-label">
+              Active filters: {selectedFilters.join(', ')}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
+};
+
+SideBar.propTypes = {
+  onEventCreated: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default SideBar;
