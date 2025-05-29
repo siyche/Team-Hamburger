@@ -27,9 +27,24 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Add new state for filters
+  // State for filters
   const [availableFlags, setAvailableFlags] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
+
+  // Extract unique flags from events - fallback if API endpoint doesn't exist
+  const extractFlagsFromEvents = (events) => {
+    const flagSet = new Set();
+    events.forEach(event => {
+      if (event.flags && Array.isArray(event.flags)) {
+        event.flags.forEach(flag => {
+          if (flag && flag.trim()) {
+            flagSet.add(flag.trim());
+          }
+        });
+      }
+    });
+    return Array.from(flagSet).sort();
+  };
 
   // Fetch all unique flags from events
   useEffect(() => {
@@ -42,14 +57,19 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
           },
         });
         
-        if (!response.ok) {
-          throw new Error('Failed to fetch flags');
+        if (response.ok) {
+          const data = await response.json();
+          setAvailableFlags(data.flags || []);
+        } else {
+          // Fallback: extract flags from events if API endpoint doesn't exist
+          const extractedFlags = extractFlagsFromEvents(events);
+          setAvailableFlags(extractedFlags);
         }
-        
-        const data = await response.json();
-        setAvailableFlags(data.flags);
       } catch (error) {
         console.error('Error fetching flags:', error);
+        // Fallback: extract flags from events
+        const extractedFlags = extractFlagsFromEvents(events);
+        setAvailableFlags(extractedFlags);
       }
     };
 
@@ -67,6 +87,12 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
       onFilterChange(newFilters);
       return newFilters;
     });
+  };
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setSelectedFilters([]);
+    onFilterChange([]);
   };
 
   // Handle task submission from the form
@@ -196,20 +222,50 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
       </Modal>
 
       <div className="filter-section">
-        <h3>Filter By Type</h3>
-        <ul className="filter-list">
-          {availableFlags.map((flag, index) => (
-            <li
-              key={index}
-              className={`filter-item ${flag.toLowerCase()} ${
-                selectedFilters.includes(flag) ? 'selected' : ''
-              }`}
-              onClick={() => handleFilterClick(flag)}
+        <div className="filter-header">
+          <h3>Filter By Flag</h3>
+          {selectedFilters.length > 0 && (
+            <button 
+              className="clear-filters-btn" 
+              onClick={clearAllFilters}
+              title="Clear all filters"
             >
-              {flag}
-            </li>
-          ))}
-        </ul>
+              Clear All
+            </button>
+          )}
+        </div>
+        
+        {availableFlags.length > 0 ? (
+          <div className="filter-list">
+            {availableFlags.map((flag, index) => (
+              <button
+                key={index}
+                className={`filter-item ${
+                  selectedFilters.includes(flag) ? 'selected' : ''
+                }`}
+                onClick={() => handleFilterClick(flag)}
+                title={`Filter by ${flag}`}
+              >
+                <span className="filter-flag-name">{flag}</span>
+                {selectedFilters.includes(flag) && (
+                  <span className="filter-checkmark">✓</span>
+                )}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="no-flags-message">
+            No flags found. Create events with flags to filter by them.
+          </p>
+        )}
+        
+        {selectedFilters.length > 0 && (
+          <div className="active-filters">
+            <p className="active-filters-label">
+              Active filters: {selectedFilters.join(', ')}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

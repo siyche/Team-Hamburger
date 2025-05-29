@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/CreateTaskForm.css";
 import PropTypes from "prop-types";
+
 const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
   // State variables for form inputs
   const [date, setDate] = useState("");
@@ -40,7 +41,12 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
         setEventType("Regular");
       }
 
-      setFlag(initialEvent.flags?.[0] || "");
+      // Handle flag - if it's populated from backend, it might be a Flag object
+      if (initialEvent.flags && initialEvent.flags.length > 0) {
+        const firstFlag = initialEvent.flags[0];
+        // If it's a populated Flag object, use flagname; otherwise use the string directly
+        setFlag(firstFlag.flagname || firstFlag);
+      }
     }
   }, [initialEvent]);
 
@@ -54,7 +60,7 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
     // create event object
     const newEvent = {
       date: eventDate,
-      flags: flag ? [flag] : [],
+      flags: flag ? [flag] : [], // Send as string, let backend handle Flag creation/lookup
       visible: true,
       priority: {
         amount: 0,
@@ -283,7 +289,15 @@ CreateTaskForm.propTypes = {
     deadline: PropTypes.string,
     details: PropTypes.string,
     in_progress: PropTypes.bool,
-    flags: PropTypes.arrayOf(PropTypes.string),
+    flags: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.shape({
+          flagname: PropTypes.string,
+          _id: PropTypes.string,
+        }),
+      ])
+    ),
     course_no: PropTypes.shape({
       dept: PropTypes.string,
       no: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

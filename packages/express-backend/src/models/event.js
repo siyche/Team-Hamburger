@@ -15,7 +15,8 @@ const courseNoSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
   // Common fields
   date: { type: Date, required: true },
-  flags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Flag' }],
+  // flags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Flag' }],
+  flags: [{ type: String }], // Simple strings instead of ObjectId references
   visible: { type: Boolean, default: true },
   priority: prioritySchema,
   title: { type: String, required: true }, // NEW -> to support adding titles for easy identitification of event
