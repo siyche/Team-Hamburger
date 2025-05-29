@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
 import Calendar from "../models/calendar_new.js";
+import Reminder from "../models/reminder.js";
 
 const router = express.Router();
 router.use(cors());
@@ -56,6 +57,7 @@ router.delete("/settings", async (req, res) => {
     // Proceed if everything is correct
     try {
       await Calendar.deleteMany({ _ownerid: existingUser._id });
+      // Delete associated tasks & reminders?
       await User.deleteOne({ email: email });
       return res.status(204).end();
     } catch (error) {

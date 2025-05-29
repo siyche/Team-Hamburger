@@ -1,9 +1,8 @@
 import nodemailer from "nodemailer";
 
 // Called 1 hour before an event to send a reminder
-export default function sendEmail(recipientEmail, emailBody) {
+export default function sendEmail(recipientEmail, emailBody, subjectMessage) {
   const senderEmail = "calendarhamburger@gmail.com";
-  const subjectMessage = "Event Reminder";
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
