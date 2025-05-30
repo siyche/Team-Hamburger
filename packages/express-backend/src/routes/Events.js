@@ -65,7 +65,7 @@ router.post("/", authenticateUser, async (req, res) => {
 router.get("/", authenticateUser, async (req, res) => {
   try {
     const email = req.user.email;
-    console.log("User found for get events api:", email);
+    //console.log("User found for get events api:", email);
 
     // Find the user by email and populate the calendars and events
     const user = await User.findOne({ email }).populate({
