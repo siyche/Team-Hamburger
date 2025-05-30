@@ -170,7 +170,7 @@ router.post("/register", async (req, res) => {
 
 // Middleware function for all access-controlled endpoints
 export function authenticateUser(req, res, next) {
-  console.log("Authenticating user...");
+  //console.log("Authenticating user...");
   // Get token
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -184,7 +184,7 @@ export function authenticateUser(req, res, next) {
   // Proceed if token is recieved
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log("Decoded token: ", decoded);
+    //console.log("Decoded token: ", decoded);
     req.user = decoded;
     next();
   } catch (error) {
