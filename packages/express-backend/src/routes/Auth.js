@@ -168,7 +168,7 @@ router.post("/register", async (req, res) => {
     // Send confirmation email to user
     const subjectMessage = "Confirmation of sign up";
     const emailBody =
-      "Welcome to the Hamburger Calendar! This email is to confirm the creation of your new account.";
+      "🍔 Welcome to the Hamburger Calendar! This email is to confirm the creation of your new account.";
     try {
       sendEmail(email, emailBody, subjectMessage);
     } catch (error) {
