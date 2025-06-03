@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
 import "../styles/Settings.css";
-const BACKEND_URL = "http://localhost:8000";
 
 const Settings = ({ setDisplayName }) => {
   const navigate = useNavigate();
@@ -30,10 +29,10 @@ const Settings = ({ setDisplayName }) => {
     const savedSettings = localStorage.getItem("calendarSettings");
     if (savedSettings) {
       const parsedSettings = JSON.parse(savedSettings);
-      setSettings(prev => ({
+      setSettings((prev) => ({
         ...prev,
         ...parsedSettings,
-        theme: undefined // Don't override theme from context
+        theme: undefined, // Don't override theme from context
       }));
       if (setDisplayName && parsedSettings.displayName) {
         setDisplayName(parsedSettings.displayName);
@@ -49,7 +48,12 @@ const Settings = ({ setDisplayName }) => {
   }, [settings.font]);
 
   const handleBackClick = () => {
-    if (isDirty && !window.confirm("You have unsaved changes. Are you sure you want to leave?")) {
+    if (
+      isDirty &&
+      !window.confirm(
+        "You have unsaved changes. Are you sure you want to leave?"
+      )
+    ) {
       return;
     }
     navigate(-1);
@@ -62,7 +66,7 @@ const Settings = ({ setDisplayName }) => {
       [name]: type === "checkbox" ? checked : value,
     }));
     setIsDirty(true);
-    
+
     if (name === "theme") {
       toggleTheme(value);
     }
@@ -86,7 +90,7 @@ const Settings = ({ setDisplayName }) => {
   const handleSaveSettings = () => {
     const settingsToSave = {
       ...settings,
-      theme // Include current theme from context
+      theme, // Include current theme from context
     };
     localStorage.setItem("calendarSettings", JSON.stringify(settingsToSave));
     localStorage.setItem("name", settings.displayName);
@@ -101,7 +105,7 @@ const Settings = ({ setDisplayName }) => {
       return;
     }
     try {
-      const response = await fetch(`${BACKEND_URL}/auth/change-password`, {
+      const response = await fetch(`api/auth/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,7 +133,8 @@ const Settings = ({ setDisplayName }) => {
   };
 
   const exportToICS = () => {
-    const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MyCalendar//EN\nEND:VCALENDAR";
+    const icsContent =
+      "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MyCalendar//EN\nEND:VCALENDAR";
     const blob = new Blob([icsContent], { type: "text/calendar" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -142,7 +147,7 @@ const Settings = ({ setDisplayName }) => {
   async function deleteAccount() {
     const email = localStorage.getItem("email");
     try {
-      const response = await fetch(`${BACKEND_URL}/auth/settings`, {
+      const response = await fetch(`api/auth/settings`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +173,9 @@ const Settings = ({ setDisplayName }) => {
   };
 
   const resetToDefaults = () => {
-    if (window.confirm("Are you sure you want to reset all settings to default?")) {
+    if (
+      window.confirm("Are you sure you want to reset all settings to default?")
+    ) {
       const defaults = {
         notifications: false,
         emailUpdates: false,
