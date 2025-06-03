@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import Calendar from "../models/calendar_new.js";
 import Reminder from "../models/reminder.js";
+import sendEmail from "../services/emailer.js";
 
 const router = express.Router();
 router.use(cors());
@@ -41,6 +42,7 @@ router.get("/:email", async (req, res) => {
   }
 });
 
+// Delete account
 router.delete("/settings", async (req, res) => {
   const email = req.body.userEmail;
   console.log("test");
@@ -68,6 +70,7 @@ router.delete("/settings", async (req, res) => {
   }
 });
 
+// Log in
 router.post("/login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -98,6 +101,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Sign up
 router.post("/register", async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
 
@@ -160,6 +164,16 @@ router.post("/register", async (req, res) => {
 
     // Generate a JWT token for the new user
     const token = generateAccessToken(email);
+
+    // Send confirmation email to user
+    const subjectMessage = "Confirmation of sign up";
+    const emailBody =
+      "Welcome to the Hamburger Calendar! This email is to confirm the creation of your new account.";
+    try {
+      sendEmail(email, emailBody, subjectMessage);
+    } catch (error) {
+      console.log("Error: Unable to send confirmation email", error);
+    }
 
     console.log("JWT: ", token);
     res.status(201).send(token);
