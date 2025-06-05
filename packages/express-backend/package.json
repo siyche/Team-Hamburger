@@ -4,7 +4,7 @@
     "type": "module",
     "main": "src/config/backend.js",
     "scripts": {
-        "test": "jest --config=./jest.config.cjs",
+        "test": "jest --config=./jest.config.cjs --coverage",
         "dev": "npx nodemon src/index.js",
         "lint": "eslint .",
         "start": "node src/index.js"
