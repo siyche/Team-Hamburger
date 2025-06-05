@@ -15,6 +15,7 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [flag, setFlag] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   // Effect to populate form with initial event data if user is editing form
   useEffect(() => {
@@ -41,6 +42,12 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
         setEventType("Regular");
       }
 
+      // If editing, try to set endTime if available
+      if (initialEvent.end_date) {
+        const endDateObj = new Date(initialEvent.end_date);
+        setEndTime(endDateObj.toTimeString().slice(0,5));
+      }
+
       // Handle flag - if it's populated from backend, it might be a Flag object
       if (initialEvent.flags && initialEvent.flags.length > 0) {
         const firstFlag = initialEvent.flags[0];
@@ -56,6 +63,8 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
 
     const dateTimeString = `${date}T${time}`;
     const eventDate = new Date(dateTimeString);
+    const endDateTimeString = `${date}T${endTime}`;
+    const endDate = endTime ? new Date(endDateTimeString) : null;
 
     // create event object
     const newEvent = {
@@ -83,16 +92,16 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       newEvent.in_progress = inProgress;
       newEvent.completed = false;
     } else if (eventType === "Academic") {
-      // Academic event
       newEvent.course_no = {
         dept: courseDept,
         no: parseInt(courseNo),
       };
+      newEvent.start_date = eventDate;
+      newEvent.end_date = endDate;
     } else {
-      // Regular event
       newEvent.all_day = false;
       newEvent.start_date = eventDate;
-      newEvent.end_date = eventDate;
+      newEvent.end_date = endDate;
       newEvent.length = 60;
     }
 
@@ -156,6 +165,18 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
           required
         />
       </div>
+      {(eventType === "Regular" || eventType === "Academic") && (
+        <div className="form-group">
+          <label htmlFor="endTime">End Time:</label>
+          <input
+            type="time"
+            id="endTime"
+            name="endTime"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
+        </div>
+      )}
       <div className="form-group">
         <label htmlFor="priority">Priority:</label>
         <select

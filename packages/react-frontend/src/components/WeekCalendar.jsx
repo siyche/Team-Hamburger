@@ -136,7 +136,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
             let i = 0;
             while (i < filteredEvents.length) {
               const group = [filteredEvents[i]];
-              const groupEnd = new Date(filteredEvents[i].end || new Date(new Date(filteredEvents[i].date).getTime() + 30 * 60000));
+              const groupEnd = new Date(filteredEvents[i].end_date || new Date(new Date(filteredEvents[i].date).getTime() + 30 * 60000));
               let j = i + 1;
               while (j < filteredEvents.length) {
                 const nextStart = new Date(filteredEvents[j].date);
@@ -170,7 +170,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                 <div className="day-events-container">
                   {positionedEvents.map(({ event, index, total }, idx) => {
                     const start = new Date(event.date);
-                    const end = event.end ? new Date(event.end) : new Date(start.getTime() + 30 * 60000);
+                    const end = event.end_date ? new Date(event.end_date) : new Date(start.getTime() + 30 * 60000);
                     let startHour = (start.getHours() + start.getMinutes() / 60);
                     startHour = Math.min(startHour, 23.49);
                     startHour = Math.round(startHour * 100) / 100;
@@ -198,7 +198,9 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
                       >
                         {event.title}
                         <br />
-                        {new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                        {event.end_date
+                          ? `${new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} - ${new Date(event.end_date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`
+                          : new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                       </div>
                     );
                   })}
