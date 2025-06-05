@@ -97,6 +97,7 @@ const Settings = ({ setDisplayName }) => {
     applyFont(settings.font);
     setIsDirty(false);
     alert("Settings saved successfully!");
+    navigate("/month");
   };
 
   const handlePasswordChange = async () => {
