@@ -18,6 +18,7 @@ async function pollReminders() {
 
   for (const reminder of reminders) {
     try {
+      console.log(reminder);
       sendEmail(reminder.recipient_email, reminder.email_body, subjectMessage);
 
       reminder.sent = true;
