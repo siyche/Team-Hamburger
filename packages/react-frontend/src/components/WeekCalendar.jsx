@@ -11,7 +11,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
   const [selectedDay, setSelectedDay] = useState(initialSelectedDay || new Date());
   const [eventToEdit, setEventToEdit] = useState(null);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false); // NEW
+  const [showEditModal, setShowEditModal] = useState(false); 
   const [modalPosition, setModalPosition] = useState({ top: 100, left: 100 });
 
   // duplicateds from currentdayview.jsx... needs to be extracted to utility function file
