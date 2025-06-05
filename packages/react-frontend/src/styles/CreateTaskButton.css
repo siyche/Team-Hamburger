@@ -32,14 +32,14 @@
 
 [data-theme="light"] #CreateTask {
     --button-text-color: #333333;
-    --secondary-color: #3498db;
-    --secondary-hover-color: #2980b9;
+    --secondary-color: #01b40d;
+    --secondary-hover-color: #00dd21;
 }
 
 [data-theme="dark"] #CreateTask {
     --button-text-color: #ffffff;
-    --secondary-color: #3498db;
-    --secondary-hover-color: #2980b9;
+    --secondary-color: #139801;
+    --secondary-hover-color: #00c500;
 }
 
 [data-theme="blue"] #CreateTask {
