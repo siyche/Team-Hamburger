@@ -1,6 +1,5 @@
 /* src/styles/MonthCalendarView.css */
 
-
 /* Container for the month calendar view */
 .month-calendar-view {
     flex-grow: 1;
@@ -47,19 +46,19 @@
     transition: 0.75s;
 }
 
-/* Day-of-week headers for month view */
+/* Day-of-week headers for month view (top bar) */
 .month-day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1px;
     border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    /* semi-transparent (0.8) */
+    background-color: rgba(240, 240, 240, 0.8);
     font-weight: bold;
     text-align: center;
     margin-bottom: 1px;
     padding: 5px 0;
     border-radius: 7px;
-
 }
 
 .month-day-headers div {
@@ -70,21 +69,21 @@
 .month-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 150px);
-    /* 6 rows for 6 weeks */
+    grid-template-rows: repeat(6, 150px); /* 6 rows for 6 weeks */
     gap: 1px;
     width: 100%;
     border: 1px solid transparent;
 }
 
 /* Each calendar cell (day) in month view */
+/* default cells: semi-transparent (0.8) */
 .month-calendar-cell {
     box-sizing: border-box;
     position: relative;
-    background-color: #e0e0e0;
+    background-color: rgba(224, 224, 224, 0.6); /* #e0e0e0 at 0.8 alpha */
     border: 1px solid #fff;
     cursor: pointer;
-    transition: 0.75s;
+    transition: background-color 0.75s;
     overflow: hidden;
     padding: 5px;
     border-radius: 10px;
@@ -92,20 +91,23 @@
 
 /* Hover state for month view cells */
 .month-calendar-cell:hover {
-    background-color: #cccccc;
+    background-color: rgba(200, 200, 200, 0.9);
 }
 
-/* For days not in the current month */
+/* For days not in the current month: very transparent (0.5) */
 .month-calendar-cell.grayed-out {
-    background-color: #979797;
-    transition: 0.75s;
+    background-color: rgba(151, 151, 151, 0.3); /* #979797 at 0.5 alpha */
+    transition: background-color 0.75s;
 }
 
 /* Highlight the selected day */
+/* add light blue outline/glow (same as #c1e0fb) */
 .month-calendar-cell.selected {
-    background-color: #c1e0fb;
-    border-color: black;
-    transition: 0.75s;
+    background-color: #c1e0fb; /* keep the same light blue background */
+    border-color: #c1e0fb;
+    outline: 2px solid #cee8ff;
+    box-shadow: 0 0 8px rgba(193, 224, 251, 0.7);
+    transition: box-shadow 0.3s, outline 0.3s;
 }
 
 /* Day number styling for month view */
@@ -129,7 +131,7 @@
 
 /* Individual event pill */
 .month-event {
-    background-color: #F7374F; 
+    background-color: #d79199;
     color: #ffffff;
     border-radius: 4px;
     padding: 2px 4px;
@@ -140,15 +142,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
- 
+
 .month-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .month-header-right {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
