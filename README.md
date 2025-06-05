@@ -6,6 +6,8 @@ https://docs.google.com/document/d/1Fz2-bfkzLIIPGZ4-d8aPm8EmG54CU7LEYFt8FAtgBU0/
 **Deployment URL:**
 https://hamburgers-calendar-h0cpb6f7bbczfyae.westus2-01.azurewebsites.net/
 
+**Status Badge:** [![CI Testing](https://github.com/siyche/Team-Hamburger/actions/workflows/ci-testing.yml/badge.svg)](https://github.com/siyche/Team-Hamburger/actions/workflows/ci-testing.yml)
+
 **UI Prototyping:** 
 https://www.figma.com/design/RsnEo5BwDszqFhOEGhyLjq/Calendar-Draft?node-id=0-1&t=U7Q0zdARQcLMbMq3-1
 
