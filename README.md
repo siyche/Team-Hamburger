@@ -23,3 +23,6 @@ Environmental variables must be set directly in Azure (or chosen host), and in a
 **Commands:**
 - `npm run dev` runs locally from backend directory
 - `npm test` runs tests locally from backend directory (make sure app is already running) 
+
+**CI/CD:**
+CI/CD utilizes Github Actions and Microsoft Azure. All processes are automatic—pushing a change to origin/main will reflect on the deployed site after it is verified. 
