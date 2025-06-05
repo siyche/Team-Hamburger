@@ -16,6 +16,10 @@ https://docs.google.com/document/d/1Fz2-bfkzLIIPGZ4-d8aPm8EmG54CU7LEYFt8FAtgBU0/
 
 **Environmental Variables:**
 Environmental variables must be set directly in Azure (or chosen host), and in a .env file for local purposes: 
-* TOKEN_SECRET: any value works; used for login/sign-up purposes
-* APP_PASSWORD: app password of reminder email account
-* MONGO_URI: used to implement MongoDB database 
+- TOKEN_SECRET: any value works; used for login/sign-up purposes
+- APP_PASSWORD: app password of reminder email account
+- MONGO_URI: used to implement MongoDB database 
+
+**Commands:**
+-`npm run dev` runs locally from backend directory
+-`npm test` runs tests locally from backend directory (make sure app is already running) 
