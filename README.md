@@ -21,5 +21,5 @@ Environmental variables must be set directly in Azure (or chosen host), and in a
 - MONGO_URI: used to implement MongoDB database 
 
 **Commands:**
--`npm run dev` runs locally from backend directory
--`npm test` runs tests locally from backend directory (make sure app is already running) 
+- `npm run dev` runs locally from backend directory
+- `npm test` runs tests locally from backend directory (make sure app is already running) 
