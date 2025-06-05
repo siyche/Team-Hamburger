@@ -2,7 +2,7 @@ import Reminder from "../models/reminder.js";
 import sendEmail from "./emailer.js";
 
 // how long in between polling:
-const POLL_INTERVAL = 5 * 60 * 1000; // 5 minutes
+const POLL_INTERVAL = 1 * 60 * 1000; // 1 minute
 const subjectMessage = "Event Reminder";
 
 // used to send timed emails to remind users of upcoming events
