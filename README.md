@@ -1,5 +1,8 @@
 # Team-Hamburger
 
+**Tech Spec Document:**
+https://docs.google.com/document/d/1Fz2-bfkzLIIPGZ4-d8aPm8EmG54CU7LEYFt8FAtgBU0/edit?usp=sharing
+
 **Deployment URL:**
 https://hamburgers-calendar-h0cpb6f7bbczfyae.westus2-01.azurewebsites.net/
 
@@ -11,8 +14,7 @@ https://www.figma.com/design/RsnEo5BwDszqFhOEGhyLjq/Calendar-Draft?node-id=0-1&t
 - Prettier should be added to each contributer's IDE as per the following instructions: https://www.digitalocean.com/community/tutorials/how-to-format-code-with-prettier-in-visual-studio-code
 
 **Diagrams:** 
-- All diagrams can be found in the tech spec document:
-https://docs.google.com/document/d/1Fz2-bfkzLIIPGZ4-d8aPm8EmG54CU7LEYFt8FAtgBU0/edit?usp=sharing
+- All diagrams can be found in the tech spec document (linked above). 
 
 **Environmental Variables:**
 Environmental variables must be set directly in Azure (or chosen host), and in a .env file for local purposes: 
