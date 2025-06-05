@@ -1,4 +1,5 @@
 /* CreateTaskButton.css */
+
 #CreateTask {
     background-color: var(--secondary-color, #cccccc);
     color: var(--button-text-color, #000000);
@@ -26,17 +27,19 @@
     transform: translateY(-1px);
 }
 
+
 /* Theme-specific button styles */
+
 [data-theme="light"] #CreateTask {
     --button-text-color: #333333;
-    --secondary-color: #01b40d;
-    --secondary-hover-color: #00dd21;
+    --secondary-color: #3498db;
+    --secondary-hover-color: #2980b9;
 }
 
 [data-theme="dark"] #CreateTask {
     --button-text-color: #ffffff;
-    --secondary-color: #139801;
-    --secondary-hover-color: #00c500;
+    --secondary-color: #3498db;
+    --secondary-hover-color: #2980b9;
 }
 
 [data-theme="blue"] #CreateTask {
