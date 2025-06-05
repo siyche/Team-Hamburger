@@ -93,18 +93,20 @@
   flex: 1;
   position: relative;
   border-left: 1px solid #eee;
-  background: white;
+  /* background: white; */
   height: calc(var(--slot-height) * 24);
 }
 
 .week-calendar-day.today {
-  background-color: #fcfcfc;
+  /* background-color: #fcfcfc; */
 }
 
 .hour-grid {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background-color: rgba(224, 224, 224, 0.6);
+  opacity: 0.7;
 }
 
 .hour-slot {
