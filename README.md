@@ -13,3 +13,9 @@ https://www.figma.com/design/RsnEo5BwDszqFhOEGhyLjq/Calendar-Draft?node-id=0-1&t
 **Diagrams:** 
 - All diagrams can be found in the tech spec document:
 https://docs.google.com/document/d/1Fz2-bfkzLIIPGZ4-d8aPm8EmG54CU7LEYFt8FAtgBU0/edit?usp=sharing
+
+**Environmental Variables:**
+Environmental variables must be set directly in Azure (or chosen host), and in a .env file for local purposes: 
+* TOKEN_SECRET: any value works; used for login/sign-up purposes
+* APP_PASSWORD: app password of reminder email account
+* MONGO_URI: used to implement MongoDB database 
