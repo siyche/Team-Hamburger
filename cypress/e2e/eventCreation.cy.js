@@ -22,6 +22,12 @@ describe("Backend API Tests", () => {
 
   // Scenario: Create a regular event
   it("should create a regular event", () => {
+    /* As a student, I should be able to view add an event on my calendar
+     * Then I should be able to add and event by clicking on the create event button
+     * And I should be able to fill out the form with the event details and submit the form
+     * And I should be able to see the event on the day I added the event to.
+     */
+
     cy.request({
       method: "POST",
       url: "http://localhost:8000/api/events",
@@ -50,6 +56,7 @@ describe("Backend API Tests", () => {
     });
   });
 
+  // Scenario: Get the created event
   it("should fetch the created event", () => {
     cy.request({
       method: "GET",
@@ -71,6 +78,13 @@ describe("Backend API Tests", () => {
 
   // Scenario: Delete the created event
   it("should delete the created event", () => {
+    /* As a student, I should be able to delete tasks that I don’t need anymore
+     * Then, I should be able to see all the events for a selected day
+     * And I should be able to go hover over that event and click the trash button
+     * And I should be see a confirmation that I want to delete an event
+     * And I should be able to not see that event on any calendar view anymore
+     */
+
     cy.request({
       method: "DELETE",
       url: `http://localhost:8000/api/events/${createdEventId}`,
