@@ -31,15 +31,15 @@
 /* Theme-specific button styles */
 
 [data-theme="light"] #CreateTask {
-    --button-text-color: #333333;
-    --secondary-color: #01b40d;
-    --secondary-hover-color: #00dd21;
+    --button-text-color: #ffffff;
+    --secondary-color: #4285F4;
+    --secondary-hover-color: #3498db;
 }
 
 [data-theme="dark"] #CreateTask {
     --button-text-color: #ffffff;
-    --secondary-color: #139801;
-    --secondary-hover-color: #00c500;
+    --secondary-color: #4285F4;
+    --secondary-hover-color: #3498db;
 }
 
 [data-theme="blue"] #CreateTask {
