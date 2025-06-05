@@ -80,10 +80,9 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
                 />
               </div>
               <div className="event-time">
-                {new Date(event.date).toLocaleTimeString([], {
-                  hour: "numeric",
-                  minute: "2-digit",
-                })}
+                {event.end_date
+                  ? `${new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} - ${new Date(event.end_date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`
+                  : new Date(event.date).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
               </div>
               <div className="event-type">
                 {event.course_no
