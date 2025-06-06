@@ -26,6 +26,7 @@ export default function SignupPage() {
       });
 
       const name = await response.text();
+
       console.log("getUserData() response: ", name);
 
       return {
@@ -53,8 +54,9 @@ export default function SignupPage() {
         localStorage.setItem("token", token);
         localStorage.setItem("email", email);
         getUserData().then((response) => {
+          console.log(response.name);
           localStorage.setItem("name", response.name);
-          navigate("/month");
+          window.location.reload();
         });
       }
       // Invalid credentials, display appropriate error message
@@ -63,6 +65,8 @@ export default function SignupPage() {
         setError(response.error);
       }
     });
+    navigate("/month");
+
   };
 
   // Create user, send data to backend
