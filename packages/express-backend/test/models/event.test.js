@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import Event from '../../src/models/event.js';
+import mongoose from "mongoose";
+import Event from "../../src/models/event.js";
 
 describe("Event Model Tests", () => {
   // Regular event
@@ -165,14 +165,14 @@ describe("Event Model Tests", () => {
   });
 
   // Flags
-  test('should create an event with flags', async () => {
+  test("should create an event with flags", async () => {
     // const flag0 = await Flag.create({ flagname: 'urgent' });
-    const flag1 = "hi"
-    const flag2 = "meow"
+    const flag1 = "hi";
+    const flag2 = "meow";
     const event = await Event.create({
       date: new Date(),
       flags: [flag1, flag2], // flag0? getting an error
-      title: 'Flag Event',
+      title: "Flag Event",
     });
     expect(event.flags).toEqual([flag1, flag2]); // flag0  not impl
     // expect(event.flag.flagname).toBe('urgent');
